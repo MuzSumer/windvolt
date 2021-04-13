@@ -1,15 +1,16 @@
 # Introduction
 
-
 windvolt für Deutschland, (©) 2020 Max Sumer
 
 windvolt targets the usage and pricing of renewable energy, especially wind
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="70">](https://f-droid.org/packages/org.windvolt/)
 
 # getting started
 
 - choose a location
-
 
 ## what's contained
 
@@ -26,7 +27,6 @@ windvolt targets the usage and pricing of renewable energy, especially wind
     <img src="fastlane/metadata/android/de/images/screenshots/screenshot_1.png">
     <img src="fastlane/metadata/android/de/images/screenshots/screenshot_2.png">
 </div>
-
 
 ### code and license
 
