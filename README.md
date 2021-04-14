@@ -14,7 +14,8 @@ windvolt targets the usage and pricing of renewable energy, especially wind
 @windvolt@mastodon.technology
 
 
-### what's contained
+
+## what's contained
 
 * charging recommendation
 
@@ -33,12 +34,12 @@ windvolt targets the usage and pricing of renewable energy, especially wind
 </div>
 
 
-#### getting started
+## getting started
 
 - choose a location
 
 
-##### code and license
+### code and license
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
