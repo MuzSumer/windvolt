@@ -8,16 +8,22 @@ windvolt targets the usage and pricing of renewable energy, especially wind
      alt="Get it on F-Droid"
      height="70">](https://f-droid.org/packages/org.windvolt/)
 
-windvolt@mastodon.technology
+@windvolt@mastodon.technology
+
+
+
+## getting started
+
+- choose a location
 
 
 
 ## what's contained
 
-* charging recommendation
+* charging recommendation<br />
 
 * location services
-* battery history
+* battery history<br />
 
 * the story of wind
 * market who is who
@@ -29,12 +35,6 @@ windvolt@mastodon.technology
     <img src="fastlane/metadata/android/de/images/screenshots/screenshot_1.png">
     <img src="fastlane/metadata/android/de/images/screenshots/screenshot_2.png">
 </div>
-
-
-
-## getting started
-
-- choose a location
 
 
 
