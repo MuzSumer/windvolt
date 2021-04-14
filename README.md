@@ -8,10 +8,7 @@ windvolt targets the usage and pricing of renewable energy, especially wind
      alt="Get it on F-Droid"
      height="70">](https://f-droid.org/packages/org.windvolt/)
 
-
-## news and discussion
-
-@windvolt@mastodon.technology
+windvolt@mastodon.technology
 
 
 
@@ -34,9 +31,11 @@ windvolt targets the usage and pricing of renewable energy, especially wind
 </div>
 
 
+
 ## getting started
 
 - choose a location
+
 
 
 ### code and license
