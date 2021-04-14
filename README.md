@@ -20,15 +20,13 @@ windvolt targets the usage and pricing of renewable energy, especially wind
 
 ## what's contained
 
-* charging recommendation<br />
-
-* location services
-* battery history<br />
++ charging recommendation
 
 * the story of wind
 * market who is who
 * business model
 * community links
+
 
 <div>
     <img src="fastlane/metadata/android/de/images/screenshots/screenshot_0.png">
