@@ -49,6 +49,7 @@ public class LinksPage extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.links);
         //recyclerView.setHasFixedSize(true);
+        //vagrant error if set true
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
