@@ -77,10 +77,10 @@ public class Recommendation extends Fragment {
     boolean services_allowed;
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
-    final int RECOMMENDATION_AVOID_LOADING = 0;
-    final int RECOMMENDATION_LOAD_SMART_DEVICES = 1;
-    final int RECOMMENDATION_LOAD_MORE_DEVICES = 10;
-    final int RECOMMENDATION_LOAD_MANY_DEVICES = 11;
+    final int RECOMMENDATION_AVOID_CHARGING = 0;
+    final int RECOMMENDATION_CHARGE_SMART_DEVICES = 1;
+    final int RECOMMENDATION_CHARGE_MORE_DEVICES = 10;
+    final int RECOMMENDATION_CHARGE_MANY_DEVICES = 11;
 
 
 
@@ -295,20 +295,20 @@ public class Recommendation extends Fragment {
         TextView recommend = view.findViewById(R.id.recommendation_text);
 
         switch (state) {
-            case RECOMMENDATION_AVOID_LOADING:
-                recommend.setText(getString(R.string.recommendation_load_prevent)); // vlaues
+            case RECOMMENDATION_AVOID_CHARGING:
+                recommend.setText(getString(R.string.recommendation_charge_prevent)); // vlaues
                 break;
 
-            case RECOMMENDATION_LOAD_SMART_DEVICES:
-                recommend.setText(getString(R.string.recommendation_load_small)); // values
+            case RECOMMENDATION_CHARGE_SMART_DEVICES:
+                recommend.setText(getString(R.string.recommendation_charge_smart)); // values
                 break;
 
-            case RECOMMENDATION_LOAD_MORE_DEVICES:
-                recommend.setText(getString(R.string.recommendation_load_more)); // values
+            case RECOMMENDATION_CHARGE_MORE_DEVICES:
+                recommend.setText(getString(R.string.recommendation_charge_more)); // values
                 break;
 
-            case RECOMMENDATION_LOAD_MANY_DEVICES:
-                recommend.setText(getString(R.string.recommendation_load_all)); // values
+            case RECOMMENDATION_CHARGE_MANY_DEVICES:
+                recommend.setText(getString(R.string.recommendation_charge_many)); // values
                 break;
 
             default:
@@ -808,7 +808,7 @@ public class Recommendation extends Fragment {
 
             milliseconds = time_now - time_before;
 
-        } catch (Exception e) { milliseconds = 0; }
+        } catch (Exception e) {}
 
 
         long minutes = milliseconds/1000/60;
