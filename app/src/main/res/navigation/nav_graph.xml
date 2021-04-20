@@ -35,7 +35,7 @@
         android:id="@+id/page_wind"
         android:name="org.windvolt.pages.Page0"
         android:label="@string/page0_label"
-        tools:layout="@layout/page0">
+        tools:layout="@layout/page0_wind">
 
         <action
             android:id="@+id/action_exit_wind"
@@ -47,7 +47,7 @@
         android:id="@+id/page_solar"
         android:name="org.windvolt.pages.Page1"
         android:label="@string/page1_label"
-        tools:layout="@layout/page1">
+        tools:layout="@layout/page1_sol">
 
         <action
             android:id="@+id/action_exit_solar"
@@ -59,7 +59,7 @@
         android:id="@+id/page_geo"
         android:name="org.windvolt.pages.Page2"
         android:label="@string/page2_label"
-        tools:layout="@layout/page2">
+        tools:layout="@layout/page2_geo">
 
         <action
             android:id="@+id/action_exit_geo"
@@ -71,7 +71,7 @@
         android:id="@+id/page_neutron"
         android:name="org.windvolt.pages.Page3"
         android:label="@string/page3_label"
-        tools:layout="@layout/page3">
+        tools:layout="@layout/page3_tron">
 
         <action
             android:id="@+id/action_exit_neutron"

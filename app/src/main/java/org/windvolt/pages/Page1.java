@@ -34,7 +34,7 @@ public class Page1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.page1, container, false);
+        return inflater.inflate(R.layout.page1_sol, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
