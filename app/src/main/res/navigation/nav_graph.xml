@@ -71,7 +71,7 @@
         android:id="@+id/page_neutron"
         android:name="org.windvolt.pages.Page3"
         android:label="@string/page3_label"
-        tools:layout="@layout/page3_tron">
+        tools:layout="@layout/page3_neutro">
 
         <action
             android:id="@+id/action_exit_neutron"

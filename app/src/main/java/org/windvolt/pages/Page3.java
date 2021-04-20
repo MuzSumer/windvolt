@@ -32,7 +32,7 @@ public class Page3 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.page3_tron, container, false);
+        return inflater.inflate(R.layout.page3_neutro, container, false);
     }//onCreateView
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
