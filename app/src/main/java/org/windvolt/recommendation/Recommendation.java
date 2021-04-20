@@ -422,11 +422,11 @@ public class Recommendation extends Fragment {
         final int CHART_LINES = 5;
 
         //final String CHART_DOT = "•";
-        final String CHART_DOT = "+";
+        final String CHART_DOT = "*";
         final String CHART_NO_DOT = " ";
 
-        final String CHART_DELIM = "  ";
-        final int CHART_SIZE = 3;
+        final String CHART_COLUMN_DELIM = "  ";
+        final int CHART_COLUMN_SIZE = 3;
 
         @NonNull
         @Override
@@ -625,8 +625,8 @@ public class Recommendation extends Fragment {
             if (t.isEmpty()) {
                 output = value;
             } else {
-                output = value + CHART_DELIM;
-                output = output.substring(0, CHART_SIZE);
+                output = value + CHART_COLUMN_DELIM;
+                output = output.substring(0, CHART_COLUMN_SIZE);
             }
 
             return output + t;
