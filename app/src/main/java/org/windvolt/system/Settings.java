@@ -63,6 +63,8 @@ public class Settings extends AppCompatActivity {
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+            /* hidden since 1.11
+
             Preference p_location = findPreference("location_input");
             String location = sharedPreferences.getString("location_input", "");
             p_location.setTitle(location);
@@ -74,6 +76,8 @@ public class Settings extends AppCompatActivity {
             Preference p_latitude = findPreference("location_latitude");
             String latitude = sharedPreferences.getString("location_latitude", "");
             p_latitude.setTitle(latitude);
+             */
+
 
         }
 

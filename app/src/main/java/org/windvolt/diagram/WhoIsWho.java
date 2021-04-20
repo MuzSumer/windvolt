@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -29,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -163,6 +165,7 @@ public class WhoIsWho extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,7 +192,7 @@ public class WhoIsWho extends AppCompatActivity {
         diagram_space = (LinearLayout) findViewById(R.id.diagram_space);
         diagram_web = (WebView) findViewById(R.id.diagram_web);
 
-        diagram_web.setBackgroundColor(0xF8F2E2);
+        diagram_web.setBackgroundColor(getColor(R.color.dossier));
 
         // listeners
 

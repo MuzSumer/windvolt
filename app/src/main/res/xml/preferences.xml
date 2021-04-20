@@ -27,6 +27,10 @@
         app:title="@string/location_category"
         >
 
+
+
+        <!-- hidden since 1.11
+
         <EditTextPreference
             app:key="location_input"
             app:selectAllOnFocus="true"
@@ -34,10 +38,6 @@
             app:summary="@string/location_summary"
             app:title="@string/location_title">
         </EditTextPreference>
-
-        <!--
-        -->
-
 
         <EditTextPreference
             app:key="location_latitude"
@@ -52,6 +52,11 @@
             app:singleLine="true"
             app:summary="@string/location_longitude_summary"
             app:title="@string/location_longitude" />
+
+        -->
+
+
+
 
         <CheckBoxPreference
             app:defaultValue="false"

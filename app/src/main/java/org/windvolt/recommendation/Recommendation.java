@@ -48,6 +48,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.windvolt.R;
+import org.windvolt.Welcome;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,6 +78,7 @@ public class Recommendation extends Fragment {
     boolean services_allowed;
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
+
     final int RECOMMENDATION_AVOID_CHARGING = 0;
     final int RECOMMENDATION_CHARGE_SMART_DEVICES = 1;
     final int RECOMMENDATION_CHARGE_MORE_DEVICES = 10;
@@ -93,8 +95,8 @@ public class Recommendation extends Fragment {
     TextView loc_display, geo_display, bat_display;
 
 
-    String battery_level_now, battery_level_before;
-    String battery_time_now, battery_time_before;
+    String battery_level_now, battery_level_before; // "0", "1", ..., "100"
+    String battery_time_now, battery_time_before; // milliseconds
 
 
     /* --------------------------------windvolt-------------------------------- */
@@ -1024,6 +1026,7 @@ public class Recommendation extends Fragment {
     }
 
 
+    // user choices
     private boolean zLocationServiceAllowed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -1037,6 +1040,5 @@ public class Recommendation extends Fragment {
     }
 
 
-
-    //class
+    //Recommendation
 }
