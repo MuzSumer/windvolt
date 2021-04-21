@@ -57,10 +57,13 @@ public class BusinessModel extends AppCompatActivity {
 
     //final int TAG_TAB = 40;
 
+    final int CHILD_HEIGHT = 72;
+    final int CHILD_MARGIN = 112;
+
     String focusId = "";
 
-    final int CHILD_WIDTH = 440;
-    final int CHILD_FOCUS_WIDTH = 480;
+    final int CHILD_WIDTH = 360;
+    final int CHILD_FOCUS_WIDTH = 400;
 
 
     DiagramStore store;
@@ -192,9 +195,9 @@ public class BusinessModel extends AppCompatActivity {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
 
             params.leftMargin = (w - ww)/2;
-            params.topMargin = 40 + 120 * p;
+            params.topMargin = 40 + CHILD_MARGIN * p;
             params.width = ww;
-            params.height = 100;
+            params.height = CHILD_HEIGHT;
 
             layout.setLayoutParams(params);
         }
@@ -239,7 +242,7 @@ public class BusinessModel extends AppCompatActivity {
         text.setPadding(8, 8, 8, 8);
         //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
         //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
         text.setText(model.getSubject());
         //text.setText(w + "/" + h);
@@ -254,9 +257,9 @@ public class BusinessModel extends AppCompatActivity {
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
         params.leftMargin = (w - CHILD_WIDTH)/2;
-        params.topMargin = 40 + 120 * position;
+        params.topMargin = 40 + CHILD_MARGIN * position;
         params.width = CHILD_WIDTH;
-        params.height = 100;
+        params.height = CHILD_HEIGHT;
 
         diagram.addView(layout, params);
 
