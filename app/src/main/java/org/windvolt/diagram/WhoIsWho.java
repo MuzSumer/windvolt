@@ -18,7 +18,6 @@
 */
 package org.windvolt.diagram;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
@@ -42,6 +41,8 @@ public class WhoIsWho extends AppCompatActivity {
 
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
+
+
     DiagramStore store;
 
     ImageView diagram_symbol;
@@ -58,12 +59,16 @@ public class WhoIsWho extends AppCompatActivity {
 
     boolean beep = false;
 
-    private void createStoreData() {
+    protected void createStoreData() {
+
+        store = new DiagramStore();
+
+
         int symbol = R.drawable.windvolt_small;
 
 
         String root = store.addChild("", DIAGRAM_NAME,"windvolt", "Windenergie Galerie",
-                symbol, R.string.windvolt);
+                symbol, R.string.diagram_dossier);
 
 
         // net
@@ -190,20 +195,15 @@ public class WhoIsWho extends AppCompatActivity {
         diagram_subject = (TextView) findViewById(R.id.diagram_subject);
 
         diagram_space = (LinearLayout) findViewById(R.id.diagram_space);
-        diagram_web = (WebView) findViewById(R.id.diagram_web);
+        diagram_web = (WebView) findViewById(R.id.diagram_dossier);
 
-        diagram_web.setBackgroundColor(getColor(R.color.dossier));
+        diagram_web.setBackgroundColor(getColor(R.color.diagram_dossier));
 
-        // listeners
-
-        // use onBackPressed()
-        //diagram_symbol.setOnClickListener(doLevelUp);
-
+        // unused
         //diagram_title.setOnClickListener(doOpenFocus);
 
 
         // create the store
-        store = new DiagramStore();
         createStoreData();
 
         // start diagram
@@ -373,4 +373,6 @@ public class WhoIsWho extends AppCompatActivity {
             // not used here
         }
     }//OpenFocus
+
+
 }

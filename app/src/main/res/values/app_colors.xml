@@ -52,5 +52,6 @@
     <color name="green_500">#673AB7</color>
     <color name="green_700">#0B8043</color>
 
-    <color name="dossier">#FBFAED</color>
+    <color name="diagram_dossier">#FBFAED</color>
+    <color name="diagram_flow">#FBFAED</color>
 </resources>

@@ -24,22 +24,25 @@ public class DiagramStore {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    final String rootId = "100";
+    final int rootId = 100;
 
     ArrayList<DiagramModel> store = new ArrayList<>();
 
-    public String getRootId() { return rootId; }
+    public String getRootId() { return Integer.toString(rootId); }
 
     public String getChildren(DiagramModel parent) {
         return parent.getChildren();
     }
 
     public String addChild(String parent_id, String tag, String title, String subject, int symbol, int address) {
-        DiagramModel parent = findModel(parent_id);
+
+        DiagramModel parent = null;
         DiagramModel child = new DiagramModel();
 
+        if (!parent_id.isEmpty()) parent = findModel(parent_id);
+
         int size = store.size();
-        String id = Integer.toString(Integer.parseInt(rootId) + size);
+        String id = Integer.toString(rootId + size);
         child.setId(id);
 
 
@@ -74,6 +77,9 @@ public class DiagramStore {
             String m_id = model.getId();
             if (m_id.equals(id)) {
                 found = model;
+                return found; // return first hit
+
+                // you could detect id not unique error here
             }
         }
 
@@ -90,6 +96,9 @@ public class DiagramStore {
 
             if (children.contains(id)) {
                 parent = model;
+                return parent; // return first hit
+
+                // you could detect multiple parents error here
             }
         }
 

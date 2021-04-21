@@ -19,7 +19,7 @@
 <resources>
 
     <!-- windvolt -->
-    <string name="windvolt">
+    <string name="diagram_dossier">
         <![CDATA[
             <table border="0" cellpadding="8">
                 <tr><td><strong><center>
@@ -30,7 +30,7 @@
                     <center>
                         Diese Galerie beleuchtet die wichtigsten Marktteilnehmer
                     </center>
-                <td></tr>
+                </td></tr>
             </table>
         ]]>
     </string>
@@ -50,6 +50,7 @@
                 <tr><td>weitere Portale:
                 <br /><a href="https://regelleistung.net">regelleistung.net</a>
                 <br /><a href="https://netzentwicklungsplan.de">netzentwicklungsplan.de</a>
+                </td></tr>
             </table>
         ]]>
     </string>
@@ -66,7 +67,7 @@
 
                 <tr><td>Homepage:
                 <br /><a href="https://50hertz.com/de">50hertz.com/de</a>
-                <td></tr>
+                </td></tr>
             </table>
         ]]>
     </string>
