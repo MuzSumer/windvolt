@@ -30,10 +30,10 @@
 
     <!-- about -->
     <string name="about_action">über</string>
-    <string name="about_label">windvolt 1.10</string>
+    <string name="about_label">windvolt 2020</string>
     <string name="about_hello">windvolt</string>
 
-    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy, especially wind</string>
+    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy, especially from wind</string>
 
 
     <!-- location -->

@@ -39,8 +39,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
@@ -63,8 +61,6 @@ public class BusinessModel extends AppCompatActivity {
     String focusId = "";
 
     final int CHILD_WIDTH = 360;
-    final int CHILD_FOCUS_WIDTH = 400;
-
 
     DiagramStore store;
 
@@ -73,23 +69,23 @@ public class BusinessModel extends AppCompatActivity {
         store = new DiagramStore();
 
 
-        String root = store.addChild("", "wind", "wind", "the wind",
-                R.drawable.windvolt_small, R.string.diagram_flow0);
+        String root = store.addChild("", "wind", "wind",
+                "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0);
 
-        String c1 = store.addChild(root, "producer", "producer", "the producer",
-                R.drawable.windvolt_small, R.string.diagram_flow1);
+        String c1 = store.addChild(root, "producer", "producer",
+                "Windkraftanlagen", R.drawable.page0_v10, R.string.diagram_flow1);
 
-        String c2 = store.addChild(c1, "distributor", "distributor", "the distributor",
-                R.drawable.wiw_net, R.string.diagram_flow0);
+        String c2 = store.addChild(c1, "distributor", "distributor",
+                "Ünertragungsnetz", R.drawable.wiw_net, R.string.diagram_flow2);
 
-        String c3 = store.addChild(c2, "trader", "trader", "the trader",
-                R.drawable.wiw_exchange, R.string.diagram_flow0);
+        String c3 = store.addChild(c2, "trader", "trader",
+                "Strombörse", R.drawable.wiw_exchange, R.string.diagram_flow3);
 
-        String c4 = store.addChild(c3, "reseller", "reseller", "the reseller",
-                R.drawable.wiw_com, R.string.diagram_flow0);
+        String c4 = store.addChild(c3, "reseller", "reseller",
+                "Stromversorger", R.drawable.wiw_com, R.string.diagram_flow4);
 
-        String c5 = store.addChild(c4, "consumer", "consumer", "the consumer",
-                R.drawable.windvolt_small, R.string.diagram_flow0);
+        String c5 = store.addChild(c4, "consumer", "consumer",
+                "Endkunde", R.drawable.windvolt_small, R.string.diagram_flow5);
 
     }
 
@@ -108,7 +104,7 @@ public class BusinessModel extends AppCompatActivity {
             actionBar.setTitle(title);
         }
 
-        icon = AppCompatResources.getDrawable(this, R.drawable.gui_roundbox);
+        icon = AppCompatResources.getDrawable(this, R.drawable.gui_rbox);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -137,14 +133,15 @@ public class BusinessModel extends AppCompatActivity {
         diagram = new StructogramLayout(this);
         diagram.setBackgroundColor(getColor(R.color.diagram_flow));
 
-        RelativeLayout.LayoutParams diagramLayout = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 
         LinearLayout layout = findViewById(R.id.flow_container);
-        layout.addView(diagram, diagramLayout);
+        layout.addView(diagram);
 
 
+        addModelView(store.getRootId());
 
-        addChildModelView(store.getRootId(), 0);
+        layoutModelFlow();
+
     }
 
     protected void setFocus(View view, String id) {
@@ -161,49 +158,55 @@ public class BusinessModel extends AppCompatActivity {
         content.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
 
         String c_id = model.getChildren();
-        View found = findChildModelView(c_id);
+        View found = findModelView(c_id);
 
 
         if (null == found) {
-            int size = diagram.getChildCount();
-            addChildModelView(c_id, size);
+            addModelView(c_id);
         } else {
-            removeChildModelView(id);
+            removeChildren(id);
         }
 
-        layoutChildModelFlow();
+        layoutModelFlow();
 
 
 
-        Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
+        //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
     }
 
 
-    private void layoutChildModelFlow() {
+    private void layoutModelFlow() {
         // layout children
+
+        Drawable roundbox = getResources().getDrawable(R.drawable.gui_rbox);
+        Drawable focusbox = getResources().getDrawable(R.drawable.gui_rbox_focus);
 
         int size = diagram.getChildCount();
 
         for (int p=0; p<size; p++) {
             View layout = (View) diagram.getChildAt(p);
 
+
+
+            layout.setBackground(roundbox);
+
             int ww = CHILD_WIDTH;
             String p_id = layout.getContentDescription().toString();
 
-            if (p_id.equals(focusId)) ww = CHILD_FOCUS_WIDTH;
+            if (p_id.equals(focusId)) layout.setBackground(focusbox);
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
 
-            params.leftMargin = (w - ww)/2;
-            params.topMargin = 40 + CHILD_MARGIN * p;
-            params.width = ww;
+            params.leftMargin = (w - CHILD_WIDTH)/2;
+            params.topMargin = 20 + CHILD_MARGIN * p;
+            params.width = CHILD_WIDTH;
             params.height = CHILD_HEIGHT;
 
             layout.setLayoutParams(params);
         }
-    }
+    }//layoutModelFlow
 
-    private View findChildModelView(String id) {
+    private View findModelView(String id) {
         View found = null;
 
         int size = diagram.getChildCount();
@@ -221,7 +224,7 @@ public class BusinessModel extends AppCompatActivity {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    public void addChildModelView(String id, int position) {
+    public void addModelView(String id) {
 
         DiagramModel model = store.findModel(id);
         if (null == model) return;
@@ -229,9 +232,7 @@ public class BusinessModel extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        Drawable roundbox = getResources().getDrawable(R.drawable.gui_roundbox);
 
-        layout.setBackground(roundbox);
         layout.setPadding(8, 8, 8, 8);
 
         ImageView image = new ImageView(this);
@@ -254,29 +255,22 @@ public class BusinessModel extends AppCompatActivity {
 
         layout.setOnClickListener(new OnFocus(id));
 
+        diagram.addView(layout);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
-        params.leftMargin = (w - CHILD_WIDTH)/2;
-        params.topMargin = 40 + CHILD_MARGIN * position;
-        params.width = CHILD_WIDTH;
-        params.height = CHILD_HEIGHT;
+    }//addModelView
 
-        diagram.addView(layout, params);
-
-    }//createChildView
-
-    public void removeChildModelView(String id) {
+    public void removeChildren(String id) {
 
         DiagramModel model = store.findModel(id);
         if (null == model) return;
 
         String c_id = model.getChildren();
-        View found = findChildModelView(c_id);
+        View found = findModelView(c_id);
 
         if (null == found) {}
         else {
 
-            removeChildModelView(c_id);
+            removeChildren(c_id);
 
             diagram.removeView(found);
 

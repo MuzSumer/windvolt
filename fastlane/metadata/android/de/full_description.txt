@@ -1,8 +1,8 @@
-neu in V1.10    who is who diagramm V1
+neu in Version 2020: Updates der Diagramme, Verbesserungen der Beutzeroberfläche
 
-<i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie, insbesondere aus Wind.
+<i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie.
 
-<i>Windvolt</i> empfiehlt das Laden Deiner elektrischen Geräte wie Smartphone, E-Bike oder E-Auto wenn die Erträge aus erneuerbarer Energie hoch sind.
+<i>Windvolt</i> empfiehlt das Laden Deiner elektrischen Geräte wenn die Erträge aus erneuerbarer Energie hoch sind.
 
 
-Leider gibt es für Windenergie keinen Open-Data Dienst, deshalb nutzt diese App NonFreeNet features.
+* Leider gibt es für Windenergie keinen Open-Data Dienst, deshalb nutzt diese App NonFreeNet features.

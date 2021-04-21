@@ -21,50 +21,121 @@
     <!-- root -->
     <string name="diagram_flow0">
         <![CDATA[
-            <center>
             <table border="0" cellpadding="8">
 
                 <colgroup>
                     <col span="1" style="background-color:lightgreen" />
-
                 </colgroup>
 
-                <strong><tr>
-                <td bg-color="green"> pro </td>
-                <td> contra </td>
-                </tr></strong>
+                <tr>
+                <td>Wind</td>
+                <td>Als Wind wird in der Meteorologie eine gerichtete, stärkere Luft­bewegung in der
+                 Erdatmosphäre bezeichnet.</td>
+                </tr>
 
                 <tr>
-                <td>col21</td>
-                <td>col22</td>
+                <td>Energie</td>
+                <td>2019 lieferten die weltweit installierten Anlagen nach Zahlen von BP rund 1430 TWh
+                 elektrischer Energie; entsprechend etwa 5,3 % der weltweiten Stromproduktion.</td>
                 </tr>
             </table>
-            </center>
         ]]>
     </string>
 
     <string name="diagram_flow1">
         <![CDATA[
-            <center>
             <table border="0" cellpadding="8">
 
                 <colgroup>
                     <col span="1" style="background-color:lightgreen" />
-
                 </colgroup>
 
-                <strong><tr>
-                <td bg-color="green"> pro </td>
-                <td> contra </td>
-                </tr></strong>
+                <tr>
+                <td>OnShore</td>
+                <td>Maximal 13,8 Prozent der Fläche Deutschlands stehen für die Windenergienutzung zur Verfügung.</td>
+                </tr>
 
                 <tr>
-                <td>col21</td>
-                <td>col22</td>
+                <td>OffShore</td>
+                <td>Auf dem Meer weht der Wind stärker und stetiger. Deshalb ist die Energieausbeute von Windenergieanlagen
+                 auf See etwa 40 Prozent höher als die an Land.</td>
+                </tr>
+
+                <tr>
+                <td>Technik</td>
+                <td>Doppelt große Rotorblätter bringen vierfach höheren Ertrag.</td>
                 </tr>
             </table>
-            </center>
         ]]>
     </string>
+
+    <string name="diagram_flow2">
+        <![CDATA[
+            <table border="0" cellpadding="8">
+
+                <colgroup>
+                    <col span="1" style="background-color:lightgreen" />
+                </colgroup>
+
+
+                <tr>
+                <td>Netzwerk</td>
+                <td>Hochspannungsnetz.</td>
+                </tr>
+            </table>
+        ]]>
+    </string>
+
+    <string name="diagram_flow3">
+        <![CDATA[
+            <table border="0" cellpadding="8">
+
+                <colgroup>
+                    <col span="1" style="background-color:lightgreen" />
+                </colgroup>
+
+
+                <tr>
+                <td>Handel</td>
+                <td>Strombörse.</td>
+                </tr>
+            </table>
+        ]]>
+    </string>
+
+    <string name="diagram_flow4">
+        <![CDATA[
+            <table border="0" cellpadding="8">
+
+                <colgroup>
+                    <col span="1" style="background-color:lightgreen" />
+                </colgroup>
+
+
+                <tr>
+                <td>Versorger</td>
+                <td>Stromversorger.</td>
+                </tr>
+            </table>
+        ]]>
+    </string>
+
+    <string name="diagram_flow5">
+        <![CDATA[
+            <table border="0" cellpadding="8">
+
+                <colgroup>
+                    <col span="1" style="background-color:lightgreen" />
+                </colgroup>
+
+
+                <tr>
+                <td>Endkunde</td>
+                <td>Stromverbraucher.</td>
+                </tr>
+            </table>
+        ]]>
+    </string>
+
 
 </resources>

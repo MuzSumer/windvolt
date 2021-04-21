@@ -1,5 +1,0 @@
-windvolt
-
-#Version 1.03
-initial official release
-i used the app myself for 3 month and made many changes

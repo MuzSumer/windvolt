@@ -1,14 +1,12 @@
 # Introduction
 
-windvolt für Deutschland, (©) 2020 Max Sumer
+windvolt für Deutschland, 2020 Max Sumer
 
-windvolt targets the usage and pricing of renewable energy, especially wind
+windvolt targets the usage and pricing of renewable energy, especially from wind
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="70">](https://f-droid.org/packages/org.windvolt/)
-
-@windvolt@mastodon.technology
 
 
 
