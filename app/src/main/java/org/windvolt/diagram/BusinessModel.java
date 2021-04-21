@@ -77,13 +77,13 @@ public class BusinessModel extends AppCompatActivity {
                 R.drawable.windvolt_small, R.string.diagram_flow1);
 
         String c2 = store.addChild(c1, "distributor", "distributor", "the distributor",
-                R.drawable.windvolt_small, R.string.diagram_flow0);
+                R.drawable.wiw_net, R.string.diagram_flow0);
 
         String c3 = store.addChild(c2, "trader", "trader", "the trader",
-                R.drawable.windvolt_small, R.string.diagram_flow0);
+                R.drawable.wiw_exchange, R.string.diagram_flow0);
 
         String c4 = store.addChild(c3, "reseller", "reseller", "the reseller",
-                R.drawable.windvolt_small, R.string.diagram_flow0);
+                R.drawable.wiw_com, R.string.diagram_flow0);
 
         String c5 = store.addChild(c4, "consumer", "consumer", "the consumer",
                 R.drawable.windvolt_small, R.string.diagram_flow0);
@@ -140,16 +140,8 @@ public class BusinessModel extends AppCompatActivity {
         layout.addView(diagram, diagramLayout);
 
 
-        /*
-        final WindowMetrics metrics = WindowManager.getCurrentWindowMetrics();
-        // Gets all excluding insets
 
-
-         */
-
-
-        addChildModelView("100", 0);
-
+        addChildModelView(store.getRootId(), 0);
     }
 
     protected void setFocus(View view, String id) {
@@ -162,7 +154,6 @@ public class BusinessModel extends AppCompatActivity {
 
         // load html
         String value = getString(Integer.parseInt(model.getAdress())); // values
-
 
         content.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
 
