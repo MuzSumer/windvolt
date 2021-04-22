@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="#EDE8D7"
+            android:background="@color/diagram_dossier"
             android:gravity="fill_horizontal"
             android:orientation="vertical"
             android:padding="12dp">

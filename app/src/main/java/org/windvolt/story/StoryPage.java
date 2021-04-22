@@ -49,8 +49,8 @@ public class StoryPage extends Fragment {
             "Leider ist der Wind sehr flackerig.",
             "Mit unseren Smartphones können wir den Windstrom speichern.",
             "Das Smartphone kann man immer laden. Auch wenn es noch nicht leer ist.",
-            "Benutze windvolt täglich und verändere so Deine Ladegewohnheiten.",
             "Dekarbonisiere den Strom und unterstütze damit die ökologische Bewegung.",
+            "Benutze windvolt täglich und verändere so Deine Ladegewohnheiten.",
             "windvolt informiert Dich wenn sich das Laden lohnt."
     };
 

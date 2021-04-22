@@ -22,10 +22,7 @@
     <string name="diagram_flow0">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
                 <td>Wind</td>
@@ -45,10 +42,7 @@
     <string name="diagram_flow1">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
                 <td>OnShore</td>
@@ -72,15 +66,16 @@
     <string name="diagram_flow2">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
-
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
-                <td>Netzwerk</td>
-                <td>Hochspannungsnetz.</td>
+                <td>Transmission</td>
+                <td>Hochspannungsnetze. Gleichspannungsnetze.</td>
+                </tr>
+
+                <tr>
+                <td>Stromlast</td>
+                <td>Pumpstationen zur Speicherung überschüssiger Energie.</td>
                 </tr>
             </table>
         ]]>
@@ -89,15 +84,16 @@
     <string name="diagram_flow3">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
-
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
                 <td>Handel</td>
-                <td>Strombörse.</td>
+                <td>Strombörse EEX kauft und verkauft Strom in Kontingenten.</td>
+                </tr>
+
+                <tr>
+                <td>Contracts</td>
+                <td>Der Handel findet zu großen Teilen over the counter statt.</td>
                 </tr>
             </table>
         ]]>
@@ -106,15 +102,21 @@
     <string name="diagram_flow4">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
-
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
-                <td>Versorger</td>
-                <td>Stromversorger.</td>
+                <td>Sicherheit</td>
+                <td>Gewährleistung der Versorgung. \'Letzte Meile\'.</td>
+                </tr>
+
+                <tr>
+                <td>Submission</td>
+                <td>Verbrauchsprognose und Einkauf des Stroms.</td>
+                </tr>
+
+                <tr>
+                <td>Verbrauch</td>
+                <td>Bemessung und Abrechnung des Stromverbrauchs.</td>
                 </tr>
             </table>
         ]]>
@@ -123,15 +125,21 @@
     <string name="diagram_flow5">
         <![CDATA[
             <table border="0" cellpadding="8">
-
-                <colgroup>
-                    <col span="1" style="background-color:lightgreen" />
-                </colgroup>
-
+                <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
-                <td>Endkunde</td>
-                <td>Stromverbraucher.</td>
+                <td>Strom</td>
+                <td>Ohne Strom geht nix! Alle Lebensbereiche sind vom Strom anhängig,</td>
+                </tr>
+
+                <tr>
+                <td>ideal</td>
+                <td>Smartphones, e-bikes, e-cars, Lithium-Ionen-Akkus.</td>
+                </tr>
+
+                <tr>
+                <td>teuer</td>
+                <td>Kochen, bügeln, alles \'Heiße\'.</td>
                 </tr>
             </table>
         ]]>

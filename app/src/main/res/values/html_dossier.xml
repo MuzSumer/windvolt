@@ -22,13 +22,17 @@
     <string name="diagram_dossier">
         <![CDATA[
             <table border="0" cellpadding="8">
-                <tr><td><strong><center>
-                    who is who
-                </center></strong></td></tr>
+            <colgroup><col span="1" style="background-color:lightblue" /></colgroup>
 
                 <tr><td>
                     <center>
-                        Diese Galerie beleuchtet die wichtigsten Marktteilnehmer
+                        <strong>who is who</strong>
+                    </center>
+                </td></tr>
+
+                <tr><td>
+                    <center>
+                        Diese Galerie beleuchtet exemplarisch die Marktteilnehmer.
                     </center>
                 </td></tr>
             </table>

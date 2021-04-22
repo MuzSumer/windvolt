@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -45,8 +46,8 @@ import org.windvolt.diagram.model.DiagramStore;
 
 public class BusinessModel extends AppCompatActivity {
 
-    Drawable icon;
-    StructogramLayout diagram;
+    Drawable windvolt_icon;
+    FlowTreeLayout diagram;
     WebView content;
 
     int w = 480;
@@ -56,7 +57,7 @@ public class BusinessModel extends AppCompatActivity {
     //final int TAG_TAB = 40;
 
     final int CHILD_HEIGHT = 72;
-    final int CHILD_MARGIN = 112;
+    final int CHILD_MARGIN = 88;
 
     String focusId = "";
 
@@ -73,19 +74,19 @@ public class BusinessModel extends AppCompatActivity {
                 "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0);
 
         String c1 = store.addChild(root, "producer", "producer",
-                "Windkraftanlagen", R.drawable.page0_v10, R.string.diagram_flow1);
+                "Kollektoren", R.drawable.page0_v10, R.string.diagram_flow1);
 
         String c2 = store.addChild(c1, "distributor", "distributor",
-                "Ünertragungsnetz", R.drawable.wiw_net, R.string.diagram_flow2);
+                "Übertragung", R.drawable.wiw_net, R.string.diagram_flow2);
 
         String c3 = store.addChild(c2, "trader", "trader",
-                "Strombörse", R.drawable.wiw_exchange, R.string.diagram_flow3);
+                "Handel", R.drawable.wiw_exchange, R.string.diagram_flow3);
 
         String c4 = store.addChild(c3, "reseller", "reseller",
-                "Stromversorger", R.drawable.wiw_com, R.string.diagram_flow4);
+                "Versorger", R.drawable.wiw_com, R.string.diagram_flow4);
 
         String c5 = store.addChild(c4, "consumer", "consumer",
-                "Endkunde", R.drawable.windvolt_small, R.string.diagram_flow5);
+                "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5);
 
     }
 
@@ -104,7 +105,7 @@ public class BusinessModel extends AppCompatActivity {
             actionBar.setTitle(title);
         }
 
-        icon = AppCompatResources.getDrawable(this, R.drawable.gui_rbox);
+        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.gui_rbox);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -130,7 +131,7 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-        diagram = new StructogramLayout(this);
+        diagram = new FlowTreeLayout(this);
         diagram.setBackgroundColor(getColor(R.color.diagram_flow));
 
 
@@ -139,13 +140,14 @@ public class BusinessModel extends AppCompatActivity {
 
 
         addModelView(store.getRootId());
-
-        layoutModelFlow();
+        setFocus(store.getRootId(), false);
 
     }
 
-    protected void setFocus(View view, String id) {
+    protected void setFocus(String id, boolean expand) {
 
+
+        boolean hasFocus = id.equals(focusId);
 
         focusId = id;
 
@@ -162,7 +164,12 @@ public class BusinessModel extends AppCompatActivity {
 
 
         if (null == found) {
-            addModelView(c_id);
+            if (hasFocus) {
+                if (expand) {
+                    addModelView(c_id);
+                }
+            }
+
         } else {
             removeChildren(id);
         }
@@ -184,7 +191,7 @@ public class BusinessModel extends AppCompatActivity {
         int size = diagram.getChildCount();
 
         for (int p=0; p<size; p++) {
-            View layout = (View) diagram.getChildAt(p);
+            View layout = diagram.getChildAt(p);
 
 
 
@@ -212,15 +219,16 @@ public class BusinessModel extends AppCompatActivity {
         int size = diagram.getChildCount();
 
         for (int p=0; p<size; p++) {
-            View layout = (View) diagram.getChildAt(p);
+            View layout = diagram.getChildAt(p);
 
             String p_id = layout.getContentDescription().toString();
-
             if (p_id.equals(id)) found = layout;
+
+            // detect multiple id error here
         }
 
         return found;
-    }
+    }//findModelView
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -245,6 +253,7 @@ public class BusinessModel extends AppCompatActivity {
         //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
         //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
+        text.setGravity(Gravity.CENTER_VERTICAL);
         text.setText(model.getSubject());
         //text.setText(w + "/" + h);
 
@@ -286,7 +295,7 @@ public class BusinessModel extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            setFocus(view, id);
+            setFocus(id, true);
 
         }
     }//OnFocus
@@ -297,10 +306,10 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-    private class StructogramLayout extends RelativeLayout {
+    private class FlowTreeLayout extends RelativeLayout {
         Paint paint;
 
-        public StructogramLayout(Context context) {
+        public FlowTreeLayout(Context context) {
             super(context);
             paint = new Paint();
         }// StructogramLayout
@@ -309,27 +318,25 @@ public class BusinessModel extends AppCompatActivity {
         /* draw arrows */
         protected void dispatchDraw(Canvas canvas) {
 
-            /* diagram symbol */
-            paint.setColor(Color.RED);
-            paint.setStrokeWidth(8);
-
-            canvas.drawLine(0, 0, 20, 20, paint);
-            canvas.drawLine(20, 20, 20, 0, paint);
-            canvas.drawLine(20, 20, 0, 20, paint);
+            //* diagram symbol */
+            //drawDiagramSybol(canvas);
 
 
 
-            /* draw connections */
+
+            //* draw connections */
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(4);
 
-            int size = this.getChildCount();
+            int size = getChildCount();
+
             for (int v = 0; v < size-1; v++) {
+
                 View v0 = getChildAt(v);
                 View v1 = getChildAt(v+1);
 
-                int w = v0.getRight() - v0.getLeft();
-                int x0 = v0.getLeft() + w/2;
+                int w0 = v0.getRight() - v0.getLeft();
+                int x0 = v0.getLeft() + w0/2;
                 int x1 = x0;
 
                 int y0 = v0.getBottom();
@@ -346,12 +353,12 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-            /* draw loop connection */
+            //* draw interconnections */
 
             /*
             paint.setColor(Color.BLUE);
 
-            if (size > 2) {
+            if (size > 11) {
 
                 // draw stub with tip
                 View v0 = getChildAt(0);
@@ -382,6 +389,17 @@ public class BusinessModel extends AppCompatActivity {
 
             super.dispatchDraw(canvas);
         }//dispatchDraw
-    }
+
+
+        // unused since v2020
+        private void drawDiagramSybol(Canvas canvas) {
+            paint.setColor(Color.GREEN);
+            paint.setStrokeWidth(8);
+
+            canvas.drawLine(0, 0, 20, 20, paint);
+            canvas.drawLine(20, 20, 20, 0, paint);
+            canvas.drawLine(20, 20, 0, 20, paint);
+        }
+    }//FlowTreeLayout
 
 }
