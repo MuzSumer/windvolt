@@ -1,8 +1,13 @@
 windvolt
 
-#Version 1.03
-initial official release
-i used the app myself for 4 month and made many changes
+#Version 1.11
+busines model diagram update v1
+gui fixes
+
+
+#Version 1.10
+who-is-who diagram update v1
+overall fixes for performance
 
 
 #Version 1.04
@@ -22,6 +27,7 @@ story:          page 6 replaced, page 7 inserted
 links:          adapter integrated
 
 
-#Version 1.10
-who-is-who diagram update v1
-overall fixes for performance
+
+#Version 1.03
+initial official release
+i used the app myself for 4 month and made many changes

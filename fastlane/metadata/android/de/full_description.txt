@@ -1,4 +1,5 @@
-neu in Version 2020: Updates der Diagramme, Verbesserungen der Beutzeroberfläche
+neu in V1.11:   Updates der Diagramme, Verbesserungen der Beutzeroberfläche
+
 
 <i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie.
 
