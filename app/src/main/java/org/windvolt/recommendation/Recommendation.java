@@ -236,20 +236,16 @@ public class Recommendation extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //* save location */
                 location = location_chooser.getText().toString();
 
                 closeKeyboard();
 
 
+
+                //* save location */
                 loc_display.setText(location);
 
                 zSaveLocation(location);
-
-
-
-
-
 
 
                 //* save geodata */
@@ -295,7 +291,7 @@ public class Recommendation extends Fragment {
     }//onViewCreated
 
 
-    
+
     private void closeKeyboard() {
         View view = getActivity().getCurrentFocus();
 
