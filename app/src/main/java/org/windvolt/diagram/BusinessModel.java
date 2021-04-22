@@ -167,6 +167,8 @@ public class BusinessModel extends AppCompatActivity {
             if (hasFocus) {
                 if (expand) {
                     addModelView(c_id);
+
+                    // changes behaviour
                     setFocus(c_id, false);
                 }
             }
@@ -176,7 +178,7 @@ public class BusinessModel extends AppCompatActivity {
         }
 
         layoutModelFlow();
-        
+
         //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
     }
 
