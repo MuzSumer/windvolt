@@ -32,7 +32,7 @@
 
     <!-- page2 'geothermal' -->
     <string name="page2_label">Markt</string>
-    <string name="page2_hello">Geschäftsmodell</string>
+    <string name="page2_hello">Windökonomie</string>
     <string name="page2_open">economics</string>
     <string name="page2_exit">zurück</string>
 

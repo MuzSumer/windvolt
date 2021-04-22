@@ -77,7 +77,7 @@ public class BusinessModel extends AppCompatActivity {
                 "Kollektoren", R.drawable.page0_v10, R.string.diagram_flow1);
 
         String c2 = store.addChild(c1, "distributor", "distributor",
-                "Übertragung", R.drawable.wiw_net, R.string.diagram_flow2);
+                "Netze", R.drawable.wiw_net, R.string.diagram_flow2);
 
         String c3 = store.addChild(c2, "trader", "trader",
                 "Handel", R.drawable.wiw_exchange, R.string.diagram_flow3);
