@@ -20,7 +20,8 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
 
 + charging recommendation
 
-+ the story of windvolt, who is who diagram, wind economy diagram
+++ the story of windvolt, who is who diagram
+++ wind economy diagram
 
 + community links
 
