@@ -48,7 +48,6 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.windvolt.R;
-import org.windvolt.Welcome;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -164,7 +163,7 @@ public class Recommendation extends Fragment {
 
                 // toogle visibilty
                 loc_display.setVisibility(View.GONE);
-                geo_display.setVisibility(View.GONE);
+                // TODO geo_display.setVisibility(View.GONE);
                 bat_display.setVisibility(View.GONE);
 
                 location_chooser.setVisibility(View.VISIBLE);
@@ -264,7 +263,7 @@ public class Recommendation extends Fragment {
                 location_chooser.setVisibility(View.GONE);
 
                 loc_display.setVisibility(View.VISIBLE);
-                geo_display.setVisibility(View.VISIBLE);
+                // TODO geo_display.setVisibility(View.VISIBLE);
                 bat_display.setVisibility(View.VISIBLE);
 
 
@@ -722,6 +721,7 @@ public class Recommendation extends Fragment {
         if (latitude.isEmpty()) { latitude = "-"; }
 
         String loc = "Breite: " + latitude + "  Länge: " + longitude;
+
         geo_display.setText(loc);
     }
 
