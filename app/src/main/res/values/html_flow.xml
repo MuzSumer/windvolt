@@ -46,13 +46,13 @@
 
                 <tr>
                 <td>OnShore</td>
-                <td>Maximal 13,8 Prozent der Fläche Deutschlands stehen für die Windenergienutzung zur Verfügung.</td>
+                <td>Etwa 10% Prozent der Fläche Deutschlands stehen für die Windenergienutzung maximal zur Verfügung.</td>
                 </tr>
 
                 <tr>
                 <td>OffShore</td>
-                <td>Auf dem Meer weht der Wind stärker und stetiger. Deshalb ist die Energieausbeute von Windenergieanlagen
-                 auf See etwa 40 Prozent höher als die an Land.</td>
+                <td>Auf dem Meer weht der Wind stärker und stetiger. Die Energieausbeute auf See
+                 ist etwa 40 Prozent höher als an Land.</td>
                 </tr>
 
                 <tr>
@@ -87,14 +87,20 @@
                 <colgroup><col span="1" style="background-color:lightgreen" /></colgroup>
 
                 <tr>
-                <td>Handel</td>
-                <td>Strombörse EEX kauft und verkauft Strom in Kontingenten.</td>
+                <td>Contracts</td>
+                <td>Die EEX unterliegt als öffentlich-rechtliche Institution dem deutschen Börsengesetz.</td>
                 </tr>
 
                 <tr>
-                <td>Contracts</td>
-                <td>Der Handel findet zu großen Teilen over the counter statt.</td>
+                <td>Emissionen</td>
+                <td>An der EEX werden auch CO2-Emissionsrechte und Emissionsberechtigungen gehandelt.</td>
                 </tr>
+
+                <tr>
+                <td>Service</td>
+                <td>Der Trade Registration Service der EEX bietet das Clearing außerbörslich abgeschlossener OTC-Trades an.</td>
+                </tr>
+
             </table>
         ]]>
     </string>

@@ -167,6 +167,7 @@ public class BusinessModel extends AppCompatActivity {
             if (hasFocus) {
                 if (expand) {
                     addModelView(c_id);
+                    setFocus(c_id, false);
                 }
             }
 
