@@ -19,6 +19,7 @@
 package org.windvolt.recommendation;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -32,6 +33,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -207,7 +209,7 @@ public class Recommendation extends Fragment {
 
         /* return inflated view */
         return view;
-    }
+    }//onCreateView
 
 
     //* EDIT */
@@ -215,7 +217,7 @@ public class Recommendation extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        /* location autocomplete */
+        //* location autocomplete */
         location_chooser = (AutoCompleteTextView) view.findViewById(R.id.location_chooser);
 
         location_chooser.setText("");
@@ -224,26 +226,33 @@ public class Recommendation extends Fragment {
         location_chooser.setThreshold(1); //will start working from first character
         location_chooser.setTextColor(Color.BLACK); // must
 
-        /* adapt stations */
+        //* adapt stations */
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.location_services_item, names);
         location_chooser.setAdapter(adapter);
 
 
-        /* STOP EDITIG LOCATION */
+        //* STOP EDITIG LOCATION */
         location_chooser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-                /* save location */
+                //* save location */
                 location = location_chooser.getText().toString();
+
+                closeKeyboard();
+
+
                 loc_display.setText(location);
 
                 zSaveLocation(location);
 
 
 
-                /* save geodata */
+
+
+
+
+                //* save geodata */
                 String[] geo = loadGeodata().split(":");
 
                 String longitude = geo[0];
@@ -254,37 +263,47 @@ public class Recommendation extends Fragment {
 
 
 
-                /* display geodata */
+                //* display geodata */
                 displayGeodata();
 
 
 
-                /* toogle visibilty */
+                //* toogle visibilty */
                 location_chooser.setVisibility(View.GONE);
+
 
                 loc_display.setVisibility(View.VISIBLE);
                 // TODO geo_display.setVisibility(View.VISIBLE);
                 bat_display.setVisibility(View.VISIBLE);
 
 
-                /* free memory */
+                //* free memory */
                 names.clear();
                 allnames.clear();
 
-                location_chooser.setText("");
+
                 location_chooser.clearListSelection();
+                location_chooser.setText("");
 
 
-
-                /* user assurance */
+                //* user assurance */
                 String location_saved = getString(R.string.location_saved); // values
                 Toast.makeText(getContext(), location_saved, Toast.LENGTH_SHORT).show();
             }
         });
 
+    }//onViewCreated
+
+
+    
+    private void closeKeyboard() {
+        View view = getActivity().getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
-
-
 
     /* --------------------------------windvolt-------------------------------- */
 
