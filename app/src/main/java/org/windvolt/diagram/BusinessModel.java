@@ -176,9 +176,7 @@ public class BusinessModel extends AppCompatActivity {
         }
 
         layoutModelFlow();
-
-
-
+        
         //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
     }
 
