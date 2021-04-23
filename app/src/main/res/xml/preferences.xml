@@ -23,6 +23,22 @@
     tools:ignore="NamespaceTypo">
 
 
+    <PreferenceCategory app:title="@string/display_category">
+
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:key="location_geodata"
+            app:summary="@string/location_geodata_summary"
+            app:title="@string/location_geodata" />
+
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:key="battery_history"
+            app:summary="@string/battry_summary"
+            app:title="@string/battery_state" />
+    </PreferenceCategory>
+
+
     <PreferenceCategory
         app:title="@string/location_category"
         >
@@ -55,32 +71,18 @@
 
         -->
 
-
-
-
-        <CheckBoxPreference
-            app:defaultValue="false"
-            app:key="location_geodata"
-            app:summary="@string/location_geodata_summary"
-            app:title="@string/location_geodata" />
-
-
         <CheckBoxPreference
             app:defaultValue="false"
             app:key="location_services"
             app:summary="@string/location_services_summary"
             app:title="@string/location_services" />
 
+
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/battery_category">
 
-        <CheckBoxPreference
-            app:defaultValue="false"
-            app:key="battery_history"
-            app:summary="@string/battry_summary"
-            app:title="@string/battery_state" />
-    </PreferenceCategory>
+
+
 
     <PreferenceCategory app:title="@string/community_category">
 

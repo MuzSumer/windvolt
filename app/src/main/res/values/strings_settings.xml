@@ -17,6 +17,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
+
     <!-- preferences -->
     <string name="location_category">Ort</string>
 
@@ -30,19 +31,20 @@
     <string name="location_latitude_summary">Freie Breitenangabe.\nDie App neu starten.</string>
 
 
-    <string name="location_geodata">Geolocation</string>
-    <string name="location_geodata_summary">Geolocation anzeigen.\nDie App neu starten.</string>
 
-    <string name="location_services">Ortsdienste</string>
+    <string name="location_services">Ortsdienste verwenden</string>
     <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.\nDie App neu starten.</string>
 
 
 
-    <string name="battery_category">Betterie</string>
+    <string name="display_category">Anzeige anpassen</string>
 
-    <string name="battery_state">Batteriestatus</string>
+
+    <string name="battery_state">Batteriestatus anzeigen</string>
     <string name="battry_summary">Ich interessiere mich für den Stromverbrauch meines Smartphones.\nDie App neu starten.</string>
 
+    <string name="location_geodata">Geolocation anzeigen</string>
+    <string name="location_geodata_summary">Länge und Breite anzeigen.\nDie App neu starten.</string>
 
 
     <string name="community_category">Community</string>
