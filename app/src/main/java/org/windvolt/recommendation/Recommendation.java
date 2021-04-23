@@ -77,6 +77,7 @@ public class Recommendation extends Fragment {
 
     boolean history_allowed;
     boolean services_allowed;
+    boolean geodata_allowed;
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
 
@@ -108,12 +109,16 @@ public class Recommendation extends Fragment {
 
         history_allowed = zBatteryHistoryAllowed();
         services_allowed = zLocationServiceAllowed();
+        geodata_allowed = zLocationGeodataAllowed();
 
-        // record battery
-        recordBattery();
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.recommendation, container, false);
+
+
+        // record battery
+        recordBattery();
 
 
 
@@ -147,25 +152,28 @@ public class Recommendation extends Fragment {
 
         // display location
         //
-        String notice_location = location;
+        String display_location = location;
+
         String notice = getString(R.string.location_notice); // values
-        if (location.isEmpty()) { notice_location = notice; }
+        if (location.isEmpty()) { display_location = notice; }
 
-        loc_display.setText(notice_location);
+        loc_display.setText(display_location);
 
 
-        /* START EDITIG LOCATION */
+        //* START EDITIG LOCATION */
         loc_display.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 // load stations
                 loadStations();
                 location_chooser.setText(location);
 
+
                 // toogle visibilty
                 loc_display.setVisibility(View.GONE);
-                // TODO geo_display.setVisibility(View.GONE);
+                geo_display.setVisibility(View.GONE);
                 bat_display.setVisibility(View.GONE);
 
                 location_chooser.setVisibility(View.VISIBLE);
@@ -174,12 +182,12 @@ public class Recommendation extends Fragment {
 
 
 
-        /* refresh display */
+        //* refresh display */
         displayGeodata();
         displayBattery();
 
 
-        /* open services */
+        //* open services */
         final FloatingActionButton services_open = (FloatingActionButton) view.findViewById(R.id.services_open);
 
         if (services_allowed) {
@@ -202,12 +210,15 @@ public class Recommendation extends Fragment {
         }
 
 
-        /* allow or hide battery history */
+        //* allow or hide display */
         if (!history_allowed) {
             bat_display.setVisibility(View.GONE);
         }
 
-        /* return inflated view */
+        if (!geodata_allowed) {
+            geo_display.setVisibility(View.GONE);
+        }
+
         return view;
     }//onCreateView
 
@@ -269,8 +280,8 @@ public class Recommendation extends Fragment {
 
 
                 loc_display.setVisibility(View.VISIBLE);
-                // TODO geo_display.setVisibility(View.VISIBLE);
-                bat_display.setVisibility(View.VISIBLE);
+                if (geodata_allowed) geo_display.setVisibility(View.VISIBLE);
+                if (history_allowed) bat_display.setVisibility(View.VISIBLE);
 
 
                 //* free memory */
@@ -1047,6 +1058,13 @@ public class Recommendation extends Fragment {
 
         return sharedPreferences.getBoolean("location_services", false);
     }
+
+    private boolean zLocationGeodataAllowed() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        return sharedPreferences.getBoolean("location_geodata", false);
+    }
+
 
     private boolean zBatteryHistoryAllowed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());

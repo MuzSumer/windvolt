@@ -29,6 +29,10 @@
     <string name="location_latitude">Breitengrad.</string>
     <string name="location_latitude_summary">Freie Breitenangabe.\nDie App neu starten.</string>
 
+
+    <string name="location_geodata">Geolocation</string>
+    <string name="location_geodata_summary">Geolocation anzeigen.\nDie App neu starten.</string>
+
     <string name="location_services">Ortsdienste</string>
     <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.\nDie App neu starten.</string>
 
