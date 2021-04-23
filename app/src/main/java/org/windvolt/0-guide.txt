@@ -1,0 +1,20 @@
+
+diagram             boxtree diagram, flow diagram
+.model              model for diagrams
+
+
+links               a fragment with a recycler view showing links abse on a model
+
+
+pages               navigation pages 1 - 4, html content
+
+
+recommendation      handles location, battery and recommendation statement
+
+
+story               activity view pager on a story
+
+
+system              activity about, activity settings, activity list view devices
+.devicestore        load/save XML device list
+
