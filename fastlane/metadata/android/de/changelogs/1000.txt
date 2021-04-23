@@ -1,8 +1,9 @@
 windvolt
 
 #Version 1.11
-busines model diagram update v1
+economy model diagram update v1
 gui fixes
+improve settings
 
 
 #Version 1.10
