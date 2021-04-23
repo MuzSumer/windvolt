@@ -410,8 +410,8 @@ public class Recommendation extends Fragment {
                     String longitude = sharedPreferences.getString("location_longitude", "");
                     String latitude = sharedPreferences.getString("location_latitude", "");
 
-                    // 33.000/-118.000
-                    String url = "https://www.openstreetmap.org/#map=6/";
+
+                    String url = "https://www.openstreetmap.org/#map=12/";
                     url += latitude;
                     url += "/";
                     url += longitude;

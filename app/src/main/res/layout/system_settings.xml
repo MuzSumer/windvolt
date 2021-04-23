@@ -29,9 +29,20 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:gravity="fill_horizontal"
         android:text="@string/app_disclaimer"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/red_pure" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="right"
+        android:text="@string/settings_disclaimer" />
 
     <FrameLayout
         android:id="@+id/container_settings"

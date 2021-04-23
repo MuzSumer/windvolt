@@ -19,21 +19,24 @@
 <resources>
 
     <!-- preferences -->
+    <string name="settings_disclaimer">*beim nächsten Start der App</string>
+
+
     <string name="location_category">Ort</string>
 
     <string name="location_title">Dein Ort</string>
-    <string name="location_summary">Freie Ortsangabe.\nDie App neu starten.</string>
+    <string name="location_summary">*freie Ortsangabe.</string>
 
     <string name="location_longitude">Längengrad.</string>
-    <string name="location_longitude_summary">Freie Längenangabe.\nDie App neu starten.</string>
+    <string name="location_longitude_summary">*freie Längenangabe.</string>
 
     <string name="location_latitude">Breitengrad.</string>
-    <string name="location_latitude_summary">Freie Breitenangabe.\nDie App neu starten.</string>
+    <string name="location_latitude_summary">*freie Breitenangabe.</string>
 
 
 
     <string name="location_services">Ortsdienste verwenden</string>
-    <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.\nDie App neu starten.</string>
+    <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.</string>
 
 
 
@@ -41,10 +44,10 @@
 
 
     <string name="battery_state">Batteriestatus anzeigen</string>
-    <string name="battry_summary">Ich interessiere mich für den Stromverbrauch meines Smartphones.\nDie App neu starten.</string>
+    <string name="battry_summary">*Ich interessiere mich für den Stromverbrauch meines Smartphones.</string>
 
     <string name="location_geodata">Geolocation anzeigen</string>
-    <string name="location_geodata_summary">Länge und Breite anzeigen.\nDie App neu starten.</string>
+    <string name="location_geodata_summary">*Länge und Breite anzeigen.</string>
 
 
     <string name="community_category">Community</string>
