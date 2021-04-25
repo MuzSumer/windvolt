@@ -238,7 +238,7 @@ public class Recommendation extends Fragment {
         location_chooser.setTextColor(Color.BLACK); // must
 
         //* adapt stations */
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.location_chooser_autocomplete, names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.location_chooser_item, names);
         location_chooser.setAdapter(adapter);
 
 
@@ -356,7 +356,7 @@ public class Recommendation extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-            final View view = inflater.inflate(R.layout.location_service_dialog, null);
+            final View view = inflater.inflate(R.layout.location_services_dialog, null);
 
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
