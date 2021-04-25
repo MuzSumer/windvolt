@@ -40,6 +40,17 @@
 
         </ListView>
 
+        <!--
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/links"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label" />
+        -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +59,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="@string/device_sumup"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -57,7 +70,10 @@
                 android:id="@+id/device_sum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
+                android:gravity="end"
                 android:text="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textColor="#00695C" />
@@ -89,7 +105,8 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/device_add"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@android:drawable/ic_delete"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/device_add"
@@ -101,6 +118,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

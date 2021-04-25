@@ -21,7 +21,6 @@ package org.windvolt.system;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +49,7 @@ public class DeviceManagement extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.system_devices);
+        setContentView(R.layout.system_device_listview);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -63,7 +62,7 @@ public class DeviceManagement extends AppCompatActivity {
         //* MODEL */
 
         deviceStore = new DeviceModelStore(this);
-        deviceStore.createListViewAdapter(R.layout.system_device_list, R.id.device_name);
+        deviceStore.createListViewAdapter(R.layout.system_device_item, R.id.device_name);
 
         ListView lv = (ListView) findViewById(R.id.list_devices);
         lv.setAdapter(deviceStore.getListViewAdapter());
@@ -73,7 +72,7 @@ public class DeviceManagement extends AppCompatActivity {
 
         if (deviceStore.isNotificationAllowed()) {
             // TODO notify
-            ;
+
         }
 
 

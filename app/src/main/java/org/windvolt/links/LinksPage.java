@@ -44,7 +44,7 @@ public class LinksPage extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.links, container, false);
+        View view = inflater.inflate(R.layout.links_recyclerview, container, false);
 
 
         RecyclerView recyclerView = view.findViewById(R.id.links);
@@ -81,7 +81,7 @@ public class LinksPage extends Fragment {
         @NonNull
         @Override
         public LinkAdapter.LinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.links_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.link_item, parent, false);
 
             return new LinkAdapter.LinkViewHolder(view);
         }

@@ -30,7 +30,7 @@ public class DeviceList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.system_device_list);
+        setContentView(R.layout.system_device_item);
     }
 
     /* --------------------------------windvolt-------------------------------- */

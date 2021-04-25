@@ -238,7 +238,7 @@ public class Recommendation extends Fragment {
         location_chooser.setTextColor(Color.BLACK); // must
 
         //* adapt stations */
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.location_chooser, names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.location_chooser_autocomplete, names);
         location_chooser.setAdapter(adapter);
 
 

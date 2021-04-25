@@ -37,7 +37,7 @@ public class StoryOfWindvolt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.story_of_windvolt);
+        setContentView(R.layout.story_viewpager);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
