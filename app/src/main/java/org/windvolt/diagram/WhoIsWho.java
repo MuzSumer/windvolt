@@ -63,7 +63,23 @@ public class WhoIsWho extends AppCompatActivity {
 
         store = new DiagramStore();
 
+        //* try to load model or create local */
+        if (!loadModelStore("https://windvolt.org/dossier.xml")) {
+            createLocalStore();
+        }
 
+
+    }//createStoreData
+
+
+    private boolean loadModelStore(String url) {
+
+        // TODO load model from a web server
+
+        return false;
+    }
+
+    private void createLocalStore() {
         int symbol = R.drawable.windvolt_small;
 
 
@@ -165,10 +181,7 @@ public class WhoIsWho extends AppCompatActivity {
                     pol, R.string.pol_iwr);
 
         }
-
-    }//createStoreData
-
-
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

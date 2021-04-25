@@ -69,7 +69,22 @@ public class BusinessModel extends AppCompatActivity {
 
         store = new DiagramStore();
 
+        //* try to load model or create local */
+        if (!loadStoreData("https://windvolt.org/economy.xml")) {
+            createLocalModel();
+        }
 
+
+
+    }
+
+    private boolean loadStoreData(String url) {
+        // TODO load model from a web server
+
+        return false;
+    }
+
+    private void createLocalModel() {
         String root = store.addChild("", "wind", "wind",
                 "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0);
 
@@ -87,9 +102,7 @@ public class BusinessModel extends AppCompatActivity {
 
         String c5 = store.addChild(c4, "consumer", "consumer",
                 "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5);
-
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
