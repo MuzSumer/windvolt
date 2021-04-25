@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -70,21 +71,22 @@ public class BusinessModel extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model or create local */
-        if (!loadStoreData("https://windvolt.org/economy.xml")) {
-            createLocalModel();
+        if (!loadStore("https://windvolt.org/economy.xml")) {
+            createLocalStore();
         }
 
 
 
     }
 
-    private boolean loadStoreData(String url) {
+    private boolean loadStore(String url) {
         // TODO load model from a web server
 
+        Toast.makeText(this, "using local model", Toast.LENGTH_SHORT).show();
         return false;
     }
 
-    private void createLocalModel() {
+    private void createLocalStore() {
         String root = store.addChild("", "wind", "wind",
                 "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0);
 

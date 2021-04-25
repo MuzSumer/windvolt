@@ -28,6 +28,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -64,7 +65,7 @@ public class WhoIsWho extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model or create local */
-        if (!loadModelStore("https://windvolt.org/dossier.xml")) {
+        if (!loadStore("https://windvolt.org/dossier.xml")) {
             createLocalStore();
         }
 
@@ -72,10 +73,11 @@ public class WhoIsWho extends AppCompatActivity {
     }//createStoreData
 
 
-    private boolean loadModelStore(String url) {
+    private boolean loadStore(String url) {
 
         // TODO load model from a web server
 
+        Toast.makeText(this, "using local model", Toast.LENGTH_SHORT).show();
         return false;
     }
 

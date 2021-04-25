@@ -29,23 +29,23 @@ import androidx.fragment.app.Fragment;
 
 import org.windvolt.R;
 
-public class Page0 extends Fragment {
+
+public class Page1_Solar extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.page0_wind, container, false);
+        return inflater.inflate(R.layout.page1_solar, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = (WebView) view.findViewById(R.id.page0_webview);
+        WebView webView = (WebView) view.findViewById(R.id.page1_webview);
 
-        String htmlString = getString(R.string.page0_html);
+        String htmlString = getString(R.string.page1_html);
         webView.loadDataWithBaseURL(null, htmlString, "text/html", "utf-8", null);
 
     }
 
     /* --------------------------------windvolt-------------------------------- */
-
 }
