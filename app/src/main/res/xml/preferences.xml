@@ -23,13 +23,17 @@
     tools:ignore="NamespaceTypo">
 
 
-    <PreferenceCategory app:title="@string/display_category">
+    <PreferenceCategory
+        app:title="@string/display_category">
 
+        <!-- hidden since 1.11
         <CheckBoxPreference
             app:defaultValue="false"
             app:key="location_geodata"
             app:summary="@string/location_geodata_summary"
             app:title="@string/location_geodata" />
+        -->
+
 
         <CheckBoxPreference
             app:defaultValue="false"
@@ -40,8 +44,7 @@
 
 
     <PreferenceCategory
-        app:title="@string/location_category"
-        >
+        app:title="@string/location_category">
 
 
 
@@ -84,7 +87,8 @@
 
 
 
-    <PreferenceCategory app:title="@string/community_category">
+    <PreferenceCategory
+        app:title="@string/community_category">
 
         <CheckBoxPreference
             app:defaultValue="false"

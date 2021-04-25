@@ -77,7 +77,7 @@ public class Recommendation extends Fragment {
 
     boolean history_allowed;
     boolean services_allowed;
-    boolean geodata_allowed;
+
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
 
@@ -94,7 +94,7 @@ public class Recommendation extends Fragment {
     AutoCompleteTextView location_chooser;
     String location;
 
-    TextView loc_display, geo_display, bat_display;
+    TextView loc_display, bat_display;
 
 
     String battery_level_now, battery_level_before; // "0", "1", ..., "100"
@@ -109,7 +109,6 @@ public class Recommendation extends Fragment {
 
         history_allowed = zBatteryHistoryAllowed();
         services_allowed = zLocationServiceAllowed();
-        geodata_allowed = zLocationGeodataAllowed();
 
 
 
@@ -132,7 +131,7 @@ public class Recommendation extends Fragment {
         //
         //ImageView rec_image = view.findViewById(R.id.recommendation_image);
         loc_display = (TextView) view.findViewById(R.id.location_display);
-        geo_display = (TextView) view.findViewById(R.id.location_geodata);
+
 
         // update battery
         bat_display = (TextView) view.findViewById(R.id.location_battery);
@@ -173,7 +172,6 @@ public class Recommendation extends Fragment {
 
                 // toogle visibilty
                 loc_display.setVisibility(View.GONE);
-                geo_display.setVisibility(View.GONE);
                 bat_display.setVisibility(View.GONE);
 
                 location_chooser.setVisibility(View.VISIBLE);
@@ -183,7 +181,6 @@ public class Recommendation extends Fragment {
 
 
         //* refresh display */
-        displayGeodata();
         displayBattery();
 
 
@@ -215,9 +212,7 @@ public class Recommendation extends Fragment {
             bat_display.setVisibility(View.GONE);
         }
 
-        if (!geodata_allowed) {
-            geo_display.setVisibility(View.GONE);
-        }
+
 
         return view;
     }//onCreateView
@@ -270,9 +265,6 @@ public class Recommendation extends Fragment {
 
 
 
-                //* display geodata */
-                displayGeodata();
-
 
 
                 //* toogle visibilty */
@@ -280,7 +272,6 @@ public class Recommendation extends Fragment {
 
 
                 loc_display.setVisibility(View.VISIBLE);
-                if (geodata_allowed) geo_display.setVisibility(View.VISIBLE);
                 if (history_allowed) bat_display.setVisibility(View.VISIBLE);
 
 
@@ -746,19 +737,6 @@ public class Recommendation extends Fragment {
         return longitude + ":" + latitude;
     }
 
-    //* display latitude/longitude */
-    private void displayGeodata() {
-        String longitude = zLoadLongitude();
-        String latitude = zLoadLatitude();
-
-        if (longitude.isEmpty()) { longitude = "-"; }
-        if (latitude.isEmpty()) { latitude = "-"; }
-
-        String loc = "Breite: " + latitude + "  Länge: " + longitude;
-
-        geo_display.setText(loc);
-    }
-
 
 
     //* read and set battery level */
@@ -1066,13 +1044,6 @@ public class Recommendation extends Fragment {
 
         return sharedPreferences.getBoolean("location_services", false);
     }
-
-    private boolean zLocationGeodataAllowed() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        return sharedPreferences.getBoolean("location_geodata", false);
-    }
-
 
     private boolean zBatteryHistoryAllowed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
