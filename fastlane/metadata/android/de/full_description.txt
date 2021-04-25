@@ -1,6 +1,3 @@
-neu in V1.11:   Updates der Diagramme, Verbesserungen der Beutzeroberfläche
-
-
 <i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie.
 
 <i>Windvolt</i> empfiehlt das Laden Deiner elektrischen Geräte wenn die Erträge aus erneuerbarer Energie hoch sind.

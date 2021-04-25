@@ -1,14 +1,26 @@
 windvolt
 
+
+#version 1.12
+splash screen theme
+advanced dialogs
+
+
+
+
 #Version 1.11
 economy model diagram update v1
 gui fixes
 improve settings
 
 
+
+
 #Version 1.10
 who-is-who diagram update v1
 overall fixes for performance
+
+
 
 
 #Version 1.04
@@ -23,9 +35,10 @@ de-de:          'Strategische Nutzung erneuerbarer Energie'
 
 strings:        texts improved, prepared translations
 preferences:    texts improved, location displayed, restart notice
-devices:        XMLDeviceStore  ->  XMLModelStore, analog ModelStore
+devices:        XMLDeviceStore  ->  DeviceModelStore, analog ModelStore
 story:          page 6 replaced, page 7 inserted
 links:          adapter integrated
+
 
 
 

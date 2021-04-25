@@ -1,8 +1,6 @@
-new in version 2020: diagram updates, gui improvements
-
 <i>windvolt</i> targets the usage and pricing of renewable energy in Germany, especially windpower.
 
 <i>Windvolt</i> will recommend loading your devices like smartphone, e-bike or e-car when there is plenty of renewable energy harvested.
 
 
-+ unfortunately there is no open data service for windpower, that's why this app uses NonFreeNet features.
+* unfortunately there is no open data service, that's why this app uses NonFreeNet features.
