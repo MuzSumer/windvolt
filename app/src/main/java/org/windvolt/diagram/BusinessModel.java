@@ -105,7 +105,7 @@ public class BusinessModel extends AppCompatActivity {
             actionBar.setTitle(title);
         }
 
-        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.gui_rbox);
+        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -186,8 +186,8 @@ public class BusinessModel extends AppCompatActivity {
     private void layoutModelFlow() {
         // layout children
 
-        Drawable roundbox = getResources().getDrawable(R.drawable.gui_rbox);
-        Drawable focusbox = getResources().getDrawable(R.drawable.gui_rbox_focus);
+        Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
+        Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
 
         int size = diagram.getChildCount();
 

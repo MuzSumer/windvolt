@@ -280,7 +280,7 @@ public class WhoIsWho extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        Drawable roundbox = getResources().getDrawable(R.drawable.gui_rbox);
+        Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
 
         layout.setBackground(roundbox);
         layout.setPadding(8, 8, 8, 8);

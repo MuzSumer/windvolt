@@ -30,7 +30,7 @@
         android:id="@+id/link_image"
         android:layout_width="120dp"
         android:layout_height="48dp"
-        app:srcCompat="@drawable/gui_rbox" />
+        app:srcCompat="@drawable/app_rbox" />
 
     <TextView
         android:id="@+id/link_subject"

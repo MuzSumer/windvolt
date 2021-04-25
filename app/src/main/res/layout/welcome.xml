@@ -22,7 +22,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gui_rbox"
+    android:background="@drawable/app_rbox"
     tools:context=".Welcome">
 
 
@@ -96,7 +96,7 @@
                 android:id="@+id/open_page0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gui_rbox"
+                android:background="@drawable/app_rbox"
                 android:contentDescription="@string/page0_hello"
                 android:src="@drawable/page0_v10" />
 
@@ -104,7 +104,7 @@
                 android:id="@+id/open_page1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gui_rbox"
+                android:background="@drawable/app_rbox"
                 android:contentDescription="@string/page1_hello"
                 android:src="@drawable/page1_v10" />
 
@@ -112,7 +112,7 @@
                 android:id="@+id/open_page2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gui_rbox"
+                android:background="@drawable/app_rbox"
                 android:contentDescription="@string/page2_hello"
                 android:src="@drawable/page2_v10" />
 
@@ -120,7 +120,7 @@
                 android:id="@+id/open_page3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gui_rbox"
+                android:background="@drawable/app_rbox"
                 android:contentDescription="@string/page3_hello"
                 android:src="@drawable/page3_v10a" />
         </LinearLayout>
@@ -141,7 +141,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#FFFFFF"
-        app:srcCompat="@drawable/gui_color_ring" />
+        app:srcCompat="@drawable/app_color_ring" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
