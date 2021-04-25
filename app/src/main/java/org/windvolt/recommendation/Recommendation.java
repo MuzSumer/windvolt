@@ -610,7 +610,7 @@ public class Recommendation extends Fragment {
             builder.setPositiveButton("exit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    dismiss();
                 }
             });
 
@@ -641,6 +641,8 @@ public class Recommendation extends Fragment {
 
                     // reassure user
                     Toast.makeText(getContext(), "battery history cleared", Toast.LENGTH_LONG).show();
+
+                    dismiss();
                 }
             });
 
