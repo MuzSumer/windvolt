@@ -34,10 +34,8 @@
     <string name="location_latitude_summary">*freie Breitenangabe.</string>
 
 
-
     <string name="location_services">Ortsdienste verwenden</string>
     <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.</string>
-
 
 
     <string name="display_category">Anzeige anpassen</string>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  This file is part of windvolt.org.
 
  Copyright (c) 2020 Max Sumer
@@ -17,10 +16,8 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,17 +25,18 @@
         android:id="@+id/device_symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/windvolt_small" />
+        app:srcCompat="?android:attr/listChoiceIndicatorSingle" />
 
     <TextView
         android:id="@+id/device_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/darker_gray"
-        android:text="name"
         app:layout_constraintEnd_toStartOf="@+id/device_class"
         app:layout_constraintStart_toEndOf="@+id/device_symbol"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +45,7 @@
         android:id="@+id/device_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="000000"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/darker_gray"
         android:visibility="gone"
@@ -56,14 +54,14 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    <!--
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
 
 
-</LinearLayout>
--->
+    </LinearLayout>
+    -->

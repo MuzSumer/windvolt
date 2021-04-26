@@ -21,27 +21,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.windvolt.ActivityMain">
 
-    <item
-        android:id="@+id/action_devices"
-        android:orderInCategory="100"
-        android:title="@string/devices_action"
-        app:showAsAction="never" />
+    <group android:id="@+id/group_system">
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_devices"
+            android:orderInCategory="101"
+            android:title="@string/devices_action"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_about"
+            android:orderInCategory="102"
+            android:title="@string/about_action"
+            app:showAsAction="never" />
+    </group>
+    <group
+        android:id="@+id/group_windvolt"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_story"
+            android:orderInCategory="110"
+            android:title="@string/action_story"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_whoiswho"
+            android:orderInCategory="111"
+            android:title="@string/action_whoiswho"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_economy"
+            android:orderInCategory="112"
+            android:title="@string/action_economy"
+            app:showAsAction="never" />
+    </group>
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="110"
-        android:title="@string/settings_action"
-        app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_story"
-        android:orderInCategory="111"
-        android:title="@string/story_action"
-        app:showAsAction="never" />
+    <!-- divider -->
 
-    <item
-        android:id="@+id/action_about"
-        android:orderInCategory="112"
-        android:title="@string/about_action"
-        app:showAsAction="never" />
+
 </menu>

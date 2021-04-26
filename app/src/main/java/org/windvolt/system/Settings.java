@@ -23,7 +23,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
@@ -43,7 +42,7 @@ public class Settings extends AppCompatActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            actionBar.setTitle(getString(R.string.settings_hello));
+            actionBar.setTitle(getString(R.string.title_settings));
         }
 
         getSupportFragmentManager()

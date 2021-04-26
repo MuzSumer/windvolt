@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  This file is part of windvolt.org.
 
  Copyright (c) 2020 Max Sumer
@@ -30,7 +29,7 @@
         android:id="@+id/tv_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/story_title"
+        android:contentDescription="@string/title_story"
         app:layout_constraintBottom_toTopOf="@id/tv_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/story_title"
+        android:text="@string/title_story"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#fff"
         android:textSize="30sp"
@@ -68,25 +67,25 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.SlipFragment"
-    >
-
-    <TextView
-        android:id="@+id/tv_counter"
+    <!--
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="slip fragment" />
+        tools:context=".activities.SlipFragment"
+        >
 
-</FrameLayout>
--->
+        <TextView
+            android:id="@+id/tv_counter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="slip fragment" />
+
+    </FrameLayout>
+    -->

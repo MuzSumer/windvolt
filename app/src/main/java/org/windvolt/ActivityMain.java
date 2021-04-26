@@ -26,6 +26,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.windvolt.diagram.BusinessModel;
+import org.windvolt.diagram.WhoIsWho;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
 import org.windvolt.system.DeviceManagement;
@@ -58,33 +60,57 @@ public class ActivityMain extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // edit settings
-        if (id == R.id.action_settings) {
 
-            startActivity(new Intent(this, Settings.class));
-            return true;
+        //* system group */
+        {
+            // edit settings
+            if (id == R.id.action_settings) {
+
+                startActivity(new Intent(this, Settings.class));
+                return true;
+            }
+
+            // edit devices
+            if (id == R.id.action_devices) {
+
+                startActivity(new Intent(this, DeviceManagement.class));
+                return true;
+            }
+
+            // show about
+            if (id == R.id.action_about) {
+
+                startActivity(new Intent(this, About.class));
+                return true;
+            }
         }
 
-        // edit devices
-        if (id == R.id.action_devices) {
 
-            startActivity(new Intent(this, DeviceManagement.class));
-            return true;
+
+        //* windvolt group (possibly hidden) */
+        {
+            // show story
+            if (id == R.id.action_story) {
+
+                startActivity(new Intent(this, StoryOfWindvolt.class));
+                return true;
+            }
+
+            // show who is who
+            if (id == R.id.action_whoiswho) {
+
+                startActivity(new Intent(this, WhoIsWho.class));
+                return true;
+            }
+
+            // show economy
+            if (id == R.id.action_economy) {
+
+                startActivity(new Intent(this, BusinessModel.class));
+                return true;
+            }
         }
 
-        // show story
-        if (id == R.id.action_story) {
-
-            startActivity(new Intent(this, StoryOfWindvolt.class));
-            return true;
-        }
-
-        // show about
-        if (id == R.id.action_about) {
-
-            startActivity(new Intent(this, About.class));
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }//onOptionsItemSelected

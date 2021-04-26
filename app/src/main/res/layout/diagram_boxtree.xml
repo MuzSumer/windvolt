@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  This file is part of windvolt.org.
 
  Copyright (c) 2020 Max Sumer
@@ -46,7 +45,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:contentDescription="diagram_symbol"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/windvolt_small" />
 
             <LinearLayout
@@ -63,7 +62,7 @@
                     android:id="@+id/diagram_path"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="diagram_path"
+                    android:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textSize="12sp" />
 
@@ -71,14 +70,14 @@
                     android:id="@+id/diagram_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="diagram_title"
+                    android:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <TextView
                     android:id="@+id/diagram_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="diagram_subject"
+                    android:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
 
