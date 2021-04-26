@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="*non-free-net"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
 </LinearLayout>
 

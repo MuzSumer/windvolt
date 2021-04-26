@@ -61,7 +61,8 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="    Quelle: windjournal.de, ohne Gewähr" />
+            android:text="    Quelle: windjournal.de, ohne Gewähr"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 
     <fragment

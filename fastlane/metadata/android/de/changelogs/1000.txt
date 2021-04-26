@@ -2,8 +2,8 @@ windvolt
 
 
 #version 1.12
-splash screen theme
-advanced dialogs
+splash screen theme and watermark
+advancing dialogs
 
 
 
