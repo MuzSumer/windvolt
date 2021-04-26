@@ -42,7 +42,7 @@ public class Page1_Solar extends Fragment {
 
         WebView webView = (WebView) view.findViewById(R.id.page1_webview);
 
-        String htmlString = getString(R.string.page1_html);
+        String htmlString = getString(R.string.html_page1);
         webView.loadDataWithBaseURL(null, htmlString, "text/html", "utf-8", null);
 
     }

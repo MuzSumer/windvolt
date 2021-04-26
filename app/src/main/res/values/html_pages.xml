@@ -20,7 +20,7 @@
 
 
     <!-- welcome page -->
-    <string name="welcome_html">
+    <string name="html_welcome">
         <![CDATA[
         <br />
             <img src="https://www.windjournal.de/einspeisung-live.php?w=320&h=160"/>
@@ -30,53 +30,79 @@
 
 
     <!-- page0 -->
-    <string name="page0_html">
+    <string name="html_page0">
         <![CDATA[
-            <br />
-            <p>
-                page 0: story
-            </p>
+            <table border="0" cellpadding="8">
+            <colgroup><col span="1" style="background-color:lightblue" /></colgroup>
+
+                <tr><td>
+                    <strong>page 0</strong>
+                </td></tr>
+
+                <tr><td>
+                    wind | story
+                </td></tr>
+            </table>
         ]]>
     </string>
 
 
     <!-- page1 -->
-    <string name="page1_html">
+    <string name="html_page1">
         <![CDATA[
-            <br />
-            <p>
-                page 1: who is who
-            </p>
-            <br />
+            <table border="0" cellpadding="8">
+            <colgroup><col span="1" style="background-color:lightblue" /></colgroup>
+
+                <tr><td>
+                    <strong>page 1</strong>
+                </td></tr>
+
+                <tr><td>
+                    solar | who is who
+                </td></tr>
+            </table>
         ]]>
     </string>
 
 
     <!-- page2 -->
-    <string name="page2_html">
+    <string name="html_page2">
         <![CDATA[
-            <br />
-            <p>
-                page 2: economic
-            </p>
-            <br />
+            <table border="0" cellpadding="8">
+            <colgroup><col span="1" style="background-color:lightblue" /></colgroup>
+
+                <tr><td>
+                    <strong>page 2</strong>
+                </td></tr>
+
+                <tr><td>
+                    aqua/geo | economy
+                </td></tr>
+            </table>
         ]]>
     </string>
 
 
     <!-- page3 -->
-    <string name="page3_html">
+    <string name="html_page3">
         <![CDATA[
-            <br />
-            <p>
-                page 3:
-            </p>
+            <table border="0" cellpadding="8">
+            <colgroup><col span="1" style="background-color:lightblue" /></colgroup>
+
+                <tr><td>
+                    <strong>page 3</strong>
+                </td></tr>
+
+                <tr><td>
+                    other | community links
+                </td></tr>
+            </table>
         ]]>
     </string>
 
 
     <!-- factsheet -->
-    <string name="factsheet">
+    <string name="html_factsheet">
         <table style="background-color:#00FFFF">
                 <tr>
                     <th>Fakt</th>

@@ -38,6 +38,7 @@
             android:title="@string/about_action"
             app:showAsAction="never" />
     </group>
+
     <group
         android:id="@+id/group_windvolt"
         android:checkableBehavior="single">

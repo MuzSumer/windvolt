@@ -25,6 +25,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.BusinessModel;
 import org.windvolt.diagram.WhoIsWho;
@@ -50,6 +51,10 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // show devider
+        MenuCompat.setGroupDividerEnabled(menu, true);
+
         return true;
     }//onCreateOptionsMenu
 

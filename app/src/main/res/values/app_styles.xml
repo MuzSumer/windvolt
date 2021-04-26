@@ -21,7 +21,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- this app shows a watermark in linear layouts. -->
+        <!-- show a watermark in linear layouts -->
         <item name="android:windowBackground">@drawable/app_watermark</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -31,13 +31,14 @@
 
     <style name="AppTheme.NoActionBar">
 
-        <!-- while the app is initialized, a splash will be presented. -->
+        <!-- show splash while the app is initialized -->
 
         <item name="android:windowBackground">@drawable/app_splash</item>
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

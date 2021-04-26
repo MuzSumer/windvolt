@@ -41,7 +41,7 @@ public class Page0_Wind extends Fragment {
 
         WebView webView = (WebView) view.findViewById(R.id.page0_webview);
 
-        String htmlString = getString(R.string.page0_html);
+        String htmlString = getString(R.string.html_page0);
         webView.loadDataWithBaseURL(null, htmlString, "text/html", "utf-8", null);
 
     }

@@ -41,7 +41,7 @@ public class Page2_AquaGeo extends Fragment {
 
         WebView webView = (WebView) view.findViewById(R.id.page2_webview);
 
-        String htmlString = getString(R.string.page2_html);
+        String htmlString = getString(R.string.html_page2);
         webView.loadDataWithBaseURL(null, htmlString, "text/html", "utf-8", null);
 
 
