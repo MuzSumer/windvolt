@@ -22,6 +22,12 @@
     <string name="settings_disclaimer">*beim nächsten Start der App</string>
 
 
+    <string name="language_category">Sprache</string>
+
+    <string name="language_title">Deutsch</string>
+    <string name="language_summary">*Sprache.</string>
+
+
     <string name="location_category">Ort</string>
 
     <string name="location_title">Dein Ort</string>
@@ -42,7 +48,7 @@
 
 
     <string name="battery_state">Batteriestatus anzeigen</string>
-    <string name="battry_summary">*Ich interessiere mich für den Stromverbrauch meines Smartphones.</string>
+    <string name="battery_summary">*Ich interessiere mich für den Stromverbrauch meines Smartphones.</string>
 
     <string name="location_geodata">Geolocation anzeigen</string>
     <string name="location_geodata_summary">*Länge und Breite anzeigen.</string>

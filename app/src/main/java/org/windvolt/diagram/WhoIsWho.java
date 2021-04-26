@@ -28,7 +28,6 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -60,26 +59,19 @@ public class WhoIsWho extends AppCompatActivity {
 
     boolean beep = false;
 
-    protected void createStoreData() {
+
+
+    protected void createStore() {
 
         store = new DiagramStore();
 
-        //* try to load model or create local */
-        if (!loadStore("https://windvolt.org/dossier.xml")) {
-            createLocalStore();
-        }
+        //* try to load model or create a local */
+        if (store.loadStore(this, "https://windvolt.org/dossier.xml")) {
+
+        } else createLocalStore();
 
 
-    }//createStoreData
-
-
-    private boolean loadStore(String url) {
-
-        // TODO load model from a web server
-
-        Toast.makeText(this, "using local model", Toast.LENGTH_SHORT).show();
-        return false;
-    }
+    }//createStore
 
     private void createLocalStore() {
         int symbol = R.drawable.windvolt_small;
@@ -183,7 +175,9 @@ public class WhoIsWho extends AppCompatActivity {
                     pol, R.string.pol_iwr);
 
         }
-    }
+    }//createLocalStore
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -219,7 +213,7 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         // create the store
-        createStoreData();
+        createStore();
 
         // start diagram
         setFocus(store.getRootId());

@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -66,25 +65,19 @@ public class BusinessModel extends AppCompatActivity {
 
     DiagramStore store;
 
-    protected void createStoreData() {
+
+    protected void createStore() {
 
         store = new DiagramStore();
 
-        //* try to load model or create local */
-        if (!loadStore("https://windvolt.org/economy.xml")) {
-            createLocalStore();
-        }
+        //* try to load model or create a local */
+        if (store.loadStore(this, "https://windvolt.org/economy.xml")) {
+
+        } else createLocalStore();
 
 
 
-    }
-
-    private boolean loadStore(String url) {
-        // TODO load model from a web server
-
-        Toast.makeText(this, "using local model", Toast.LENGTH_SHORT).show();
-        return false;
-    }
+    }//createStore
 
     private void createLocalStore() {
         String root = store.addChild("", "wind", "wind",
@@ -104,7 +97,9 @@ public class BusinessModel extends AppCompatActivity {
 
         String c5 = store.addChild(c4, "consumer", "consumer",
                 "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5);
-    }
+    }//createLocalStore
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -137,7 +132,7 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-        createStoreData();
+        createStore();
 
 
 
@@ -351,17 +346,17 @@ public class BusinessModel extends AppCompatActivity {
                 View v0 = getChildAt(v);
                 View v1 = getChildAt(v+1);
 
+
                 int w0 = v0.getRight() - v0.getLeft();
                 int x0 = v0.getLeft() + w0/2;
-                int x1 = x0;
 
                 int y0 = v0.getBottom();
                 int y1 = v1.getTop();
 
 
-                canvas.drawLine(x0, y0, x1, y1, paint);
-                canvas.drawLine(x1 - 8, y1 - 8, x1, y1, paint);
-                canvas.drawLine(x1 + 8, y1 - 8, x1, y1, paint);
+                canvas.drawLine(x0, y0, x0, y1, paint);
+                canvas.drawLine(x0 - 8, y1 - 8, x0, y1, paint);
+                canvas.drawLine(x0 + 8, y1 - 8, x0, y1, paint);
 
             }// for
 
@@ -389,7 +384,7 @@ public class BusinessModel extends AppCompatActivity {
 
                 // draw stub
                 View v1 = getChildAt(3);
-                int x1 = v1.getRight();
+                x1 = v1.getRight();
                 int h1 = v1.getBottom()-v1.getTop();
                 int y1 = v1.getTop() + h1/2;
 

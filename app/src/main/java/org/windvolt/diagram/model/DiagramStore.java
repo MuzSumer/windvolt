@@ -18,20 +18,32 @@
 */
 package org.windvolt.diagram.model;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.io.FileInputStream;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class DiagramStore {
 
-    /* --------------------------------windvolt-------------------------------- */
-
-    final int rootId = 100;
-
     ArrayList<DiagramModel> store = new ArrayList<>();
 
+
+    final int rootId = 100;
     public String getRootId() { return Integer.toString(rootId); }
 
-    public String getChildren(DiagramModel parent) {
-        return parent.getChildren();
+
+
+    public void addModel(DiagramModel model) {
+        store.add(model);
     }
 
     public String addChild(String parent_id, String tag, String title, String subject, int symbol, int address) {
@@ -65,6 +77,13 @@ public class DiagramStore {
 
         return id;
     }//addChild
+
+
+    public String getChildren(DiagramModel parent) {
+        return parent.getChildren();
+    }
+
+
 
     public DiagramModel findModel(String id) {
         DiagramModel found = null;
@@ -105,4 +124,62 @@ public class DiagramStore {
         return parent;
     }//findParent
 
+
+    public boolean loadStore(Context context, String url) {
+        // TODO load model from a web server
+
+
+        boolean success = true;
+
+        //* DRAFT */
+        try {
+            FileInputStream fileInputStream = context.openFileInput(url);
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document document = builder.parse(fileInputStream);
+            Element root = document.getDocumentElement();
+            root.normalize();
+
+            NodeList devices = root.getElementsByTagName("device");
+            int size = devices.getLength();
+
+            for (int position=0; position<size; position++) {
+                Node device = devices.item(position);
+
+                if (device.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) device;
+
+                    String id = element.getElementsByTagName("id").item(0).getTextContent();
+                    String tag = element.getElementsByTagName("tag").item(0).getTextContent();
+                    String title = element.getElementsByTagName("title").item(0).getTextContent();
+                    String subject = element.getElementsByTagName("subject").item(0).getTextContent();
+                    String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
+                    String address = element.getElementsByTagName("address").item(0).getTextContent();
+                    String children = element.getElementsByTagName("children").item(0).getTextContent();
+
+                    DiagramModel model = new DiagramModel();
+
+                    model.setId(id);
+                    model.setTag(tag);
+                    model.setTitle(title);
+                    model.setSubject(subject);
+                    model.setSymbol(symbol);
+                    model.setAddress(address);
+                    model.setChildren(children);
+
+                    addModel(model);
+                }
+            }
+
+        } catch (Exception e) {
+
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+
+            success = false;
+        }
+
+        return success;
+    }
 }

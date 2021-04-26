@@ -27,12 +27,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- show dividers in popup menu
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+        -->
+
     </style>
 
     <style name="AppTheme.NoActionBar">
 
-        <!-- show splash while the app is initialized -->
-
+        <!-- show splash while app initializes -->
         <item name="android:windowBackground">@drawable/app_splash</item>
 
         <item name="windowActionBar">false</item>
@@ -43,6 +47,12 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- popup menu dividers -->
+    <style name="PopupMenuListView" parent="@style/Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">#373737</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
 
 
 </resources>
