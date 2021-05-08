@@ -20,6 +20,8 @@ package org.windvolt.diagram.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.Html;
+import android.webkit.WebResourceRequest;
 import android.widget.Toast;
 
 import org.w3c.dom.Document;
@@ -46,18 +48,18 @@ public class DiagramStore {
 
     ArrayList<DiagramModel> store = new ArrayList<>();
 
-    //HttpsURLConnection connection;
-    InputStream content_stream;
+    HttpsURLConnection connection = null;
+    InputStream content_stream = null;
 
 
-    public boolean loadStoreModel(Context context, String url) {
+    public boolean loadXmlModel(Context context, String url) {
 
         boolean success = true;
 
-        //if (success) return false;
+        if (success) return false;
+
 
         Loader loader = new Loader();
-
         String result = loader.doInBackground(url);
 
         if (!result.isEmpty()) {
@@ -100,28 +102,35 @@ public class DiagramStore {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            //setText()
         }
     }//Loader
 
 
+    /* --------------------------------windvolt-------------------------------- */
 
     private void loadContent(String url) throws IOException, MalformedURLException {
 
-        HttpsURLConnection connection = null;
-
         try {
             URL uri = new URL(url);
+
             connection = (HttpsURLConnection) uri.openConnection();
-            connection.setReadTimeout(15*1000);
-            connection.setConnectTimeout(30*1000);
+
+            connection.setReadTimeout(10*1000);
+            connection.setConnectTimeout(15*1000);
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
 
             connection.connect();
 
-            //int responseCode = connection.getResponseCode();
-
             content_stream = connection.getInputStream();
+
+            /*
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+            }
+             */
 
 
         } finally {
@@ -133,7 +142,7 @@ public class DiagramStore {
             }
         }
 
-    }
+    }//loadContent
 
     private String readContent(BufferedInputStream content) {
         String result = "";
@@ -154,6 +163,9 @@ public class DiagramStore {
             if (content_stream != null) {
                 content_stream.close();
             }
+            if (connection != null) {
+                connection.disconnect();
+            }
 
 
             ByteArrayInputStream byte_stream = new ByteArrayInputStream(buff);
@@ -166,7 +178,6 @@ public class DiagramStore {
             Document document = builder.parse(byte_stream);
 
             parseContent(document);
-
 
         } catch (IOException e) {
             result = "IOException";
@@ -181,11 +192,11 @@ public class DiagramStore {
 
         return result;
 
-    }
+    }//readContent
 
     private void parseContent(Document document) {
 
-        Element root = document.getDocumentElement();
+        Element root = document.getDocumentElement();//diagram
         root.normalize();
 
         NodeList models = root.getElementsByTagName("model");
@@ -219,12 +230,20 @@ public class DiagramStore {
                 addModel(model);
             }
         }
-    }
+    }//parseContent
+
+
+    /* --------------------------------windvolt-------------------------------- */
 
 
     final int rootId = 100;
-    public String getRootId() { return Integer.toString(rootId); }
+    public String getRootId() {
+        return Integer.toString(rootId);
+    }
 
+    public String getChildren(DiagramModel parent) {
+        return parent.getChildren();
+    }
 
 
     public void addModel(DiagramModel model) {
@@ -272,11 +291,7 @@ public class DiagramStore {
     }//addChild
 
 
-    public String getChildren(DiagramModel parent) {
-        return parent.getChildren();
-    }
-
-
+    /* --------------------------------windvolt-------------------------------- */
 
     public DiagramModel findModel(String id) {
         DiagramModel found = null;

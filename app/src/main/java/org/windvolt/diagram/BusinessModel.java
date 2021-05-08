@@ -60,7 +60,7 @@ public class BusinessModel extends AppCompatActivity {
     final int CHILD_HEIGHT = 72;
     final int CHILD_MARGIN = 88;
 
-    String focusId = "";
+    String focus_id = "";
 
     final int CHILD_WIDTH = 360;
 
@@ -73,10 +73,9 @@ public class BusinessModel extends AppCompatActivity {
 
         //* try to load model */
         //String url = "https://windvolt.org/economy.xml";
-        //String url = "https://github.com/MuzSumer/windvolt/blob/main/fastlane/models/economy.xml";
-        String url = "https://github.com/MuzSumer/windvolt/tree/main/fastlane/models/economy.xml";
+        String url = "http://10.0.2.2/windvolt/economy.xml";
 
-        if (store.loadStoreModel(this, url)) {
+        if (store.loadXmlModel(this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
@@ -170,10 +169,8 @@ public class BusinessModel extends AppCompatActivity {
 
     protected void setFocus(String id, boolean expand) {
 
-
-        boolean hasFocus = id.equals(focusId);
-
-        focusId = id;
+        boolean hasFocus = id.equals(focus_id);
+        focus_id = id;
 
         DiagramModel model = store.findModel(id);
         if (null == model) return;
@@ -201,13 +198,13 @@ public class BusinessModel extends AppCompatActivity {
             removeChildren(id);
         }
 
-        layoutModelFlow();
+        layoutDiagram();
 
         //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
     }
 
 
-    private void layoutModelFlow() {
+    private void layoutDiagram() {
         // layout children
 
         Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
@@ -220,12 +217,14 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-            layout.setBackground(roundbox);
-
             int ww = CHILD_WIDTH;
             String p_id = layout.getContentDescription().toString();
 
-            if (p_id.equals(focusId)) layout.setBackground(focusbox);
+            if (p_id.equals(focus_id)) {
+                layout.setBackground(focusbox);
+            } else {
+                layout.setBackground(roundbox);
+            }
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
 
@@ -298,7 +297,7 @@ public class BusinessModel extends AppCompatActivity {
         DiagramModel model = store.findModel(id);
         if (null == model) return;
 
-        String c_id = model.getChildren();
+        String c_id = model.getChildren(); // single schild only
         View found = findModelView(c_id);
 
         if (null == found) {}
@@ -307,7 +306,6 @@ public class BusinessModel extends AppCompatActivity {
             removeChildren(c_id);
 
             diagram.removeView(found);
-
         }
 
     }//removeChildren
@@ -347,8 +345,6 @@ public class BusinessModel extends AppCompatActivity {
             //drawDiagramSybol(canvas);
 
 
-
-
             //* draw connections */
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(4);
@@ -376,39 +372,48 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-
-
             //* draw interconnections */
 
-            /*
+            final int TAG_TAB = 50;
+            final int TAG_POS = 4;
+
             paint.setColor(Color.BLUE);
 
-            if (size > 11) {
+            if (size > TAG_POS) {
 
-                // draw stub with tip
-                View v0 = getChildAt(0);
+                // draw stub
+                View v0 = getChildAt(1);
                 int x0 = v0.getRight();
-                int h0 = v0.getBottom()-v0.getTop();
-                int y0 = v0.getTop() + h0/2;
+                int h0 = v0.getBottom() - v0.getTop();
+                int y0 = v0.getTop() + h0 / 2;
 
                 canvas.drawLine(x0, y0, x0 + TAG_TAB, y0, paint);
+
+                /*
+                // draw arrow
                 canvas.drawLine(x0, y0, x0 + 8, y0 - 8, paint);
                 canvas.drawLine(x0, y0, x0 + 8, y0 + 8, paint);
+                 */
+
 
 
                 // draw stub
-                View v1 = getChildAt(3);
-                x1 = v1.getRight();
-                int h1 = v1.getBottom()-v1.getTop();
-                int y1 = v1.getTop() + h1/2;
+                View v1 = getChildAt(TAG_POS);
+                int x1 = v1.getRight();
+                int h1 = v1.getBottom() - v1.getTop();
+                int y1 = v1.getTop() + h1 / 2;
 
                 canvas.drawLine(x1, y1, x1 + TAG_TAB, y1, paint);
+
+
+                // draw arrow
+                canvas.drawLine(x1, y1, x1 + 8, y1 - 8, paint);
+                canvas.drawLine(x1, y1, x1 + 8, y1 + 8, paint);
 
 
                 // connect stubs
                 canvas.drawLine(x0 + TAG_TAB, y0, x1 + TAG_TAB, y1, paint);
             }
-             */
 
 
 

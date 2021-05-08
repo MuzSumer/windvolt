@@ -68,10 +68,9 @@ public class WhoIsWho extends AppCompatActivity {
 
         //* try to load model or create a local */
         //String url = "https://windvolt.org/dossier.xml";
-        //String url = "https://github.com/MuzSumer/windvolt/blob/main/fastlane/models/dossier.xml";
-        String url = "https://github.com/MuzSumer/windvolt/main/models/dossier.xml";
+        String url = "http://10.0.2.2/windvolt/dossier.xml";
 
-        if (store.loadStoreModel(this, url)) {
+        if (store.loadXmlModel(this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
@@ -254,7 +253,10 @@ public class WhoIsWho extends AppCompatActivity {
 
     //* set focus */
     private void setFocus(String id) {
+
+        boolean hasFocus = id.equals(focus_id);
         focus_id = id;
+
         DiagramModel focus = store.findModel(id);
 
 
