@@ -70,7 +70,7 @@ public class WhoIsWho extends AppCompatActivity {
         //String url = "https://windvolt.org/dossier.xml";
         String url = "http://10.0.2.2/windvolt/dossier.xml";
 
-        if (store.loadXmlModel(this, url)) {
+        if (store.loadXmlModel(WhoIsWho.this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();

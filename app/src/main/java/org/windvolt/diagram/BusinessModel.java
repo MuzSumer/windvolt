@@ -75,7 +75,7 @@ public class BusinessModel extends AppCompatActivity {
         //String url = "https://windvolt.org/economy.xml";
         String url = "http://10.0.2.2/windvolt/economy.xml";
 
-        if (store.loadXmlModel(this, url)) {
+        if (store.loadXmlModel(BusinessModel.this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
