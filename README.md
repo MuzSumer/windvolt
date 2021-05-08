@@ -41,7 +41,8 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
             </td>
         </tr>
     </table>
-
+</div>
+<div>
     <table>
         <tr>
             <td>
