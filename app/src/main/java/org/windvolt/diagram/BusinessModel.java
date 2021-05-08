@@ -1,5 +1,5 @@
 /*
-    This file is part of windvolt.org.
+    This file is part of windvolt.
 
     Copyright (c) 2020 Max Sumer
 
@@ -73,9 +73,10 @@ public class BusinessModel extends AppCompatActivity {
 
         //* try to load model */
         //String url = "https://windvolt.org/economy.xml";
-        String url = "http://10.0.2.2/windvolt/economy.xml";
+        //String url = "https://github.com/MuzSumer/windvolt/blob/main/fastlane/models/economy.xml";
+        String url = "https://github.com/MuzSumer/windvolt/tree/main/fastlane/models/economy.xml";
 
-        if (store.loadStore(this, url)) {
+        if (store.loadStoreModel(this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
@@ -87,23 +88,29 @@ public class BusinessModel extends AppCompatActivity {
     }//createStore
 
     private void createLocalStore() {
-        String root = store.addChild("", "wind", "wind",
-                "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0);
+        String root = store.addChild("", "wind",
+                "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0,
+                "wind");
 
-        String c1 = store.addChild(root, "producer", "producer",
-                "Kollektoren", R.drawable.page0_v10, R.string.diagram_flow1);
+        String c1 = store.addChild(root, "producer",
+                "Kollektoren", R.drawable.page0_v10, R.string.diagram_flow1,
+                "producer");
 
-        String c2 = store.addChild(c1, "distributor", "distributor",
-                "Netze", R.drawable.wiw_net, R.string.diagram_flow2);
+        String c2 = store.addChild(c1, "distributor",
+                "Netze", R.drawable.wiw_net, R.string.diagram_flow2,
+                "distributor");
 
-        String c3 = store.addChild(c2, "trader", "trader",
-                "Handel", R.drawable.wiw_exchange, R.string.diagram_flow3);
+        String c3 = store.addChild(c2, "trader",
+                "Handel", R.drawable.wiw_exchange, R.string.diagram_flow3,
+                "trader");
 
-        String c4 = store.addChild(c3, "reseller", "reseller",
-                "Versorger", R.drawable.wiw_com, R.string.diagram_flow4);
+        String c4 = store.addChild(c3, "reseller",
+                "Versorger", R.drawable.wiw_com, R.string.diagram_flow4,
+                "reseller");
 
-        String c5 = store.addChild(c4, "consumer", "consumer",
-                "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5);
+        String c5 = store.addChild(c4, "consumer",
+                "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5,
+                "consusmer");
     }//createLocalStore
 
 

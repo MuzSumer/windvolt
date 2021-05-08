@@ -1,5 +1,5 @@
 /*
-    This file is part of windvolt.org.
+    This file is part of windvolt.
 
     Copyright (c) 2020 Max Sumer
 
@@ -68,9 +68,10 @@ public class WhoIsWho extends AppCompatActivity {
 
         //* try to load model or create a local */
         //String url = "https://windvolt.org/dossier.xml";
-        String url = "http://10.0.2.2/windvolt/dossier.xml";
+        //String url = "https://github.com/MuzSumer/windvolt/blob/main/fastlane/models/dossier.xml";
+        String url = "https://github.com/MuzSumer/windvolt/main/models/dossier.xml";
 
-        if (store.loadStore(this, url)) {
+        if (store.loadStoreModel(this, url)) {
 
         } else {
             Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
@@ -84,8 +85,9 @@ public class WhoIsWho extends AppCompatActivity {
         int symbol = R.drawable.windvolt_small;
 
 
-        String root = store.addChild("", DIAGRAM_NAME,"windvolt", "Windenergie Galerie",
-                symbol, R.string.diagram_dossier);
+        String root = store.addChild("", "windvolt", "Windenergie Galerie",
+                symbol, R.string.diagram_dossier,
+                DIAGRAM_NAME);
 
 
         // net
@@ -93,47 +95,58 @@ public class WhoIsWho extends AppCompatActivity {
 
             int net = R.drawable.wiw_net;
 
-            String netz = store.addChild(root, "net", "Netzbetreiber", "Die deutschen Netzbetreiber",
-                    net, R.string.net_0);
+            String netz = store.addChild(root, "Netzbetreiber", "Die deutschen Netzbetreiber",
+                    net, R.string.net_0,
+                    "net");
 
 
 
-            store.addChild(netz, "","50Hertz", "50Hertz Transmission GmbH",
-                    net, R.string.net_50herz);
-            store.addChild(netz, "","Amprion", "Amprion GmbH",
-                    net, R.string.net_ampirion);
-            store.addChild(netz, "","Tennet", "Tennet TSO",
-                    net, R.string.net_tennet);
-            store.addChild(netz, "","Transnet BW", "Transnet BW GmbH",
-                    net, R.string.net_transnet);
+            store.addChild(netz, "50Hertz", "50Hertz Transmission GmbH",
+                    net, R.string.net_50herz,
+                    "");
+            store.addChild(netz, "Amprion", "Amprion GmbH",
+                    net, R.string.net_ampirion,
+                    "");
+            store.addChild(netz, "Tennet", "Tennet TSO",
+                    net, R.string.net_tennet,
+                    "");
+            store.addChild(netz, "Transnet BW", "Transnet BW GmbH",
+                    net, R.string.net_transnet,
+                    "");
         }
 
         // pricing
         {
             int stock = R.drawable.wiw_exchange;
 
-            store.addChild(root, "exc", "Börse", "Strombörse EEX",
-                    stock, R.string.com_stock);
+            store.addChild(root, "Börse", "Strombörse EEX",
+                    stock, R.string.com_stock,
+                    "exc");
         }
 
         // com
         {
             int com = R.drawable.wiw_com;
 
-            String konzern = store.addChild(root, "com","Versorger", "Stromversorger in Deutschland",
-                    com, R.string.com_0);
+            String konzern = store.addChild(root, "Versorger", "Stromversorger in Deutschland",
+                    com, R.string.com_0,
+                    "com");
 
 
 
-            String k1 = store.addChild(konzern, "fossile", "konventionelle", "Versorgung mit konventioneller Energie",
-                    com, R.string.com_conventional);
+            String k1 = store.addChild(konzern, "konventionelle", "Versorgung mit konventioneller Energie",
+                    com, R.string.com_conventional,
+                    "fossile");
 
-            store.addChild(k1, "", "RWE", "Rheinisch-Westfälische Energiebetriebe",
-                    com, R.string.com_rwe);
-            store.addChild(k1, "", "eon", "EON Energie Deutschland",
-                    com, R.string.com_eon);
-            store.addChild(k1, "","OVAG", "Oberhessische Versorgung Aktiengesellschaft",
-                    com, R.string.com_ovag);
+            store.addChild(k1, "RWE", "Rheinisch-Westfälische Energiebetriebe",
+                    com, R.string.com_rwe,
+                    "");
+            store.addChild(k1, "eon", "EON Energie Deutschland",
+                    com, R.string.com_eon,
+                    "");
+            store.addChild(k1, "OVAG", "Oberhessische Versorgung Aktiengesellschaft",
+                    com, R.string.com_ovag,
+                    "");
 
 
 
@@ -141,21 +154,28 @@ public class WhoIsWho extends AppCompatActivity {
             {
                 int green = R.drawable.wiw_green;
 
-                String k2 = store.addChild(konzern, "eco", "Ökoanbieter", "Ökostromversorger",
-                        green, R.string.com_ecology);
+                String k2 = store.addChild(konzern, "Ökoanbieter", "Ökostromversorger",
+                        green, R.string.com_ecology,
+                        "eco");
 
-                store.addChild(k2, "","Lichtblick", "Lichtblick SE",
-                        green, R.string.com_lichtblick);
-                store.addChild(k2, "", "Naturstrom", "Naturstrom AG",
-                        green, R.string.com_naturstrom);
-                store.addChild(k2, "", "EWS Schönau", "EWS Schönau eG",
-                        green, R.string.com_schoenau);
-                store.addChild(k2, "", "greenpeace", "greenpeace energy eG",
-                        green, R.string.com_greenpeace);
-                store.addChild(k2, "", "Bürgerwerke", "Bürgerwerke eG",
-                        green, R.string.com_buergerwerke);
-                store.addChild(k2, "", "Polarstern", "Polarstern GmbH",
-                        green, R.string.com_polarstern);
+                store.addChild(k2, "Lichtblick", "Lichtblick SE",
+                        green, R.string.com_lichtblick,
+                        "");
+                store.addChild(k2, "Naturstrom", "Naturstrom AG",
+                        green, R.string.com_naturstrom,
+                        "");
+                store.addChild(k2, "EWS Schönau", "EWS Schönau eG",
+                        green, R.string.com_schoenau,
+                        "");
+                store.addChild(k2, "greenpeace", "greenpeace energy eG",
+                        green, R.string.com_greenpeace,
+                        "");
+                store.addChild(k2, "Bürgerwerke", "Bürgerwerke eG",
+                        green, R.string.com_buergerwerke,
+                        "");
+                store.addChild(k2, "Polarstern", "Polarstern GmbH",
+                        green, R.string.com_polarstern,
+                        "");
             }
 
 
@@ -166,20 +186,25 @@ public class WhoIsWho extends AppCompatActivity {
         {
             int pol = R.drawable.wiw_politics;
 
-            String k3 = store.addChild(root, "shapers","Netzwerke", "EEG, Regulierung, Forschung, Beratung",
-                    pol, R.string.pol_0);
+            String k3 = store.addChild(root, "Netzwerke", "EEG, Regulierung, Forschung, Beratung",
+                    pol, R.string.pol_0,
+                    "shapers");
 
-            store.addChild(k3, "gov", "BM Wirtschaft/Energie", "Bundesministerium für für Wirtschaft und Energie",
-                    pol, R.string.pol_bmwi);
+            store.addChild(k3, "BM Wirtschaft/Energie", "Bundesministerium für für Wirtschaft und Energie",
+                    pol, R.string.pol_bmwi,
+                    "gov");
 
-            store.addChild(k3, "gov", "Bundesnetzagentur", "Bundesnetzagentur",
-                    pol, R.string.pol_netzagentur);
+            store.addChild(k3, "Bundesnetzagentur", "Bundesnetzagentur",
+                    pol, R.string.pol_netzagentur,
+                    "gov");
 
-            store.addChild(k3, "","Bundesverband Windenergie", "Bundesverband Windenergie e.V.",
-                    pol, R.string.pol_verbandwind);
+            store.addChild(k3, "Bundesverband Windenergie", "Bundesverband Windenergie e.V.",
+                    pol, R.string.pol_verbandwind,
+                    "");
 
-            store.addChild(k3, "","Forum Regenerative Energien", "Internationales Wirtschaftsforum Regenerative Energien",
-                    pol, R.string.pol_iwr);
+            store.addChild(k3, "Forum Regenerative Energien", "Internationales Wirtschaftsforum Regenerative Energien",
+                    pol, R.string.pol_iwr,
+                    "");
 
         }
     }//createLocalStore

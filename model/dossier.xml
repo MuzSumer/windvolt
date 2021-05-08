@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
  This file is part of windvolt.
 
@@ -16,10 +17,23 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/white" />
-
-    <item
-        android:drawable="@drawable/windvolt_watermark"
-        android:gravity="center" />
-</layer-list>
+<diagram>
+    <model>
+        <id>100</id>
+        <title>title</title>
+        <subject>subject</subject>
+        <symbol>symbol</symbol>
+        <address>address</address>
+        <children>101</children>
+        <tags>tags</tags>
+    </model>
+    <model>
+        <id>101</id>
+        <title>title</title>
+        <subject>subject</subject>
+        <symbol>symbol</symbol>
+        <address>address</address>
+        <children></children>
+        <tags>tags</tags>
+    </model>
+</diagram>

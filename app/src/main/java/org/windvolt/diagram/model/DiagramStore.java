@@ -1,5 +1,5 @@
 /*
-    This file is part of windvolt.org.
+    This file is part of windvolt.
 
     Copyright (c) 2020 Max Sumer
 
@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -45,9 +46,29 @@ public class DiagramStore {
 
     ArrayList<DiagramModel> store = new ArrayList<>();
 
-    HttpsURLConnection connection;
+    //HttpsURLConnection connection;
     InputStream content_stream;
 
+
+    public boolean loadStoreModel(Context context, String url) {
+
+        boolean success = true;
+
+        //if (success) return false;
+
+        Loader loader = new Loader();
+
+        String result = loader.doInBackground(url);
+
+        if (!result.isEmpty()) {
+            success = false;
+
+            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        }
+
+
+        return success;
+    }
 
     class Loader extends AsyncTask<String, Void, String> {
 
@@ -57,12 +78,21 @@ public class DiagramStore {
 
             String url = strings[0];
 
-            BufferedInputStream content = loadContent(url);
-            if (content == null) {
-                result = "could not load content";
-            } else {
+            try {
+                loadContent(url);
+
+                BufferedInputStream content = new BufferedInputStream(content_stream);
+
                 result = readContent(content);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return "MalformedURLException";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "IOException";
             }
+
 
             return result;
         }
@@ -73,54 +103,36 @@ public class DiagramStore {
         }
     }//Loader
 
-    public boolean loadStore(Context context, String url) {
-        // TODO load model from a web server
 
 
-        boolean success = true;
+    private void loadContent(String url) throws IOException, MalformedURLException {
 
-        if (success) return false;
+        HttpsURLConnection connection = null;
 
-        Loader loader = new Loader();
-
-        String result = loader.doInBackground(url);
-
-        if (result.isEmpty()) {
-            success = false;
-
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-        }
-
-
-        return success;
-    }
-
-    private BufferedInputStream loadContent(String url) {
-        BufferedInputStream result = null;
-
-        URL uri = null;
         try {
-            uri = new URL(url);
-            HttpsURLConnection connection = (HttpsURLConnection) uri.openConnection();
+            URL uri = new URL(url);
+            connection = (HttpsURLConnection) uri.openConnection();
+            connection.setReadTimeout(15*1000);
+            connection.setConnectTimeout(30*1000);
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+
             connection.connect();
 
             //int responseCode = connection.getResponseCode();
 
             content_stream = connection.getInputStream();
 
-            if (content_stream == null) {
-                return result;
+
+        } finally {
+            if (content_stream != null) {
+                content_stream.close();
             }
-
-            result = new BufferedInputStream(content_stream);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
 
-        return result;
     }
 
     private String readContent(BufferedInputStream content) {
@@ -128,12 +140,10 @@ public class DiagramStore {
 
         try {
             byte[] buff = new byte[2048];
-
             int c = 0;
-            int r = 0;
 
-            r = content.read();
 
+            int r = content.read();
             while (r != -1) {
                 buff[c] = (byte) r;
                 c++;
@@ -144,29 +154,28 @@ public class DiagramStore {
             if (content_stream != null) {
                 content_stream.close();
             }
-            if (connection != null) {
-                connection.disconnect();
-            }
 
 
-            ByteArrayInputStream bis = new ByteArrayInputStream(buff);
+            ByteArrayInputStream byte_stream = new ByteArrayInputStream(buff);
+
+
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
-            Document document = builder.parse(bis);
+            Document document = builder.parse(byte_stream);
 
             parseContent(document);
 
 
         } catch (IOException e) {
-            result = e.getMessage();
+            result = "IOException";
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
-            result = e.getMessage();
+            result = "ParserConfigurationException";
             e.printStackTrace();
         } catch (SAXException e) {
-            result = e.getMessage();
+            result = "SAXException";
             e.printStackTrace();
         }
 
@@ -182,29 +191,30 @@ public class DiagramStore {
         NodeList models = root.getElementsByTagName("model");
         int size = models.getLength();
 
-        for (int position=0; position<size; position++) {
-            Node device = models.item(position);
+        for (int p=0; p<size; p++) {
+            Node device = models.item(p);
 
             if (device.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) device;
 
                 String id = element.getElementsByTagName("id").item(0).getTextContent();
-                String tags = element.getElementsByTagName("tag").item(0).getTextContent();
                 String title = element.getElementsByTagName("title").item(0).getTextContent();
                 String subject = element.getElementsByTagName("subject").item(0).getTextContent();
                 String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
                 String address = element.getElementsByTagName("address").item(0).getTextContent();
                 String children = element.getElementsByTagName("children").item(0).getTextContent();
+                String tags = element.getElementsByTagName("tag").item(0).getTextContent();
+
 
                 DiagramModel model = new DiagramModel();
 
                 model.setId(id);
-                model.setTags(tags);
                 model.setTitle(title);
                 model.setSubject(subject);
                 model.setSymbol(symbol);
                 model.setAddress(address);
                 model.setChildren(children);
+                model.setTags(tags);
 
                 addModel(model);
             }
@@ -221,12 +231,14 @@ public class DiagramStore {
         store.add(model);
     }
 
-    public String addChild(String parent_id, String tag, String title, String subject, int symbol, int address) {
+    public String addChild(String parent_id, String title, String subject, int symbol, int address, String tags) {
 
         DiagramModel parent = null;
         DiagramModel child = new DiagramModel();
 
-        if (!parent_id.isEmpty()) parent = findModel(parent_id);
+        if (!parent_id.isEmpty()) {
+            parent = findModel(parent_id);
+        }
 
         int size = store.size();
         String id = Integer.toString(rootId + size);
@@ -236,17 +248,23 @@ public class DiagramStore {
         // add to parent
         if (parent != null) {
             String children = parent.getChildren();
-            if (children.isEmpty()) { children = id; }
-            else { children += "," +id; }
+
+            if (children.isEmpty()) {
+                children = id;
+            } else {
+                children += "," +id;
+            }
 
             parent.setChildren(children);
         }
 
-        child.setTags(tag);
+
         child.setTitle(title);
         child.setSubject(subject);
         child.setSymbol(Integer.toString(symbol));
         child.setAddress(Integer.toString(address));
+        child.setTags(tags);
+
 
         store.add(child);
 
