@@ -68,7 +68,6 @@ public class DiagramStore {
             Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         }
 
-
         return success;
     }
 
