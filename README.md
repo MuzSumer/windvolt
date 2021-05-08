@@ -40,7 +40,9 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
             <img src="fastlane/metadata/android/de/images/screenshots/screenshot_20.png">
             </td>
         </tr>
+    </table>
 
+    <table>
         <tr>
             <td>
             <img src="fastlane/metadata/android/de/images/screenshots/screenshot_30.png">
@@ -53,7 +55,6 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
             </td>
         </tr>
     </table>
-
 </div>
 
 
