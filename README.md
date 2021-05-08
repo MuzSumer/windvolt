@@ -28,9 +28,12 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
 
 
 <div>
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_0.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_1.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_2.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/Screenshot_10.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/Screenshot_11.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_20.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_30.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_31.png">
+    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_40.png">
 </div>
 
 
