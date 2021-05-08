@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<diagram>
+    <model>
+        <id>100</id>
+        <title>title</title>
+        <subject>subject</subject>
+        <symbol>symbol</symbol>
+        <address>address</address>
+        <children>101</children>
+        <tags>tags</tags>
+    </model>
+    <model>
+        <id>101</id>
+        <title>title</title>
+        <subject>subject</subject>
+        <symbol>symbol</symbol>
+        <address>address</address>
+        <children></children>
+        <tags>tags</tags>
+    </model>
+</diagram>

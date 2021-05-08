@@ -28,6 +28,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -66,9 +67,15 @@ public class WhoIsWho extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model or create a local */
-        if (store.loadStore(this, "https://windvolt.org/dossier.xml")) {
+        //String url = "https://windvolt.org/dossier.xml";
+        String url = "http://10.0.2.2/windvolt/dossier.xml";
 
-        } else createLocalStore();
+        if (store.loadStore(this, url)) {
+
+        } else {
+            Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
+            createLocalStore();
+        }
 
 
     }//createStore
@@ -255,12 +262,12 @@ public class WhoIsWho extends AppCompatActivity {
         }//children
 
         // calculate path
-        String path = focus.getTag();
+        String path = focus.getTags();
 
         DiagramModel parent = store.findParent(id);
         while (null != parent) {
 
-            String tag = parent.getTag();
+            String tag = parent.getTags();
 
             if (!tag.isEmpty()) {
 

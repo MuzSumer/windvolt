@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -70,10 +71,16 @@ public class BusinessModel extends AppCompatActivity {
 
         store = new DiagramStore();
 
-        //* try to load model or create a local */
-        if (store.loadStore(this, "https://windvolt.org/economy.xml")) {
+        //* try to load model */
+        //String url = "https://windvolt.org/economy.xml";
+        String url = "http://10.0.2.2/windvolt/economy.xml";
 
-        } else createLocalStore();
+        if (store.loadStore(this, url)) {
+
+        } else {
+            Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
+            createLocalStore();
+        }
 
 
 

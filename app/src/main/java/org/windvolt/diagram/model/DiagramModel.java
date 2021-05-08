@@ -18,7 +18,11 @@
 */
 package org.windvolt.diagram.model;
 
-public class DiagramModel extends MetaModel {
+public class DiagramModel {
+
+    String id = "";
+    public String getId() { return id; }
+    public void setId(String value) { id = value; }
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -41,5 +45,10 @@ public class DiagramModel extends MetaModel {
     String children = "";
     public String getChildren() { return children; }
     public void setChildren(String value) { children = value; }
+
+
+    String tags = "";
+    public String getTags() { return tags; }
+    public void setTags(String value) { tags = value; }
 
 }
