@@ -28,12 +28,32 @@ windvolt targets the usage and pricing of renewable energy, especially from wind
 
 
 <div>
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_10.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_11.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_20.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_30.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_31.png">
-    <img src="fastlane/metadata/android/de/images/screenshots/screenshot_40.png">
+    <table>
+        <tr>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_10.png">
+            </td>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_11.png">
+            </td>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_20.png">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_30.png">
+            </td>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_31.png">
+            </td>
+            <td>
+            <img src="fastlane/metadata/android/de/images/screenshots/screenshot_40.png">
+            </td>
+        </tr>
+    </table>
+
 </div>
 
 
