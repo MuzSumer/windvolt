@@ -47,7 +47,7 @@
 
 
     <!-- recommendation -->
-    <string name="recommendation_unavailable">entscheide selbst</string>
+    <string name="recommendation_unavailable">In Zukunft werden hier tagesaktuelle Empfehlungen gegeben.</string>
 
     <string name="recommendation_charge_prevent">laden nur falls nötig</string>
     <string name="recommendation_charge_smart">kleine Geräte laden</string>

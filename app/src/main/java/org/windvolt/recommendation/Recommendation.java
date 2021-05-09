@@ -75,8 +75,12 @@ public class Recommendation extends Fragment {
 
     final int BATTERY_HISTORY_ENTRIES = 10;
 
-    boolean history_allowed;
+
+    boolean geodata_allowed;
     boolean services_allowed;
+
+    boolean history_allowed;
+
 
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
@@ -94,7 +98,7 @@ public class Recommendation extends Fragment {
     AutoCompleteTextView location_chooser;
     String location;
 
-    TextView loc_display, bat_display;
+    TextView loc_display, geo_display, bat_display;
 
 
     String battery_level_now, battery_level_before; // "0", "1", ..., "100"
@@ -107,6 +111,7 @@ public class Recommendation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        geodata_allowed = zLocationGeodataAllowed();
         history_allowed = zBatteryHistoryAllowed();
         services_allowed = zLocationServiceAllowed();
 
@@ -131,7 +136,7 @@ public class Recommendation extends Fragment {
         //
         //ImageView rec_image = view.findViewById(R.id.recommendation_image);
         loc_display = (TextView) view.findViewById(R.id.location_display);
-
+        geo_display = (TextView) view.findViewById(R.id.location_geodata);
 
         // update battery
         bat_display = (TextView) view.findViewById(R.id.location_battery);
@@ -172,6 +177,7 @@ public class Recommendation extends Fragment {
 
                 // toogle visibilty
                 loc_display.setVisibility(View.GONE);
+                geo_display.setVisibility(View.GONE);
                 bat_display.setVisibility(View.GONE);
 
                 location_chooser.setVisibility(View.VISIBLE);
@@ -182,7 +188,7 @@ public class Recommendation extends Fragment {
 
         //* refresh display */
         displayBattery();
-
+        displayGeodata();
 
         //* open services */
         final FloatingActionButton services_open = (FloatingActionButton) view.findViewById(R.id.services_open);
@@ -210,6 +216,9 @@ public class Recommendation extends Fragment {
         //* allow or hide display */
         if (!history_allowed) {
             bat_display.setVisibility(View.GONE);
+        }
+        if (!geodata_allowed) {
+            geo_display.setVisibility(View.GONE);
         }
 
 
@@ -270,11 +279,6 @@ public class Recommendation extends Fragment {
                 //* toogle visibilty */
                 location_chooser.setVisibility(View.GONE);
 
-
-                loc_display.setVisibility(View.VISIBLE);
-                if (history_allowed) bat_display.setVisibility(View.VISIBLE);
-
-
                 //* free memory */
                 names.clear();
                 allnames.clear();
@@ -282,6 +286,15 @@ public class Recommendation extends Fragment {
 
                 location_chooser.clearListSelection();
                 location_chooser.setText("");
+
+
+
+
+                loc_display.setVisibility(View.VISIBLE);
+                if (history_allowed) bat_display.setVisibility(View.VISIBLE);
+                if (geodata_allowed) geo_display.setVisibility(View.VISIBLE);
+
+                displayGeodata();
 
 
                 //* user assurance */
@@ -331,6 +344,7 @@ public class Recommendation extends Fragment {
 
             default:
                 recommend.setText(getString(R.string.recommendation_unavailable));
+                //recommend.setText("Heute 55 MW zur Mittagszeit. Wir empfehlen das Laden, selbst wenn Deine Geräte nicht erschöpft sind");
         }
     }
 
@@ -709,6 +723,17 @@ public class Recommendation extends Fragment {
 
     /* --------------------------------windvolt-------------------------------- */
 
+    /* display latitude/longitude */
+    private void displayGeodata() {
+        String longitude = zLoadLongitude();
+        String latitude = zLoadLatitude();
+
+        if (longitude.isEmpty()) { longitude = "-"; }
+        if (latitude.isEmpty()) { latitude = "-"; }
+
+        String loc = "Breite: " + latitude + "  Länge: " + longitude;
+        geo_display.setText(loc);
+    }
 
     //* load latitude:longitude */
     private String loadGeodata() {
@@ -1039,6 +1064,12 @@ public class Recommendation extends Fragment {
 
 
     // user choices
+    private boolean zLocationGeodataAllowed() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        return sharedPreferences.getBoolean("location_geodata", false);
+    }
+
     private boolean zLocationServiceAllowed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
