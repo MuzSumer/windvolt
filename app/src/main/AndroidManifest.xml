@@ -19,10 +19,11 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.windvolt"
-    android:versionCode="111"
-    android:versionName="V1.11">
+    android:versionCode="20210"
+    android:versionName="V2021.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
