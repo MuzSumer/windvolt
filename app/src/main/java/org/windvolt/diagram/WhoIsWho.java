@@ -68,12 +68,13 @@ public class WhoIsWho extends AppCompatActivity {
 
         //* try to load model or create a local */
         //String url = "https://windvolt.org/dossier.xml";
-        String url = "http://10.0.2.2/windvolt/dossier.xml";
+        String url = "http://shop.windvolt.eu/model/windvolt/dossier.xml";
 
         if (store.loadXmlModel(WhoIsWho.this, url)) {
 
         } else {
-            Toast.makeText(this, "using local model", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
+
             createLocalStore();
         }
 
@@ -247,7 +248,9 @@ public class WhoIsWho extends AppCompatActivity {
         createStore();
 
         // start diagram
-        setFocus(store.getRootId());
+        if (store.size() > 0) {
+            setFocus(store.getRootId());
+        }
 
     }//onCreate
 

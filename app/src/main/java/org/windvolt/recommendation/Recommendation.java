@@ -34,9 +34,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +84,7 @@ public class Recommendation extends Fragment {
 
     boolean history_allowed;
 
-
+    final String RECOMMENDATION_URL = "https://windvolt.eu/today/recommendation.html";
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
 
@@ -100,6 +103,7 @@ public class Recommendation extends Fragment {
 
     TextView loc_display, geo_display, bat_display;
 
+    WebView recommendation;
 
     String battery_level_now, battery_level_before; // "0", "1", ..., "100"
     String battery_time_now, battery_time_before; // milliseconds
@@ -131,6 +135,26 @@ public class Recommendation extends Fragment {
         //
         setRecommendation(view, RECOMMENDATION_NOT_AVAILABLE);
 
+        recommendation = (WebView) view.findViewById(R.id.recommendation_view);
+        recommendation.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        recommendation.loadUrl(RECOMMENDATION_URL);
+
+        ImageView symbol = (ImageView) view.findViewById(R.id.recommendation_symbol);
+        symbol.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                recommendation.reload();
+
+                Toast.makeText(getContext(), "reload", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // UPDATE LOCATION AND GEODATA
         //
