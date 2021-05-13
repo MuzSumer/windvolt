@@ -23,6 +23,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -48,6 +50,8 @@ import org.windvolt.diagram.model.DiagramStore;
 public class BusinessModel extends AppCompatActivity {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy.xml";
+
+    boolean ALLOW_BEEP = false;
 
     Drawable windvolt_icon;
     FlowTreeLayout diagram;
@@ -191,6 +195,7 @@ public class BusinessModel extends AppCompatActivity {
 
                     // changes behaviour
                     setFocus(c_id, false);
+
                 }
             }
 
@@ -199,6 +204,7 @@ public class BusinessModel extends AppCompatActivity {
         }
 
         layoutDiagram();
+        doBeep();
 
         //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
     }
@@ -309,6 +315,8 @@ public class BusinessModel extends AppCompatActivity {
         }
 
     }//removeChildren
+
+
 
     class OnFocus implements View.OnClickListener {
 
@@ -432,4 +440,12 @@ public class BusinessModel extends AppCompatActivity {
         }
     }//FlowTreeLayout
 
+
+
+    private void doBeep() {
+        if (ALLOW_BEEP) {
+            ToneGenerator beep = new ToneGenerator(AudioManager.FLAG_PLAY_SOUND, 80);
+            beep.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE, 400);
+        }
+    }
 }
