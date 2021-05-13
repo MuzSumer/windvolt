@@ -48,8 +48,7 @@ public class DiagramStore {
 
     ArrayList<DiagramModel> store = new ArrayList<>();
 
-    HttpURLConnection connection = null;
-    InputStream content = null;
+
 
     String error = "";
     public String getError() {
@@ -62,24 +61,15 @@ public class DiagramStore {
 
     public boolean loadXmlModel(Context context, String url) {
 
+        error = "remote model not supported at this time";
+
         boolean success = true;
         if (success) return false;
 
 
         new DownloadXmlTask().execute(url);
 
-        {//*cleanup
-            if (content != null) {
-                try {
-                    content.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }//cleanup
+
 
 
         if (error.isEmpty()) {
@@ -94,16 +84,16 @@ public class DiagramStore {
     // implementation of AsyncTask used to download XML model
     private class DownloadXmlTask extends AsyncTask<String, Void, String> {
 
+        HttpURLConnection connection = null;
+        InputStream content = null;
+
+
         @Override
         protected String doInBackground(String... values) {
             String url = values[0];
 
-            // TODO
-            // load xml
             try {
-
                 URL uri = new URL(url);
-
                 connection = (HttpURLConnection) uri.openConnection();
 
                 connection.setReadTimeout(10*1000);
@@ -149,13 +139,13 @@ public class DiagramStore {
                 }//cookies
                 */
 
-                //connection.connect();
+                connection.connect();
                 content = connection.getInputStream();
 
 
-                buildContent();
-
-                //if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) { }
+                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+                    buildContent();
+                }
 
             } catch (MalformedURLException e) {
                 error = "MalformedURLException";
@@ -165,274 +155,133 @@ public class DiagramStore {
                 e.printStackTrace();
             }
 
-
-            return getError();
+            return error;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            // do anything
-        }
-    }
-
-
-    /* --------------------------------windvolt-------------------------------- */
-
-
-    private void buildContent() {
-
-
-        try {
-
-            /*
-             BufferedReader br =
-        new BufferedReader(
-            new InputStreamReader(con.getInputStream()));
-
-       String input;
-
-       while ((input = br.readLine()) != null){
-          System.out.println(input);
-       }
-       br.close();
-             */
-            InputStreamReader reader = new InputStreamReader(content);
-            BufferedReader buffer = new BufferedReader(reader);
-
-            //BufferedInputStream content = new BufferedInputStream(this.content);
-
-            byte[] buff = new byte[2048];
-            int c = 0;
-
-
-            int r = buffer.read();
-            while (r != -1) {
-                buff[c] = (byte) r;
-                c++;
-
-                r = buffer.read();
-            }
-            buffer.close();
-
-            ByteArrayInputStream byte_stream = new ByteArrayInputStream(buff);
-
-
-
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-
-            Document document = builder.parse(byte_stream);
-
-            parseContent(document);
-
-        } catch (IOException e) {
-            error = "IOException";
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            error = "ParserConfigurationException";
-            e.printStackTrace();
-        } catch (SAXException e) {
-            error = "SAXException";
-            e.printStackTrace();
-        }
-
-
-    }//readContent
-
-    private void parseContent(Document document) {
-
-        Element root = document.getDocumentElement();//diagram
-        root.normalize();
-
-        NodeList models = root.getElementsByTagName("model");
-        int size = models.getLength();
-
-        for (int p=0; p<size; p++) {
-            Node device = models.item(p);
-
-            if (device.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) device;
-
-                String id = element.getElementsByTagName("id").item(0).getTextContent();
-                String title = element.getElementsByTagName("title").item(0).getTextContent();
-                String subject = element.getElementsByTagName("subject").item(0).getTextContent();
-                String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
-                String address = element.getElementsByTagName("address").item(0).getTextContent();
-                String children = element.getElementsByTagName("children").item(0).getTextContent();
-                String tags = element.getElementsByTagName("tag").item(0).getTextContent();
-
-
-                DiagramModel model = new DiagramModel();
-
-                model.setId(id);
-                model.setTitle(title);
-                model.setSubject(subject);
-                model.setSymbol(symbol);
-                model.setAddress(address);
-                model.setChildren(children);
-                model.setTags(tags);
-
-                addModel(model);
-            }
-        }
-    }//parseContent
-
-    /* DRAFT1
-    private HttpsURLConnection getConnection(String url) throws MalformedURLException {
-    URL request_url = new URL(url);
-    try {
-        if (!isHttps()) {
-            throw new ConnectException("you have to use SSL certifacated url!");
-        }
-        urlConnection = (HttpsURLConnection) request_url.openConnection();
-        urlConnection.setRequestMethod("POST");
-        urlConnection.setReadTimeout(95 * 1000);
-        urlConnection.setConnectTimeout(95 * 1000);
-        urlConnection.setDoInput(true);
-        urlConnection.setRequestProperty("Accept", "application/json");
-        urlConnection.setRequestProperty("X-Environment", "android");
-
-        // Cookie Sets...
-    String cookie = cookieManager.getCookie(urlConnection.getURL().toString());
-    cookieManager = CookieManager.getInstance();
-        if (cookie != null)
-            urlConnection.setRequestProperty("Cookie", cookie);
-
-    List<String> cookieList = urlConnection.getHeaderFields().get("Set-Cookie");
-        if (cookieList != null) {
-        for (String cookieTemp : cookieList) {
-            cookieManager.setCookie(urlConnection.getURL().toString(), cookieTemp);
-        }
-    }
-    // Cookie Sets...
-
-        urlConnection.setHostnameVerifier(new HostnameVerifier() {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            //* if it necessarry get url verfication
-            //return HttpsURLConnection.getDefaultHostnameVerifier().verify("your_domain.com", session);
-            return true;
-        }
-    });
-        urlConnection.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-
-
-        urlConnection.connect();
-
-} catch (IOException e) {
-        e.printStackTrace();
-        }
-
-        return urlConnection;
-        }
-     */
-
-    /* DRAFT2
-    private TrustManager[] getWrappedTrustManagers(TrustManager[] trustManagers) {
-        final X509TrustManager originalTrustManager = (X509TrustManager) trustManagers[0];
-        return new TrustManager[]{
-                new X509TrustManager() {
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return originalTrustManager.getAcceptedIssuers();
-                    }
-
-                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                        try {
-                            originalTrustManager.checkClientTrusted(certs, authType);
-                        } catch (CertificateException ignored) {
-                        }
-                    }
-
-                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        try {
-                            originalTrustManager.checkServerTrusted(certs, authType);
-                        } catch (CertificateException ignored) {
-                        }
+            {//*cleanup
+                if (content != null) {
+                    try {
+                        content.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
-        };
-    }
-
-    private SSLSocketFactory getSSLSocketFactory() {
-        try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            InputStream caInput = getResources().openRawResource(R.raw.your_cert);
-            Certificate ca = cf.generateCertificate(caInput);
-            caInput.close();
-
-            KeyStore keyStore = KeyStore.getInstance("BKS");
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-
-            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
-            tmf.init(keyStore);
-
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, getWrappedTrustManagers(tmf.getTrustManagers()), null);
-
-            return sslContext.getSocketFactory();
-        } catch (Exception e) {
-            return HttpsURLConnection.getDefaultSSLSocketFactory();
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }//cleanup
         }
-    }
 
-    private class GETRequest extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... params) {
+        private void buildContent() {
+
             try {
-                URL url = new URL("https://your_server_url");
-                String token = "rbkY34HnL...";
-                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setSSLSocketFactory(getSSLSocketFactory());
-                urlConnection.setHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-//                        return true;
-                        HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                        return hv.verify("your_domain.com", session);
-                    }
-                });
-                urlConnection.setRequestProperty("Authorization", "Bearer " + token);
-                urlConnection.connect();
-                InputStream inputStream;
-                if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    inputStream = urlConnection.getErrorStream();
-                } else {
-                    inputStream = urlConnection.getInputStream();
+
+                InputStreamReader reader = new InputStreamReader(content);
+                BufferedReader buffer = new BufferedReader(reader);
+
+                // convert
+                byte[] bytes = new byte[2048];
+                int c = 0;
+
+                int r = buffer.read();
+                while (r != -1) {
+                    bytes[c] = (byte) r;
+                    c++;
+
+                    r = buffer.read();
                 }
-                return String.valueOf(urlConnection.getResponseCode()) + " " + urlConnection.getResponseMessage() + "\r\n" + parseStream(inputStream);
-            } catch (Exception e) {
-                return e.toString();
+                ByteArrayInputStream input = new ByteArrayInputStream(bytes);
+
+
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+
+                Document document = builder.parse(input);
+
+                {// cleanup
+                    buffer.close();
+                    reader.close();
+                }
+
+
+                parseContent(document);
+
+            } catch (IOException e) {
+                error = "IOException";
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                error = "ParserConfigurationException";
+                e.printStackTrace();
+            } catch (SAXException e) {
+                error = "SAXException";
+                e.printStackTrace();
             }
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            // do something...
-        }
-     */
 
 
+        }//buildContent
 
+        private void parseContent(Document document) {
+
+            Element root = document.getDocumentElement();//diagram
+            root.normalize();
+
+            NodeList models = root.getElementsByTagName("model");
+            int size = models.getLength();
+
+            for (int p=0; p<size; p++) {
+                Node node = models.item(p);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+
+                    String id = element.getElementsByTagName("id").item(0).getTextContent();
+                    String title = element.getElementsByTagName("title").item(0).getTextContent();
+                    String subject = element.getElementsByTagName("subject").item(0).getTextContent();
+                    String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
+                    String address = element.getElementsByTagName("address").item(0).getTextContent();
+                    String children = element.getElementsByTagName("children").item(0).getTextContent();
+                    String tags = element.getElementsByTagName("tags").item(0).getTextContent();
+
+
+                    DiagramModel model = new DiagramModel();
+
+                    model.setId(id);
+                    model.setTitle(title);
+                    model.setSubject(subject);
+                    model.setSymbol(symbol);
+                    model.setAddress(address);
+                    model.setChildren(children);
+                    model.setTags(tags);
+
+
+                    addRawModel(model);
+                }
+            }
+
+
+        }//parseContent
+
+    }
 
 
     /* --------------------------------windvolt-------------------------------- */
+
 
 
     final int rootId = 100;
     public String getRootId() {
-        return Integer.toString(rootId);
+        return "100";
     }
+
+    public void addRawModel(DiagramModel model) {
+        store.add(model);
+    }
+
 
     public String getChildren(DiagramModel parent) {
         return parent.getChildren();
-    }
-
-
-    public void addModel(DiagramModel model) {
-        store.add(model);
     }
 
     public String addChild(String parent_id, String title, String subject, int symbol, int address, String tags) {
