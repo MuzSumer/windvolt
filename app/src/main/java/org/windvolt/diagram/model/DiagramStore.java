@@ -28,13 +28,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,30 +59,35 @@ public class DiagramStore {
 
     public boolean loadXmlModel(Context context, String url) {
 
-        error = "remote model not supported at this time";
 
-        boolean success = true;
-        if (success) return false;
+        //* disable remote models
+        if (true) {
+            error = "remote model not supported at this time";
+
+            boolean success = true;
+            if (success) return false;
+        }
 
 
-        new DownloadXmlTask().execute(url);
-
-
+        // load the xml model
+        new XmlModelLoader().execute(url);
 
 
         if (error.isEmpty()) {
             return true;
         }
 
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show();
 
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show();
         return false;
     }
 
-    // implementation of AsyncTask used to download XML model
-    private class DownloadXmlTask extends AsyncTask<String, Void, String> {
 
-        HttpURLConnection connection = null;
+
+    // AsyncTask used to download XML model
+    private class XmlModelLoader extends AsyncTask<String, Void, String> {
+
+        HttpsURLConnection connection = null;
         InputStream content = null;
 
 
@@ -94,7 +97,7 @@ public class DiagramStore {
 
             try {
                 URL uri = new URL(url);
-                connection = (HttpURLConnection) uri.openConnection();
+                connection = (HttpsURLConnection) uri.openConnection();
 
                 connection.setReadTimeout(10*1000);
                 connection.setConnectTimeout(15*1000);
@@ -263,7 +266,7 @@ public class DiagramStore {
 
         }//parseContent
 
-    }
+    }//XmlModelLoader
 
 
     /* --------------------------------windvolt-------------------------------- */

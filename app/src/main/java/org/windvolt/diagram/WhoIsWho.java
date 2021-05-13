@@ -67,8 +67,7 @@ public class WhoIsWho extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model or create a local */
-        //String url = "https://windvolt.org/dossier.xml";
-        String url = "http://shop.windvolt.eu/model/windvolt/dossier.xml";
+        String url = "https://windvolt.eu/model/dossier.xml";
 
         if (store.loadXmlModel(WhoIsWho.this, url)) {
 

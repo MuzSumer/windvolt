@@ -72,8 +72,7 @@ public class BusinessModel extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model */
-        //String url = "https://windvolt.org/economy.xml";
-        String url = "http://store.windvolt.eu/model/windvolt/economy.xml";
+        String url = "https://windvolt.eu/model/economy.xml";
 
         if (store.loadXmlModel(BusinessModel.this, url)) {
 
