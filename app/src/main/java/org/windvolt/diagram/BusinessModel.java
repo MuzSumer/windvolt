@@ -47,6 +47,8 @@ import org.windvolt.diagram.model.DiagramStore;
 
 public class BusinessModel extends AppCompatActivity {
 
+    final String MODEL_URL = "https://windvolt.eu/model/economy.xml";
+
     Drawable windvolt_icon;
     FlowTreeLayout diagram;
     WebView content;
@@ -72,9 +74,7 @@ public class BusinessModel extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model */
-        String url = "https://windvolt.eu/model/economy.xml";
-
-        if (store.loadModel(BusinessModel.this, url)) {
+        if (store.loadModel(BusinessModel.this, MODEL_URL)) {
 
         } else {
             Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();

@@ -43,6 +43,7 @@ public class WhoIsWho extends AppCompatActivity {
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
 
+    final String MODEL_URL = "https://windvolt.eu/model/dossier.xml";
 
     DiagramStore store;
 
@@ -67,9 +68,8 @@ public class WhoIsWho extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model or create a local */
-        String url = "https://windvolt.eu/model/dossier.xml";
 
-        if (store.loadModel(WhoIsWho.this, url)) {
+        if (store.loadModel(WhoIsWho.this, MODEL_URL)) {
 
         } else {
             Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
