@@ -74,7 +74,7 @@ public class BusinessModel extends AppCompatActivity {
         //* try to load model */
         String url = "https://windvolt.eu/model/economy.xml";
 
-        if (store.loadXmlModel(BusinessModel.this, url)) {
+        if (store.loadModel(BusinessModel.this, url)) {
 
         } else {
             Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
@@ -235,7 +235,7 @@ public class BusinessModel extends AppCompatActivity {
 
             layout.setLayoutParams(params);
         }
-    }//layoutModelFlow
+    }//layoutDiagram
 
     private View findModelView(String id) {
         View found = null;

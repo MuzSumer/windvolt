@@ -44,6 +44,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class DiagramStore {
 
+    boolean DISABLE_REMOTE_MODEL = true;
+
     ArrayList<DiagramModel> store = new ArrayList<>();
 
 
@@ -57,11 +59,14 @@ public class DiagramStore {
         return store.size();
     }
 
-    public boolean loadXmlModel(Context context, String url) {
+
+
+
+    public boolean loadModel(Context context, String url) {
 
 
         //* disable remote models
-        if (true) {
+        if (DISABLE_REMOTE_MODEL) {
             error = "remote model not supported at this time";
 
             boolean success = true;
@@ -70,7 +75,7 @@ public class DiagramStore {
 
 
         // load the xml model
-        new XmlModelLoader().execute(url);
+        new ModelLoader().execute(url);
 
 
         if (error.isEmpty()) {
@@ -85,7 +90,7 @@ public class DiagramStore {
 
 
     // AsyncTask used to download XML model
-    private class XmlModelLoader extends AsyncTask<String, Void, String> {
+    private class ModelLoader extends AsyncTask<String, Void, String> {
 
         HttpsURLConnection connection = null;
         InputStream content = null;
@@ -339,13 +344,18 @@ public class DiagramStore {
         for (int m=0; m<size; m++) {
             DiagramModel model = store.get(m);
             String m_id = model.getId();
-            if (m_id.equals(id)) {
-                found = model;
-                return found; // return first hit
 
-                // you could detect id not unique error here
+            if (m_id.equals(id)) {
+
+                if (found == null) { // first hit
+                    found = model;
+                } else {
+                    found = model;
+
+                    error = "model id is not unique " + id;
+                }
             }
-        }
+        }//for
 
         return found;
     }//findModel
@@ -359,12 +369,17 @@ public class DiagramStore {
             String children = model.getChildren();
 
             if (children.contains(id)) {
-                parent = model;
-                return parent; // return first hit
 
-                // you could detect multiple parents error here
+                if (parent == null) { // first hit
+                    parent = model;
+
+                } else { // detect multiple parents error here
+                    parent = model;
+
+                    error = "multiple parents error";
+                }
             }
-        }
+        }//for
 
         return parent;
     }//findParent

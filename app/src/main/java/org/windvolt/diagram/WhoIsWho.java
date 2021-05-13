@@ -58,7 +58,7 @@ public class WhoIsWho extends AppCompatActivity {
 
     String focus_id;
 
-    boolean beep = false;
+    boolean ALLOW_BEEP = false;
 
 
 
@@ -69,7 +69,7 @@ public class WhoIsWho extends AppCompatActivity {
         //* try to load model or create a local */
         String url = "https://windvolt.eu/model/dossier.xml";
 
-        if (store.loadXmlModel(WhoIsWho.this, url)) {
+        if (store.loadModel(WhoIsWho.this, url)) {
 
         } else {
             Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
@@ -358,10 +358,7 @@ public class WhoIsWho extends AppCompatActivity {
         if (null == parent) {
             super.onBackPressed();
         } else {
-            if (beep) {
-                ToneGenerator beep = new ToneGenerator(AudioManager.FLAG_PLAY_SOUND, 80);
-                beep.startTone(ToneGenerator.TONE_CDMA_ANSWER, 100);
-            }
+            doBeep();
 
             String parent_id = parent.getId();
             setFocus(parent_id);
@@ -376,11 +373,7 @@ public class WhoIsWho extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            if (beep) {
-                ToneGenerator beep = new ToneGenerator(AudioManager.FLAG_PLAY_SOUND, 80);
-                beep.startTone(ToneGenerator.TONE_CDMA_ANSWER, 100);
-            }
-
+            doBeep();
             setFocus(id);
         }
     }//SetFocus
@@ -397,9 +390,6 @@ public class WhoIsWho extends AppCompatActivity {
         public void onClick(View v) {
             DiagramModel parent = store.findParent(id);
             if (null != parent) {
-                //ToneGenerator beep = new ToneGenerator(AudioManager.STREAM_ALARM, 80);
-                //beep.startTone(ToneGenerator.TONE_CDMA_ANSWER, 200);
-
                 String parent_id = parent.getId();
                 setFocus(parent_id);
             }
@@ -420,4 +410,11 @@ public class WhoIsWho extends AppCompatActivity {
     }//OpenFocus
 
 
+
+    private void doBeep() {
+        if (ALLOW_BEEP) {
+            ToneGenerator beep = new ToneGenerator(AudioManager.FLAG_PLAY_SOUND, 80);
+            beep.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE, 400);
+        }
+    }
 }
