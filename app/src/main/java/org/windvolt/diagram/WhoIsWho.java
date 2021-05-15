@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class WhoIsWho extends AppCompatActivity {
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
 
-    final String MODEL_URL = "https://windvolt.eu/model/dossier.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
 
     DiagramStore store;
 
@@ -55,7 +56,7 @@ public class WhoIsWho extends AppCompatActivity {
 
 
     LinearLayout diagram_space;
-    WebView diagram_web;
+    WebView web;
 
     String focus_id;
 
@@ -85,7 +86,7 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         String root = store.addChild("", "windvolt", "Windenergie Galerie",
-                symbol, R.string.diagram_dossier,
+                symbol, "https://windvolt.eu/model/dossier/0diagram.html", //R.string.diagram_dossier,
                 DIAGRAM_NAME);
 
 
@@ -95,22 +96,22 @@ public class WhoIsWho extends AppCompatActivity {
             int net = R.drawable.wiw_net;
 
             String netz = store.addChild(root, "Netzbetreiber", "Die deutschen Netzbetreiber",
-                    net, R.string.net_0,
+                    net, "https://windvolt.eu/model/dossier/net_.html", //R.string.net_0,
                     "net");
 
 
 
             store.addChild(netz, "50Hertz", "50Hertz Transmission GmbH",
-                    net, R.string.net_50herz,
+                    net, "https://windvolt.eu/model/dossier/net_50hertz.html", //R.string.net_50herz,
                     "");
             store.addChild(netz, "Amprion", "Amprion GmbH",
-                    net, R.string.net_ampirion,
+                    net, "https://windvolt.eu/model/dossier/net_amprion.html", //R.string.net_ampirion,
                     "");
             store.addChild(netz, "Tennet", "Tennet TSO",
-                    net, R.string.net_tennet,
+                    net, "https://windvolt.eu/model/dossier/net_tennet.html", //R.string.net_tennet,
                     "");
             store.addChild(netz, "Transnet BW", "Transnet BW GmbH",
-                    net, R.string.net_transnet,
+                    net, "https://windvolt.eu/model/dossier/net_transnet.html", //R.string.net_transnet,
                     "");
         }
 
@@ -119,7 +120,7 @@ public class WhoIsWho extends AppCompatActivity {
             int stock = R.drawable.wiw_exchange;
 
             store.addChild(root, "Börse", "Strombörse EEX",
-                    stock, R.string.com_stock,
+                    stock, "https://windvolt.eu/model/dossier/stock_.html", //R.string.com_stock,
                     "exc");
         }
 
@@ -128,23 +129,23 @@ public class WhoIsWho extends AppCompatActivity {
             int com = R.drawable.wiw_com;
 
             String konzern = store.addChild(root, "Versorger", "Stromversorger in Deutschland",
-                    com, R.string.com_0,
+                    com, "https://windvolt.eu/model/dossier/com_.html", //R.string.com_0,
                     "com");
 
 
 
             String k1 = store.addChild(konzern, "konventionelle", "Versorgung mit konventioneller Energie",
-                    com, R.string.com_conventional,
+                    com, "https://windvolt.eu/model/dossier/com_conventional.html", //R.string.com_conventional,
                     "fossile");
 
             store.addChild(k1, "RWE", "Rheinisch-Westfälische Energiebetriebe",
-                    com, R.string.com_rwe,
+                    com, "https://windvolt.eu/model/dossier/com_rwe.html", //R.string.com_rwe,
                     "");
             store.addChild(k1, "eon", "EON Energie Deutschland",
-                    com, R.string.com_eon,
+                    com, "https://windvolt.eu/model/dossier/com_eon.html", //R.string.com_eon,
                     "");
             store.addChild(k1, "OVAG", "Oberhessische Versorgung Aktiengesellschaft",
-                    com, R.string.com_ovag,
+                    com, "https://windvolt.eu/model/dossier/com_ovag.html", //R.string.com_ovag,
                     "");
 
 
@@ -154,26 +155,26 @@ public class WhoIsWho extends AppCompatActivity {
                 int green = R.drawable.wiw_green;
 
                 String k2 = store.addChild(konzern, "Ökoanbieter", "Ökostromversorger",
-                        green, R.string.com_ecology,
+                        green, "https://windvolt.eu/model/dossier/com_green.html", //R.string.com_ecology,
                         "eco");
 
                 store.addChild(k2, "Lichtblick", "Lichtblick SE",
-                        green, R.string.com_lichtblick,
+                        green, "https://windvolt.eu/model/dossier/com_lichtblick.html", //R.string.com_lichtblick,
                         "");
                 store.addChild(k2, "Naturstrom", "Naturstrom AG",
-                        green, R.string.com_naturstrom,
+                        green, "https://windvolt.eu/model/dossier/com_naturstrom.html", //R.string.com_naturstrom,
                         "");
                 store.addChild(k2, "EWS Schönau", "EWS Schönau eG",
-                        green, R.string.com_schoenau,
+                        green, "https://windvolt.eu/model/dossier/com_schoenau.html", //R.string.com_schoenau,
                         "");
                 store.addChild(k2, "greenpeace", "greenpeace energy eG",
-                        green, R.string.com_greenpeace,
+                        green, "https://windvolt.eu/model/dossier/com_greenpeace.html", //R.string.com_greenpeace,
                         "");
                 store.addChild(k2, "Bürgerwerke", "Bürgerwerke eG",
-                        green, R.string.com_buergerwerke,
+                        green, "https://windvolt.eu/model/dossier/com_buergerwerke.html", //R.string.com_buergerwerke,
                         "");
                 store.addChild(k2, "Polarstern", "Polarstern GmbH",
-                        green, R.string.com_polarstern,
+                        green, "https://windvolt.eu/model/dossier/com_polarstern.html", //R.string.com_polarstern,
                         "");
             }
 
@@ -186,23 +187,23 @@ public class WhoIsWho extends AppCompatActivity {
             int pol = R.drawable.wiw_politics;
 
             String k3 = store.addChild(root, "Netzwerke", "EEG, Regulierung, Forschung, Beratung",
-                    pol, R.string.pol_0,
+                    pol, "https://windvolt.eu/model/dossier/pol_.html", //R.string.pol_0,
                     "shapers");
 
             store.addChild(k3, "BM Wirtschaft/Energie", "Bundesministerium für für Wirtschaft und Energie",
-                    pol, R.string.pol_bmwi,
+                    pol, "https://windvolt.eu/model/dossier/pol_bmwi.html", //R.string.pol_bmwi,
                     "gov");
 
             store.addChild(k3, "Bundesnetzagentur", "Bundesnetzagentur",
-                    pol, R.string.pol_netzagentur,
+                    pol, "https://windvolt.eu/model/dossier/pol_bunetza.html", //R.string.pol_netzagentur,
                     "gov");
 
             store.addChild(k3, "Bundesverband Windenergie", "Bundesverband Windenergie e.V.",
-                    pol, R.string.pol_verbandwind,
+                    pol, "https://windvolt.eu/model/dossier/pol_windverband.html", //R.string.pol_verbandwind,
                     "");
 
             store.addChild(k3, "Forum Regenerative Energien", "Internationales Wirtschaftsforum Regenerative Energien",
-                    pol, R.string.pol_iwr,
+                    pol, "https://windvolt.eu/model/dossier/pol_iwr.html", //R.string.pol_iwr,
                     "");
 
         }
@@ -235,9 +236,17 @@ public class WhoIsWho extends AppCompatActivity {
         diagram_subject = (TextView) findViewById(R.id.diagram_subject);
 
         diagram_space = (LinearLayout) findViewById(R.id.diagram_space);
-        diagram_web = (WebView) findViewById(R.id.diagram_dossier);
+        web = (WebView) findViewById(R.id.diagram_dossier);
 
-        diagram_web.setBackgroundColor(getColor(R.color.diagram_dossier));
+        web.setBackgroundColor(getColor(R.color.diagram_dossier));
+
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
 
         // unused
         //diagram_title.setOnClickListener(doOpenFocus);
@@ -266,8 +275,11 @@ public class WhoIsWho extends AppCompatActivity {
         doOpenFocus.setId(id);
 
 
+        /*
         String html = getString(Integer.parseInt(focus.getAdress())); // values
-        diagram_web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+        web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+         */
+        web.loadUrl(focus.getAdress());
 
         // set focus title and subject
         diagram_title.setText(focus.getTitle());

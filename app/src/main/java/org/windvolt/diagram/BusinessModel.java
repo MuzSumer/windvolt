@@ -32,6 +32,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -49,13 +50,13 @@ import org.windvolt.diagram.model.DiagramStore;
 
 public class BusinessModel extends AppCompatActivity {
 
-    final String MODEL_URL = "https://windvolt.eu/model/economy.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
 
     boolean ALLOW_BEEP = false;
 
     Drawable windvolt_icon;
     FlowTreeLayout diagram;
-    WebView content;
+    WebView web;
 
     int w = 480;
     int h = 720;
@@ -92,27 +93,27 @@ public class BusinessModel extends AppCompatActivity {
 
     private void createLocalStore() {
         String root = store.addChild("", "wind",
-                "Der Wind", R.drawable.windvolt_small, R.string.diagram_flow0,
+                "Der Wind", R.drawable.windvolt_small, "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
                 "wind");
 
         String c1 = store.addChild(root, "producer",
-                "Kollektoren", R.drawable.page0_v10, R.string.diagram_flow1,
+                "Kollektoren", R.drawable.page0_v10, "https://windvolt.eu/model/economy/flow1.html", //R.string.diagram_flow1,
                 "producer");
 
         String c2 = store.addChild(c1, "distributor",
-                "Netze", R.drawable.wiw_net, R.string.diagram_flow2,
+                "Netze", R.drawable.wiw_net, "https://windvolt.eu/model/economy/flow2.html", //R.string.diagram_flow2,
                 "distributor");
 
         String c3 = store.addChild(c2, "trader",
-                "Handel", R.drawable.wiw_exchange, R.string.diagram_flow3,
+                "Handel", R.drawable.wiw_exchange, "https://windvolt.eu/model/economy/flow3.html", //R.string.diagram_flow3,
                 "trader");
 
         String c4 = store.addChild(c3, "reseller",
-                "Versorger", R.drawable.wiw_com, R.string.diagram_flow4,
+                "Versorger", R.drawable.wiw_com, "https://windvolt.eu/model/economy/flow4.html", //R.string.diagram_flow4,
                 "reseller");
 
         String c5 = store.addChild(c4, "consumer",
-                "Verbraucher", android.R.drawable.ic_menu_myplaces, R.string.diagram_flow5,
+                "Verbraucher", android.R.drawable.ic_menu_myplaces, "https://windvolt.eu/model/economy/flow5.html", //R.string.diagram_flow5,
                 "consusmer");
     }//createLocalStore
 
@@ -153,9 +154,15 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-        content = findViewById(R.id.diagram_flow);
-        content.setBackgroundColor(getColor(R.color.diagram_flow));
-
+        web = findViewById(R.id.diagram_flow);
+        web.setBackgroundColor(getColor(R.color.diagram_flow));
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
 
 
         diagram = new FlowTreeLayout(this);
@@ -176,15 +183,18 @@ public class BusinessModel extends AppCompatActivity {
         boolean hasFocus = id.equals(focus_id);
         focus_id = id;
 
-        DiagramModel model = store.findModel(id);
-        if (null == model) return;
+        DiagramModel focus = store.findModel(id);
+        if (null == focus) return;
 
         // load html
+
+        /*
         String value = getString(Integer.parseInt(model.getAdress())); // values
+        web.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
+         */
+        web.loadUrl(focus.getAdress());
 
-        content.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
-
-        String c_id = model.getChildren();
+        String c_id = focus.getChildren();
         View found = findModelView(c_id);
 
 

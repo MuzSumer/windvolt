@@ -24,6 +24,14 @@ public class DiagramModel {
     public String getId() { return id; }
     public void setId(String value) { id = value; }
 
+    String type = "<type>";
+    public String getType() { return type; }
+    public void setType(String value) { type = value; }
+
+    String symbol = "";
+    public String getSymbol() { return symbol; }
+    public void setSymbol(String value) { symbol = value; }
+
     /* --------------------------------windvolt-------------------------------- */
 
     String title = "<title>";
@@ -34,21 +42,19 @@ public class DiagramModel {
     public String getSubject() { return subject; }
     public void setSubject(String value) { subject = value; }
 
-    String symbol = "";
-    public String getSymbol() { return symbol; }
-    public void setSymbol(String value) { symbol = value; }
 
     String address = "";
     public String getAdress() { return address; }
     public void setAddress(String vlaue) { address = vlaue; }
 
+
     String children = "";
     public String getChildren() { return children; }
     public void setChildren(String value) { children = value; }
 
-
     String tags = "";
     public String getTags() { return tags; }
     public void setTags(String value) { tags = value; }
+
 
 }

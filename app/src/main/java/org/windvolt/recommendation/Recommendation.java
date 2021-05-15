@@ -131,8 +131,6 @@ public class Recommendation extends Fragment {
 
 
         // UPDATE RECOMMENDATION
-        // TODO calculate recommendation
-        //
         setRecommendation(view, RECOMMENDATION_NOT_AVAILABLE);
 
         recommendation = (WebView) view.findViewById(R.id.recommendation_view);
@@ -144,6 +142,11 @@ public class Recommendation extends Fragment {
             }
         });
         recommendation.loadUrl(RECOMMENDATION_URL);
+
+        // force reload
+        recommendation.clearCache(true);
+        recommendation.reload();
+
 
         ImageView symbol = (ImageView) view.findViewById(R.id.recommendation_symbol);
         symbol.setOnClickListener(new View.OnClickListener() {

@@ -19,7 +19,10 @@
 package org.windvolt.diagram.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.w3c.dom.Document;
@@ -46,7 +49,7 @@ public class DiagramStore {
 
     boolean DISABLE_REMOTE_MODEL = true;
 
-    ArrayList<DiagramModel> store = new ArrayList<>();
+    static ArrayList<DiagramModel> store = new ArrayList<>();
 
 
 
@@ -54,6 +57,8 @@ public class DiagramStore {
     public String getError() {
         return error;
     }
+    public void setError(String value) { error = value; }
+
 
     public int size() {
         return store.size();
@@ -68,9 +73,7 @@ public class DiagramStore {
         //* disable remote models
         if (DISABLE_REMOTE_MODEL) {
             error = "remote model not supported at this time";
-
-            boolean success = true;
-            if (success) return false;
+            return false;
         }
 
 
@@ -90,7 +93,7 @@ public class DiagramStore {
 
 
     // AsyncTask used to download XML model
-    private class ModelLoader extends AsyncTask<String, Void, String> {
+    static class ModelLoader extends AsyncTask<String, Void, String> {
 
         HttpsURLConnection connection = null;
         InputStream content = null;
@@ -104,66 +107,26 @@ public class DiagramStore {
                 URL uri = new URL(url);
                 connection = (HttpsURLConnection) uri.openConnection();
 
-                connection.setReadTimeout(10*1000);
-                connection.setConnectTimeout(15*1000);
                 connection.setRequestMethod("GET");
                 connection.setDoInput(true);
 
-                /*{//* connection
-                    connection.setReadTimeout(10*1000);
-                    connection.setConnectTimeout(15*1000);
-                    connection.setRequestMethod("GET");
-                    connection.setDoInput(true);
-
-                    connection.setRequestProperty("Accept", "application/json");
-                    connection.setRequestProperty("X-Environment", "android");
-
-                    connection.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-
-                    connection.setHostnameVerifier(new HostnameVerifier() {
-                        @Override
-                        public boolean verify(String hostname, SSLSession session) {
-                            //* if necessarry get url verfication
-                            //return HttpsURLConnection.getDefaultHostnameVerifier().verify("your_domain.com", session);
-                            return true;
-                        }
-                    });
-                }//connection
-
-
-                {//* cookies
-                    CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(url);
-
-                    if (cookie != null)
-                        connection.setRequestProperty("Cookie", cookie);
-
-                    List<String> cookieList = connection.getHeaderFields().get("Set-Cookie");
-                    if (cookieList != null) {
-                        for (String cookieTemp : cookieList) {
-                            cookieManager.setCookie(connection.getURL().toString(), cookieTemp);
-                        }
-                    }
-                }//cookies
-                */
 
                 connection.connect();
-                content = connection.getInputStream();
-
 
                 if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+
+                    content = connection.getInputStream();
                     buildContent();
+
                 }
 
             } catch (MalformedURLException e) {
-                error = "MalformedURLException";
                 e.printStackTrace();
             } catch (IOException e) {
-                error = "IOException";
                 e.printStackTrace();
             }
 
-            return error;
+            return url;
         }
 
         @Override
@@ -217,13 +180,10 @@ public class DiagramStore {
                 parseContent(document);
 
             } catch (IOException e) {
-                error = "IOException";
                 e.printStackTrace();
             } catch (ParserConfigurationException e) {
-                error = "ParserConfigurationException";
                 e.printStackTrace();
             } catch (SAXException e) {
-                error = "SAXException";
                 e.printStackTrace();
             }
 
@@ -236,18 +196,21 @@ public class DiagramStore {
             root.normalize();
 
             NodeList models = root.getElementsByTagName("model");
-            int size = models.getLength();
+            int msize = models.getLength();
 
-            for (int p=0; p<size; p++) {
+            for (int p=0; p<msize; p++) {
                 Node node = models.item(p);
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
                     String id = element.getElementsByTagName("id").item(0).getTextContent();
+                    String type = element.getElementsByTagName("type").item(0).getTextContent();
+                    String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
+
                     String title = element.getElementsByTagName("title").item(0).getTextContent();
                     String subject = element.getElementsByTagName("subject").item(0).getTextContent();
-                    String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
+
                     String address = element.getElementsByTagName("address").item(0).getTextContent();
                     String children = element.getElementsByTagName("children").item(0).getTextContent();
                     String tags = element.getElementsByTagName("tags").item(0).getTextContent();
@@ -256,10 +219,14 @@ public class DiagramStore {
                     DiagramModel model = new DiagramModel();
 
                     model.setId(id);
+                    model.setType(type);
+                    model.setSymbol(symbol);
+
                     model.setTitle(title);
                     model.setSubject(subject);
-                    model.setSymbol(symbol);
+
                     model.setAddress(address);
+
                     model.setChildren(children);
                     model.setTags(tags);
 
@@ -277,13 +244,93 @@ public class DiagramStore {
     /* --------------------------------windvolt-------------------------------- */
 
 
+    public void loadViewImage(ImageView view, String url) {
+        error = "";
+
+        new ImageLoader(view).execute(url);
+    }
+
+    // AsyncTask used to download image
+    static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
+        HttpsURLConnection connection = null;
+        InputStream content = null;
+        ImageView view;
+
+        public ImageLoader(ImageView set_view) {
+            view = set_view;
+        }
+
+        protected Bitmap doInBackground(String... values) {
+            String url = values[0];
+
+            Bitmap bitmap = null;
+
+            try {
+                URL uri = new URL(url);
+                connection = (HttpsURLConnection) uri.openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+
+
+                connection.connect();
+
+
+                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+
+                    content = connection.getInputStream();
+
+                    /*
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 0;
+
+                    bitmap = BitmapFactory.decodeStream(content, null, options);
+                     */
+
+                    bitmap = BitmapFactory.decodeStream(content);
+
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            {//*cleanup
+                if (content != null) {
+                    try {
+                        content.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }//cleanup
+
+            if (result != null) {
+                view.setImageBitmap(result);
+            }
+        }
+    }
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+
 
     final int rootId = 100;
     public String getRootId() {
         return "100";
     }
 
-    public void addRawModel(DiagramModel model) {
+    static void addRawModel(DiagramModel model) {
         store.add(model);
     }
 
@@ -292,7 +339,7 @@ public class DiagramStore {
         return parent.getChildren();
     }
 
-    public String addChild(String parent_id, String title, String subject, int symbol, int address, String tags) {
+    public String addChild(String parent_id, String title, String subject, int symbol, String address, String tags) {
 
         DiagramModel parent = null;
         DiagramModel child = new DiagramModel();
@@ -323,7 +370,7 @@ public class DiagramStore {
         child.setTitle(title);
         child.setSubject(subject);
         child.setSymbol(Integer.toString(symbol));
-        child.setAddress(Integer.toString(address));
+        child.setAddress(address);
         child.setTags(tags);
 
 
