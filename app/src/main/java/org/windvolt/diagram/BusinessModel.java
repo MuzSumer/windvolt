@@ -187,7 +187,6 @@ public class BusinessModel extends AppCompatActivity {
         if (null == focus) return;
 
         // load html
-
         /*
         String value = getString(Integer.parseInt(model.getAdress())); // values
         web.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
