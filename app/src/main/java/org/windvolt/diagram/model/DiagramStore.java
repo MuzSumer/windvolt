@@ -53,11 +53,16 @@ public class DiagramStore {
 
 
 
+    public DiagramStore() {
+        store.clear();
+    }
+
+
     String error = "";
     public String getError() {
         return error;
     }
-    public void setError(String value) { error = value; }
+
 
 
     public int size() {
@@ -430,5 +435,4 @@ public class DiagramStore {
 
         return parent;
     }//findParent
-
 }
