@@ -36,7 +36,7 @@
 
     <style name="AppTheme.NoActionBar">
 
-        <!-- show splash while app initializes -->
+        <!-- show splash while app initializes @drawable/app_splash-->
         <item name="android:windowBackground">@drawable/app_splash</item>
 
         <item name="windowActionBar">false</item>

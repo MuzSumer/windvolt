@@ -80,7 +80,7 @@ public class BusinessModel extends AppCompatActivity {
 
         //* try to load model */
         if (store.loadModel(BusinessModel.this, MODEL_URL)) {
-
+            //Toast.makeText(this, Integer.toString(store.size()), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
 
@@ -93,27 +93,27 @@ public class BusinessModel extends AppCompatActivity {
 
     private void createLocalStore() {
         String root = store.addChild("", "wind",
-                "Der Wind", R.drawable.windvolt_small, "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
+                "Der Wind", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
                 "wind");
 
         String c1 = store.addChild(root, "producer",
-                "Kollektoren", R.drawable.page0_v10, "https://windvolt.eu/model/economy/flow1.html", //R.string.diagram_flow1,
+                "Kollektoren", "https://windvolt.eu/model/page0_v10.png", "https://windvolt.eu/model/economy/flow1.html", //R.string.diagram_flow1,
                 "producer");
 
         String c2 = store.addChild(c1, "distributor",
-                "Netze", R.drawable.wiw_net, "https://windvolt.eu/model/economy/flow2.html", //R.string.diagram_flow2,
+                "Netze", "https://windvolt.eu/model/wiw_net.png", "https://windvolt.eu/model/economy/flow2.html", //R.string.diagram_flow2,
                 "distributor");
 
         String c3 = store.addChild(c2, "trader",
-                "Handel", R.drawable.wiw_exchange, "https://windvolt.eu/model/economy/flow3.html", //R.string.diagram_flow3,
+                "Handel", "https://windvolt.eu/model/wiw_exchange.png", "https://windvolt.eu/model/economy/flow3.html", //R.string.diagram_flow3,
                 "trader");
 
         String c4 = store.addChild(c3, "reseller",
-                "Versorger", R.drawable.wiw_com, "https://windvolt.eu/model/economy/flow4.html", //R.string.diagram_flow4,
+                "Versorger", "https://windvolt.eu/model/wiw_com.png", "https://windvolt.eu/model/economy/flow4.html", //R.string.diagram_flow4,
                 "reseller");
 
         String c5 = store.addChild(c4, "consumer",
-                "Verbraucher", android.R.drawable.ic_menu_myplaces, "https://windvolt.eu/model/economy/flow5.html", //R.string.diagram_flow5,
+                "Verbraucher", "https://windvolt.eu/model/wiw_com.png", "https://windvolt.eu/model/economy/flow5.html", //R.string.diagram_flow5,
                 "consusmer");
     }//createLocalStore
 
@@ -151,11 +151,11 @@ public class BusinessModel extends AppCompatActivity {
 
 
         createStore();
-
+        //setFocus(store.getRootId(), false);
 
 
         web = findViewById(R.id.diagram_flow);
-        web.setBackgroundColor(getColor(R.color.diagram_flow));
+        web.setBackgroundColor(getColor(R.color.diagram_background));
         web.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -166,7 +166,7 @@ public class BusinessModel extends AppCompatActivity {
 
 
         diagram = new FlowTreeLayout(this);
-        diagram.setBackgroundColor(getColor(R.color.diagram_flow));
+        diagram.setBackgroundColor(getColor(R.color.diagram_background));
 
 
         LinearLayout layout = findViewById(R.id.flow_container);
@@ -187,17 +187,13 @@ public class BusinessModel extends AppCompatActivity {
         if (null == focus) return;
 
         // load html
-        /*
-        String value = getString(Integer.parseInt(model.getAdress())); // values
-        web.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
-         */
         web.loadUrl(focus.getAdress());
 
         String c_id = focus.getChildren();
-        View found = findModelView(c_id);
+        View child = findModelView(c_id);
 
 
-        if (null == found) {
+        if (null == child) {
             if (hasFocus) {
                 if (expand) {
                     addModelView(c_id);
@@ -282,9 +278,10 @@ public class BusinessModel extends AppCompatActivity {
 
         layout.setPadding(8, 8, 8, 8);
 
+
         ImageView image = new ImageView(this);
-        int res = Integer.parseInt(model.getSymbol());
-        image.setImageResource(res);
+        image.setPadding(4, 2, 4, 2);
+        store.loadViewImage(image, model.getSymbol());
 
         TextView text = new TextView(this);
         text.setPadding(8, 8, 8, 8);

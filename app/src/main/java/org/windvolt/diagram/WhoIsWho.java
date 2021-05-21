@@ -82,7 +82,7 @@ public class WhoIsWho extends AppCompatActivity {
     }//createStore
 
     private void createLocalStore() {
-        int symbol = R.drawable.windvolt_small;
+        String symbol = "https://windvolt.eu/model/windvolt_small.png";
 
 
         String root = store.addChild("", "windvolt", "Windenergie Galerie",
@@ -93,7 +93,7 @@ public class WhoIsWho extends AppCompatActivity {
         // net
         {
 
-            int net = R.drawable.wiw_net;
+            String net = "https://windvolt.eu/model/wiw_net.png";
 
             String netz = store.addChild(root, "Netzbetreiber", "Die deutschen Netzbetreiber",
                     net, "https://windvolt.eu/model/dossier/net_.html", //R.string.net_0,
@@ -117,7 +117,7 @@ public class WhoIsWho extends AppCompatActivity {
 
         // pricing
         {
-            int stock = R.drawable.wiw_exchange;
+            String stock = "https://windvolt.eu/model/wiw_exchange.png";
 
             store.addChild(root, "Börse", "Strombörse EEX",
                     stock, "https://windvolt.eu/model/dossier/stock_.html", //R.string.com_stock,
@@ -126,7 +126,7 @@ public class WhoIsWho extends AppCompatActivity {
 
         // com
         {
-            int com = R.drawable.wiw_com;
+            String com = "https://windvolt.eu/model/wiw_com.png";
 
             String konzern = store.addChild(root, "Versorger", "Stromversorger in Deutschland",
                     com, "https://windvolt.eu/model/dossier/com_.html", //R.string.com_0,
@@ -152,7 +152,7 @@ public class WhoIsWho extends AppCompatActivity {
 
             // eco
             {
-                int green = R.drawable.wiw_green;
+                String green = "https://windvolt.eu/model/wiw_green.png";
 
                 String k2 = store.addChild(konzern, "Ökoanbieter", "Ökostromversorger",
                         green, "https://windvolt.eu/model/dossier/com_green.html", //R.string.com_ecology,
@@ -184,13 +184,13 @@ public class WhoIsWho extends AppCompatActivity {
 
         // network
         {
-            int pol = R.drawable.wiw_politics;
+            String pol = "https://windvolt.eu/model/wiw_politics.png";
 
-            String k3 = store.addChild(root, "Netzwerke", "EEG, Regulierung, Forschung, Beratung",
+            String k3 = store.addChild(root, "Netzwerke", "Regulierung, Forschung, Beratung",
                     pol, "https://windvolt.eu/model/dossier/pol_.html", //R.string.pol_0,
                     "shapers");
 
-            store.addChild(k3, "BM Wirtschaft/Energie", "Bundesministerium für für Wirtschaft und Energie",
+            store.addChild(k3, "Wirtschaft/Energie", "Bundesministerium",
                     pol, "https://windvolt.eu/model/dossier/pol_bmwi.html", //R.string.pol_bmwi,
                     "gov");
 
@@ -198,11 +198,11 @@ public class WhoIsWho extends AppCompatActivity {
                     pol, "https://windvolt.eu/model/dossier/pol_bunetza.html", //R.string.pol_netzagentur,
                     "gov");
 
-            store.addChild(k3, "Bundesverband Windenergie", "Bundesverband Windenergie e.V.",
+            store.addChild(k3, "Verband Windenergie", "Bundesverband Windenergie e.V.",
                     pol, "https://windvolt.eu/model/dossier/pol_windverband.html", //R.string.pol_verbandwind,
                     "");
 
-            store.addChild(k3, "Forum Regenerative Energien", "Internationales Wirtschaftsforum Regenerative Energien",
+            store.addChild(k3, "Forum Regenerative Energien", "Internationales Forum",
                     pol, "https://windvolt.eu/model/dossier/pol_iwr.html", //R.string.pol_iwr,
                     "");
 
@@ -238,7 +238,7 @@ public class WhoIsWho extends AppCompatActivity {
         diagram_space = (LinearLayout) findViewById(R.id.diagram_space);
         web = (WebView) findViewById(R.id.diagram_dossier);
 
-        web.setBackgroundColor(getColor(R.color.diagram_dossier));
+        web.setBackgroundColor(getColor(R.color.diagram_background));
 
         web.setWebViewClient(new WebViewClient() {
             @Override
@@ -344,8 +344,9 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         ImageView image = new ImageView(this);
-        int res = Integer.parseInt(child.getSymbol());
-        image.setImageResource(res);
+        image.setPadding(2, 2, 2, 2);
+        store.loadViewImage(image, child.getSymbol());
+
 
         TextView text = new TextView(this);
         text.setPadding(8, 8, 8, 8);

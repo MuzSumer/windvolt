@@ -19,6 +19,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/white" />
 
+    <!--  windvolt_splash -->
     <item
         android:drawable="@drawable/windvolt_splash"
         android:gravity="center" />

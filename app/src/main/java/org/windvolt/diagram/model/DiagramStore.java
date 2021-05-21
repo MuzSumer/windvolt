@@ -58,8 +58,8 @@ public class DiagramStore {
     }
 
 
-    String error = "";
-    public String getError() {
+    static String error = "remote model not loaded";
+    public static String getError() {
         return error;
     }
 
@@ -71,13 +71,12 @@ public class DiagramStore {
 
 
 
-
     public boolean loadModel(Context context, String url) {
 
 
         //* disable remote models
         if (DISABLE_REMOTE_MODEL) {
-            error = "remote model not supported at this time";
+            error = "remote model not supported in this version";
             return false;
         }
 
@@ -91,7 +90,7 @@ public class DiagramStore {
         }
 
 
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, error, Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -123,6 +122,7 @@ public class DiagramStore {
                     content = connection.getInputStream();
                     buildContent();
 
+                    error = "";
                 }
 
             } catch (MalformedURLException e) {
@@ -131,7 +131,7 @@ public class DiagramStore {
                 e.printStackTrace();
             }
 
-            return url;
+            return error;
         }
 
         @Override
@@ -150,6 +150,8 @@ public class DiagramStore {
             }//cleanup
         }
 
+        /* --------------------------------windvolt-------------------------------- */
+
         private void buildContent() {
 
             try {
@@ -158,7 +160,7 @@ public class DiagramStore {
                 BufferedReader buffer = new BufferedReader(reader);
 
                 // convert
-                byte[] bytes = new byte[2048];
+                byte[] bytes = new byte[4096];
                 int c = 0;
 
                 int r = buffer.read();
@@ -285,13 +287,6 @@ public class DiagramStore {
 
                     content = connection.getInputStream();
 
-                    /*
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 0;
-
-                    bitmap = BitmapFactory.decodeStream(content, null, options);
-                     */
-
                     bitmap = BitmapFactory.decodeStream(content);
 
                 }
@@ -344,7 +339,7 @@ public class DiagramStore {
         return parent.getChildren();
     }
 
-    public String addChild(String parent_id, String title, String subject, int symbol, String address, String tags) {
+    public String addChild(String parent_id, String title, String subject, String symbol, String address, String tags) {
 
         DiagramModel parent = null;
         DiagramModel child = new DiagramModel();
@@ -374,7 +369,7 @@ public class DiagramStore {
 
         child.setTitle(title);
         child.setSubject(subject);
-        child.setSymbol(Integer.toString(symbol));
+        child.setSymbol(symbol);
         child.setAddress(address);
         child.setTags(tags);
 
