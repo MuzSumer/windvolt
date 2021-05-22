@@ -50,7 +50,7 @@
     <string name="battery_state">Batteriestatus anzeigen</string>
     <string name="battery_summary">*Ich interessiere mich für den Stromverbrauch meines Smartphones.</string>
 
-    <string name="location_geodata">Geolocation anzeigen</string>
+    <string name="location_geodata">Geodaten anzeigen</string>
     <string name="location_geodata_summary">*Länge und Breite anzeigen.</string>
 
 

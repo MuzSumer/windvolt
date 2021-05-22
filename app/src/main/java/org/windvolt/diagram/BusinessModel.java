@@ -25,6 +25,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -45,8 +46,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
+import org.windvolt.diagram.model.DiagramConnector;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class BusinessModel extends AppCompatActivity {
 
@@ -62,8 +71,6 @@ public class BusinessModel extends AppCompatActivity {
     int h = 720;
 
 
-    //final int TAG_TAB = 40;
-
     final int CHILD_HEIGHT = 72;
     final int CHILD_MARGIN = 88;
 
@@ -72,6 +79,7 @@ public class BusinessModel extends AppCompatActivity {
     final int CHILD_WIDTH = 360;
 
     DiagramStore store;
+    DiagramConnector connector;
 
 
     protected void createStore() {
@@ -79,44 +87,85 @@ public class BusinessModel extends AppCompatActivity {
         store = new DiagramStore();
 
         //* try to load model */
-        if (store.loadModel(BusinessModel.this, MODEL_URL)) {
-            //Toast.makeText(this, Integer.toString(store.size()), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
-
-            createLocalStore();
-        }
-
-
+        new ModelLoader().execute(MODEL_URL);
 
     }//createStore
 
     private void createLocalStore() {
+
         String root = store.addChild("", "wind",
-                "Der Wind", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
+                "Wind", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
                 "wind");
 
-        String c1 = store.addChild(root, "producer",
-                "Kollektoren", "https://windvolt.eu/model/page0_v10.png", "https://windvolt.eu/model/economy/flow1.html", //R.string.diagram_flow1,
-                "producer");
-
-        String c2 = store.addChild(c1, "distributor",
-                "Netze", "https://windvolt.eu/model/wiw_net.png", "https://windvolt.eu/model/economy/flow2.html", //R.string.diagram_flow2,
-                "distributor");
-
-        String c3 = store.addChild(c2, "trader",
-                "Handel", "https://windvolt.eu/model/wiw_exchange.png", "https://windvolt.eu/model/economy/flow3.html", //R.string.diagram_flow3,
-                "trader");
-
-        String c4 = store.addChild(c3, "reseller",
-                "Versorger", "https://windvolt.eu/model/wiw_com.png", "https://windvolt.eu/model/economy/flow4.html", //R.string.diagram_flow4,
-                "reseller");
-
-        String c5 = store.addChild(c4, "consumer",
-                "Verbraucher", "https://windvolt.eu/model/wiw_com.png", "https://windvolt.eu/model/economy/flow5.html", //R.string.diagram_flow5,
-                "consusmer");
     }//createLocalStore
 
+
+    private class ModelLoader extends AsyncTask<String, Void, Boolean> {
+
+        HttpsURLConnection connection = null;
+        InputStream content = null;
+        String url = null;
+
+        @Override
+        protected Boolean doInBackground(String... values) {
+            url = values[0];
+
+            try {
+                URL uri = new URL(url);
+                connection = (HttpsURLConnection) uri.openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+
+
+                connection.connect();
+
+                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+
+                    content = connection.getInputStream();
+                    connector.buildContent(store, content);
+
+                    return true;
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            {
+                if (content != null) {
+                    try {
+                        content.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }//cleanup
+
+            if (!result) {
+                createLocalStore();
+            }
+
+            // start diagram
+            addModelView(store.getRootId());
+            setFocus(store.getRootId(), false);
+
+        }//onPostExecute
+
+    }//ModelLoader
+
+
+    /* --------------------------------windvolt-------------------------------- */
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -147,13 +196,6 @@ public class BusinessModel extends AppCompatActivity {
         }
 
 
-
-
-
-        createStore();
-        //setFocus(store.getRootId(), false);
-
-
         web = findViewById(R.id.diagram_flow);
         web.setBackgroundColor(getColor(R.color.diagram_background));
         web.setWebViewClient(new WebViewClient() {
@@ -173,10 +215,14 @@ public class BusinessModel extends AppCompatActivity {
         layout.addView(diagram);
 
 
-        addModelView(store.getRootId());
-        setFocus(store.getRootId(), false);
 
-    }
+        connector = new DiagramConnector();
+        createStore();
+
+
+    }//onCreate
+
+
 
     protected void setFocus(String id, boolean expand) {
 
@@ -212,7 +258,7 @@ public class BusinessModel extends AppCompatActivity {
         doBeep();
 
         //Snackbar.make(view, focusId, Snackbar.LENGTH_SHORT).show();
-    }
+    }//setFocus
 
 
     private void layoutDiagram() {
@@ -281,7 +327,8 @@ public class BusinessModel extends AppCompatActivity {
 
         ImageView image = new ImageView(this);
         image.setPadding(4, 2, 4, 2);
-        store.loadViewImage(image, model.getSymbol());
+        connector.loadViewImage(image, model.getSymbol());
+
 
         TextView text = new TextView(this);
         text.setPadding(8, 8, 8, 8);
@@ -356,7 +403,7 @@ public class BusinessModel extends AppCompatActivity {
         protected void dispatchDraw(Canvas canvas) {
 
             //* diagram symbol */
-            //drawDiagramSybol(canvas);
+            drawDiagramSybol(canvas);
 
 
             //* draw connections */
@@ -437,12 +484,12 @@ public class BusinessModel extends AppCompatActivity {
 
         // unused since v2020
         private void drawDiagramSybol(Canvas canvas) {
-            paint.setColor(Color.GREEN);
+            paint.setColor(Color.BLUE);
             paint.setStrokeWidth(8);
 
             canvas.drawLine(0, 0, 20, 20, paint);
-            canvas.drawLine(20, 20, 20, 0, paint);
-            canvas.drawLine(20, 20, 0, 20, paint);
+            canvas.drawLine(20, 20, 0, 40, paint);
+            canvas.drawLine(20, 20, 40, 0, paint);
         }
     }//FlowTreeLayout
 

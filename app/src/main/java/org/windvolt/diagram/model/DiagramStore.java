@@ -49,7 +49,7 @@ public class DiagramStore {
 
     boolean DISABLE_REMOTE_MODEL = true;
 
-    static ArrayList<DiagramModel> store = new ArrayList<>();
+    ArrayList<DiagramModel> store = new ArrayList<>();
 
 
 
@@ -57,283 +57,26 @@ public class DiagramStore {
         store.clear();
     }
 
-
-    static String error = "remote model not loaded";
-    public static String getError() {
-        return error;
-    }
-
-
-
-    public int size() {
+    public int storeSize() {
         return store.size();
     }
 
 
-
-    public boolean loadModel(Context context, String url) {
-
-
-        //* disable remote models
-        if (DISABLE_REMOTE_MODEL) {
-            error = "remote model not supported in this version";
-            return false;
-        }
-
-
-        // load the xml model
-        new ModelLoader().execute(url);
-
-
-        if (error.isEmpty()) {
-            return true;
-        }
-
-
-        //Toast.makeText(context, error, Toast.LENGTH_LONG).show();
-        return false;
-    }
-
-
-
-    // AsyncTask used to download XML model
-    static class ModelLoader extends AsyncTask<String, Void, String> {
-
-        HttpsURLConnection connection = null;
-        InputStream content = null;
-
-
-        @Override
-        protected String doInBackground(String... values) {
-            String url = values[0];
-
-            try {
-                URL uri = new URL(url);
-                connection = (HttpsURLConnection) uri.openConnection();
-
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-
-
-                connection.connect();
-
-                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-
-                    content = connection.getInputStream();
-                    buildContent();
-
-                    error = "";
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return error;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            {//*cleanup
-                if (content != null) {
-                    try {
-                        content.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }//cleanup
-        }
-
-        /* --------------------------------windvolt-------------------------------- */
-
-        private void buildContent() {
-
-            try {
-
-                InputStreamReader reader = new InputStreamReader(content);
-                BufferedReader buffer = new BufferedReader(reader);
-
-                // convert
-                byte[] bytes = new byte[4096];
-                int c = 0;
-
-                int r = buffer.read();
-                while (r != -1) {
-                    bytes[c] = (byte) r;
-                    c++;
-
-                    r = buffer.read();
-                }
-                ByteArrayInputStream input = new ByteArrayInputStream(bytes);
-
-
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder builder = factory.newDocumentBuilder();
-
-                Document document = builder.parse(input);
-
-                {// cleanup
-                    buffer.close();
-                    reader.close();
-                }
-
-
-                parseContent(document);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
-            }
-
-
-        }//buildContent
-
-        private void parseContent(Document document) {
-
-            Element root = document.getDocumentElement();//diagram
-            root.normalize();
-
-            NodeList models = root.getElementsByTagName("model");
-            int msize = models.getLength();
-
-            for (int p=0; p<msize; p++) {
-                Node node = models.item(p);
-
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-
-                    String id = element.getElementsByTagName("id").item(0).getTextContent();
-                    String type = element.getElementsByTagName("type").item(0).getTextContent();
-                    String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
-
-                    String title = element.getElementsByTagName("title").item(0).getTextContent();
-                    String subject = element.getElementsByTagName("subject").item(0).getTextContent();
-
-                    String address = element.getElementsByTagName("address").item(0).getTextContent();
-                    String children = element.getElementsByTagName("children").item(0).getTextContent();
-                    String tags = element.getElementsByTagName("tags").item(0).getTextContent();
-
-
-                    DiagramModel model = new DiagramModel();
-
-                    model.setId(id);
-                    model.setType(type);
-                    model.setSymbol(symbol);
-
-                    model.setTitle(title);
-                    model.setSubject(subject);
-
-                    model.setAddress(address);
-
-                    model.setChildren(children);
-                    model.setTags(tags);
-
-
-                    addRawModel(model);
-                }
-            }
-
-
-        }//parseContent
-
-    }//XmlModelLoader
-
-
     /* --------------------------------windvolt-------------------------------- */
-
-
-    public void loadViewImage(ImageView view, String url) {
-        error = "";
-
-        new ImageLoader(view).execute(url);
-    }
-
-    // AsyncTask used to download image
-    static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
-        HttpsURLConnection connection = null;
-        InputStream content = null;
-        ImageView view;
-
-        public ImageLoader(ImageView set_view) {
-            view = set_view;
-        }
-
-        protected Bitmap doInBackground(String... values) {
-            String url = values[0];
-
-            Bitmap bitmap = null;
-
-            try {
-                URL uri = new URL(url);
-                connection = (HttpsURLConnection) uri.openConnection();
-
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-
-
-                connection.connect();
-
-
-                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-
-                    content = connection.getInputStream();
-
-                    bitmap = BitmapFactory.decodeStream(content);
-
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return bitmap;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            {//*cleanup
-                if (content != null) {
-                    try {
-                        content.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }//cleanup
-
-            if (result != null) {
-                view.setImageBitmap(result);
-            }
-        }
-    }
-
-
-    /* --------------------------------windvolt-------------------------------- */
-
 
 
     final int rootId = 100;
     public String getRootId() {
         return "100";
-    }
+    }//getRootId
+    public String getNewId() {
+        return Integer.toString(rootId + store.size());
+    }//getNewId
 
-    static void addRawModel(DiagramModel model) {
+
+    public void addModel(DiagramModel model) {
         store.add(model);
     }
-
 
     public String getChildren(DiagramModel parent) {
         return parent.getChildren();
@@ -399,7 +142,7 @@ public class DiagramStore {
                 } else {
                     found = model;
 
-                    error = "model id is not unique " + id;
+                    //model id is not unique
                 }
             }
         }//for
@@ -423,7 +166,7 @@ public class DiagramStore {
                 } else { // detect multiple parents error here
                     parent = model;
 
-                    error = "multiple parents error";
+                    //multiple parents error
                 }
             }
         }//for

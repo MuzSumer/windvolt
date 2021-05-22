@@ -21,6 +21,7 @@ package org.windvolt.diagram;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -35,9 +36,19 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.windvolt.R;
+import org.windvolt.diagram.model.DiagramConnector;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class WhoIsWho extends AppCompatActivity {
 
@@ -47,6 +58,7 @@ public class WhoIsWho extends AppCompatActivity {
     final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
 
     DiagramStore store;
+    DiagramConnector connector;
 
     ImageView diagram_symbol;
     TextView diagram_path;
@@ -68,16 +80,8 @@ public class WhoIsWho extends AppCompatActivity {
 
         store = new DiagramStore();
 
-        //* try to load model or create a local */
-
-        if (store.loadModel(WhoIsWho.this, MODEL_URL)) {
-
-        } else {
-            Toast.makeText(this, store.getError(), Toast.LENGTH_LONG).show();
-
-            createLocalStore();
-        }
-
+        //* try to load model */
+        new ModelLoader().execute(MODEL_URL);
 
     }//createStore
 
@@ -86,130 +90,77 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         String root = store.addChild("", "windvolt", "Windenergie Galerie",
-                symbol, "https://windvolt.eu/model/dossier/0diagram.html", //R.string.diagram_dossier,
+                symbol, "https://windvolt.eu/model/dossier/0diagram.html",
                 DIAGRAM_NAME);
 
 
-        // net
-        {
-
-            String net = "https://windvolt.eu/model/wiw_net.png";
-
-            String netz = store.addChild(root, "Netzbetreiber", "Die deutschen Netzbetreiber",
-                    net, "https://windvolt.eu/model/dossier/net_.html", //R.string.net_0,
-                    "net");
-
-
-
-            store.addChild(netz, "50Hertz", "50Hertz Transmission GmbH",
-                    net, "https://windvolt.eu/model/dossier/net_50hertz.html", //R.string.net_50herz,
-                    "");
-            store.addChild(netz, "Amprion", "Amprion GmbH",
-                    net, "https://windvolt.eu/model/dossier/net_amprion.html", //R.string.net_ampirion,
-                    "");
-            store.addChild(netz, "Tennet", "Tennet TSO",
-                    net, "https://windvolt.eu/model/dossier/net_tennet.html", //R.string.net_tennet,
-                    "");
-            store.addChild(netz, "Transnet BW", "Transnet BW GmbH",
-                    net, "https://windvolt.eu/model/dossier/net_transnet.html", //R.string.net_transnet,
-                    "");
-        }
-
-        // pricing
-        {
-            String stock = "https://windvolt.eu/model/wiw_exchange.png";
-
-            store.addChild(root, "Börse", "Strombörse EEX",
-                    stock, "https://windvolt.eu/model/dossier/stock_.html", //R.string.com_stock,
-                    "exc");
-        }
-
-        // com
-        {
-            String com = "https://windvolt.eu/model/wiw_com.png";
-
-            String konzern = store.addChild(root, "Versorger", "Stromversorger in Deutschland",
-                    com, "https://windvolt.eu/model/dossier/com_.html", //R.string.com_0,
-                    "com");
-
-
-
-            String k1 = store.addChild(konzern, "konventionelle", "Versorgung mit konventioneller Energie",
-                    com, "https://windvolt.eu/model/dossier/com_conventional.html", //R.string.com_conventional,
-                    "fossile");
-
-            store.addChild(k1, "RWE", "Rheinisch-Westfälische Energiebetriebe",
-                    com, "https://windvolt.eu/model/dossier/com_rwe.html", //R.string.com_rwe,
-                    "");
-            store.addChild(k1, "eon", "EON Energie Deutschland",
-                    com, "https://windvolt.eu/model/dossier/com_eon.html", //R.string.com_eon,
-                    "");
-            store.addChild(k1, "OVAG", "Oberhessische Versorgung Aktiengesellschaft",
-                    com, "https://windvolt.eu/model/dossier/com_ovag.html", //R.string.com_ovag,
-                    "");
-
-
-
-            // eco
-            {
-                String green = "https://windvolt.eu/model/wiw_green.png";
-
-                String k2 = store.addChild(konzern, "Ökoanbieter", "Ökostromversorger",
-                        green, "https://windvolt.eu/model/dossier/com_green.html", //R.string.com_ecology,
-                        "eco");
-
-                store.addChild(k2, "Lichtblick", "Lichtblick SE",
-                        green, "https://windvolt.eu/model/dossier/com_lichtblick.html", //R.string.com_lichtblick,
-                        "");
-                store.addChild(k2, "Naturstrom", "Naturstrom AG",
-                        green, "https://windvolt.eu/model/dossier/com_naturstrom.html", //R.string.com_naturstrom,
-                        "");
-                store.addChild(k2, "EWS Schönau", "EWS Schönau eG",
-                        green, "https://windvolt.eu/model/dossier/com_schoenau.html", //R.string.com_schoenau,
-                        "");
-                store.addChild(k2, "greenpeace", "greenpeace energy eG",
-                        green, "https://windvolt.eu/model/dossier/com_greenpeace.html", //R.string.com_greenpeace,
-                        "");
-                store.addChild(k2, "Bürgerwerke", "Bürgerwerke eG",
-                        green, "https://windvolt.eu/model/dossier/com_buergerwerke.html", //R.string.com_buergerwerke,
-                        "");
-                store.addChild(k2, "Polarstern", "Polarstern GmbH",
-                        green, "https://windvolt.eu/model/dossier/com_polarstern.html", //R.string.com_polarstern,
-                        "");
-            }
-
-
-        }
-
-
-        // network
-        {
-            String pol = "https://windvolt.eu/model/wiw_politics.png";
-
-            String k3 = store.addChild(root, "Netzwerke", "Regulierung, Forschung, Beratung",
-                    pol, "https://windvolt.eu/model/dossier/pol_.html", //R.string.pol_0,
-                    "shapers");
-
-            store.addChild(k3, "Wirtschaft/Energie", "Bundesministerium",
-                    pol, "https://windvolt.eu/model/dossier/pol_bmwi.html", //R.string.pol_bmwi,
-                    "gov");
-
-            store.addChild(k3, "Bundesnetzagentur", "Bundesnetzagentur",
-                    pol, "https://windvolt.eu/model/dossier/pol_bunetza.html", //R.string.pol_netzagentur,
-                    "gov");
-
-            store.addChild(k3, "Verband Windenergie", "Bundesverband Windenergie e.V.",
-                    pol, "https://windvolt.eu/model/dossier/pol_windverband.html", //R.string.pol_verbandwind,
-                    "");
-
-            store.addChild(k3, "Forum Regenerative Energien", "Internationales Forum",
-                    pol, "https://windvolt.eu/model/dossier/pol_iwr.html", //R.string.pol_iwr,
-                    "");
-
-        }
     }//createLocalStore
 
+    private class ModelLoader extends AsyncTask<String, Void, Boolean> {
 
+        HttpsURLConnection connection = null;
+        InputStream content = null;
+        String url = null;
+
+        @Override
+        protected Boolean doInBackground(String... values) {
+            url = values[0];
+
+            try {
+                URL uri = new URL(url);
+                connection = (HttpsURLConnection) uri.openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+
+
+                connection.connect();
+
+                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+
+                    content = connection.getInputStream();
+                    connector.buildContent(store, content);
+
+                    return true;
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            {
+                if (content != null) {
+                    try {
+                        content.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }//cleanup
+
+            if (!result) {
+                createLocalStore();
+            }
+
+            // start diagram
+            setFocus(store.getRootId());
+
+        }//onPostExecute
+
+    }//ModelLoader
+
+
+    /* --------------------------------windvolt-------------------------------- */
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -253,12 +204,10 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         // create the store
+
+        connector = new DiagramConnector();
         createStore();
 
-        // start diagram
-        if (store.size() > 0) {
-            setFocus(store.getRootId());
-        }
 
     }//onCreate
 
@@ -345,7 +294,7 @@ public class WhoIsWho extends AppCompatActivity {
 
         ImageView image = new ImageView(this);
         image.setPadding(2, 2, 2, 2);
-        store.loadViewImage(image, child.getSymbol());
+        connector.loadViewImage(image, child.getSymbol());
 
 
         TextView text = new TextView(this);

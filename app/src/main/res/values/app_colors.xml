@@ -51,7 +51,7 @@
     <color name="green_500">#673AB7</color>
     <color name="green_700">#0B8043</color>
 
-    <color name="diagram_background">#FBFAED</color>
+    <color name="diagram_background">#33F0F0C8</color>
 
     <color name="textColorSecondary">#FFFFFF</color>
 </resources>
