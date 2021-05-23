@@ -91,8 +91,7 @@ public class DiagramStore {
             parent = findModel(parent_id);
         }
 
-        int size = store.size();
-        String id = Integer.toString(rootId + size);
+        String id = getNewId();
         child.setId(id);
 
 

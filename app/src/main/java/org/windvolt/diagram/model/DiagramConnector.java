@@ -124,7 +124,6 @@ public class DiagramConnector {
         new ImageLoader(view).execute(url);
     }
 
-    // AsyncTask used to download image
     static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
         HttpsURLConnection connection = null;
         InputStream content = null;
