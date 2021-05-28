@@ -34,11 +34,11 @@
     <string name="title_settings">Einstellungen vornehmen</string>
 
     <!-- about -->
-    <string name="about_action">Über diese App</string>
-    <string name="about_label">windvolt 2021.2</string>
+    <string name="about_action">Über</string>
+    <string name="about_label">windvolt - Juni 2021 update</string>
     <string name="about_hello">windvolt Deutschland</string>
 
-    <string name="about_message">windvolt targets the usage of free ernergy</string>
+    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy</string>
 
 
     <!-- location -->

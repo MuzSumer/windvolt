@@ -12,8 +12,9 @@ import javax.net.ssl.HttpsURLConnection;
 public class DiagramAbstraction extends AppCompatActivity {
 
 
-    public void setFocus(String id, boolean expand) {}
 
+
+    public void createStore() {}
     public void loadModel(DiagramAbstraction diagram, String url) {
         setStore(new DiagramStore());
         setConnector(new DiagramConnector());
@@ -21,6 +22,7 @@ public class DiagramAbstraction extends AppCompatActivity {
         new ModelLoader(diagram).execute(url);
     }
 
+    public void setFocus(String id, boolean expand) {}
 
     /* --------------------------------windvolt-------------------------------- */
 

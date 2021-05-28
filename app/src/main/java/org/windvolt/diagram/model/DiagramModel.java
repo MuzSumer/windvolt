@@ -44,7 +44,7 @@ public class DiagramModel {
 
 
     String address = "";
-    public String getAdress() { return address; }
+    public String getAddress() { return address; }
     public void setAddress(String vlaue) { address = vlaue; }
 
 

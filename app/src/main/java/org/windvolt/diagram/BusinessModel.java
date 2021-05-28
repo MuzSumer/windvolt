@@ -150,7 +150,7 @@ public class BusinessModel extends DiagramAbstraction {
         }
 
         // load html
-        web.loadUrl(focus.getAdress());
+        web.loadUrl(focus.getAddress());
 
         String c_id = focus.getChildren();
         View child = findModelView(c_id);
@@ -181,8 +181,12 @@ public class BusinessModel extends DiagramAbstraction {
     private void layoutDiagram() {
         // layout children
 
-        Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
+        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
+        //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
+
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox_focus);
+
 
         int size = diagram.getChildCount();
 
@@ -273,8 +277,7 @@ public class BusinessModel extends DiagramAbstraction {
         String c_id = model.getChildren(); // single schild only
         View found = findModelView(c_id);
 
-        if (null == found) {}
-        else {
+        if (found != null) {
 
             removeChildren(c_id);
 

@@ -111,7 +111,7 @@ public class Recommendation extends Fragment {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    //* VIEW */
+    // VIEW
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -254,7 +254,8 @@ public class Recommendation extends Fragment {
     }//onCreateView
 
 
-    //* EDIT */
+    // EDIT
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -334,6 +335,11 @@ public class Recommendation extends Fragment {
 
 
 
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+
     private void closeKeyboard() {
         View view = getActivity().getCurrentFocus();
 
@@ -341,12 +347,9 @@ public class Recommendation extends Fragment {
             InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-    }
+    }//closeKeyboard
 
-    /* --------------------------------windvolt-------------------------------- */
-
-
-    //* set recommendation */
+    // recommendation
     public void setRecommendation(View view, int state) {
 
         // display recommendation
@@ -373,12 +376,12 @@ public class Recommendation extends Fragment {
                 recommend.setText(getString(R.string.recommendation_unavailable));
                 //recommend.setText("Heute 55 MW zur Mittagszeit. Wir empfehlen das Laden, selbst wenn Deine Geräte nicht erschöpft sind");
         }
-    }
+    }//setRecommendation
 
 
     /* --------------------------------windvolt-------------------------------- */
 
-    //* services */
+    // services
     public static class ServicesDialog extends DialogFragment {
 
         @NonNull
@@ -481,7 +484,7 @@ public class Recommendation extends Fragment {
 
     }//ServicesDialog
 
-    //* battery */
+    // battery
     public static class BatteryDialog extends DialogFragment {
 
         final int CHART_LINES = 5;
@@ -503,11 +506,6 @@ public class Recommendation extends Fragment {
             LayoutInflater inflater = requireActivity().getLayoutInflater();
 
             final View view = inflater.inflate(R.layout.system_battery_history, null);
-
-            // create diagnostic sample data
-            createSampleData(false);
-
-
 
 
             //* load historic data from preferences */
@@ -659,7 +657,9 @@ public class Recommendation extends Fragment {
                     query.setPositiveButton("okay", null);
                     query.create().show();
 
-                    // cleat battery history
+
+
+                    // clear battery history
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -679,13 +679,12 @@ public class Recommendation extends Fragment {
             });
 
 
-
             return builder.create();
         }//onCreateDialog
 
         /* --------------------------------windvolt-------------------------------- */
 
-        //* preposes value to t */
+        // preposes value to t
         private String prepose(String t, String value) {
             String output;
 
@@ -700,49 +699,6 @@ public class Recommendation extends Fragment {
         }
 
 
-
-        //* creates diagnostic sample data */
-        private void createSampleData(boolean value) {
-            if (!value) return;
-
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-            // control values
-            String levels = "10.0";
-            levels += ";20.0";
-            levels += ";30.0";
-            levels += ";40.0";
-            levels += ";50.0";
-            levels += ";60.0";
-            levels += ";70.0";
-            levels += ";80.0";
-            levels += ";90.0";
-            levels += ";100.0";
-
-            Date now = new Date(System.currentTimeMillis());
-            Calendar calendar = Calendar.getInstance();
-            String times = Long.toString(now.getTime());
-
-            for (int t=0; t<10; t++) {
-                calendar.setTime(now);
-
-                calendar.add(Calendar.HOUR, -7);
-
-                now = calendar.getTime();
-
-                times = times + ";" + now.getTime();
-            }
-
-
-            editor.putString("battery_level", levels);
-            editor.apply();
-
-            editor.putString("battery_time", times);
-            editor.apply();
-
-        }//createSampleData
     }//BatteryDialog
 
 
@@ -750,7 +706,7 @@ public class Recommendation extends Fragment {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    /* display latitude/longitude */
+    // display latitude/longitude
     private void displayGeodata() {
         String longitude = zLoadLongitude();
         String latitude = zLoadLatitude();
@@ -760,9 +716,9 @@ public class Recommendation extends Fragment {
 
         String loc = "Breite: " + latitude + "  Länge: " + longitude;
         geo_display.setText(loc);
-    }
+    }//displayGeodata
 
-    //* load latitude:longitude */
+    // load latitude:longitude
     private String loadGeodata() {
         String longitude = "";
         String latitude = "";
@@ -787,11 +743,11 @@ public class Recommendation extends Fragment {
         }
 
         return longitude + ":" + latitude;
-    }
+    }//loadGeodata
 
 
 
-    //* read and set battery level */
+    // battery history
     private void recordBattery() {
 
         if (!history_allowed) return;
@@ -855,9 +811,9 @@ public class Recommendation extends Fragment {
             battery_time_before = Long.toString(time_before);
         }
 
-    }
+    }//recordBattery
 
-    //* display battery */
+    // display battery
     private void displayBattery() {
 
         if (!history_allowed) return;
@@ -913,11 +869,11 @@ public class Recommendation extends Fragment {
 
         /* display battery text */
         bat_display.setText(bat);
-    }
+    }//displayBattery
 
 
 
-    //* read and adapt stations */
+    // adapt stations
     private void loadStations() {
         // load stations
         InputStream inputStream = getResources().openRawResource(R.raw.stations2);
@@ -952,7 +908,7 @@ public class Recommendation extends Fragment {
             names.clear();
             allnames.clear();
         }
-    }
+    }//loadStations
 
 
     /* --------------------------------windvolt-------------------------------- */
@@ -1000,17 +956,6 @@ public class Recommendation extends Fragment {
     }
 
 
-    private void zClearBatteryHistory() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // clear
-        editor.putString("battery_level", "");
-        editor.apply();
-
-        editor.putString("battery_time", "");
-        editor.apply();
-    }
 
     private String zLoadBatteryLevel() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -1039,7 +984,7 @@ public class Recommendation extends Fragment {
             for (String level : levels) {
                 if (!level.isEmpty()) {
                     if (hits < BATTERY_HISTORY_ENTRIES) {
-                        battery_level = battery_level + ";" + level;
+                        battery_level = append(battery_level, level);
                         hits++;
                     }//overflow
                 }//empty
@@ -1078,7 +1023,7 @@ public class Recommendation extends Fragment {
             for (String time : times) {
                 if (!time.isEmpty()) {
                     if (hits < BATTERY_HISTORY_ENTRIES) {
-                        battery_time = battery_time + ";" + time;
+                        battery_time = append(battery_time, time);
                         hits++;
                     }//overflow
                 }//empty
@@ -1088,6 +1033,7 @@ public class Recommendation extends Fragment {
         editor.putString("battery_time", battery_time);
         editor.apply();
     }
+
 
 
     // user choices
@@ -1110,5 +1056,14 @@ public class Recommendation extends Fragment {
     }
 
 
+    private final String DELIM = ";";
+
+    private String append(String t, String value) {
+        if (t.isEmpty()) {
+            return value;
+        }
+
+        return t + DELIM + value;
+    }
     //Recommendation
 }

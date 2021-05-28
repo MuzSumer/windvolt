@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramAbstraction;
@@ -58,11 +59,172 @@ public class WhoIsWho extends DiagramAbstraction {
 
     boolean ALLOW_BEEP = false;
 
-
+    @Override
     public void createStore() {
 
         loadModel(this, MODEL_URL);
-    }
+    }//createStore
+
+    @Override
+    public void setFocus(String id, boolean expand) {
+        if (id == null) {
+            id = getStore().getRootId();
+        }
+
+        boolean hasFocus = id.equals(focus_id);
+        focus_id = id;
+
+        DiagramModel focus = getStore().findModel(id);
+
+
+        doLevelUp.setId(id);
+        doOpenFocus.setId(id);
+
+
+        /*
+        String html = getString(Integer.parseInt(focus.getAdress())); // values
+        web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+         */
+        web.loadUrl(focus.getAddress());
+
+        // set focus title and subject
+        diagram_title.setText(focus.getTitle());
+        diagram_subject.setText(focus.getSubject());
+
+
+        // remove current children
+        diagram_space.removeAllViews();
+
+
+        // add focus children
+        String children = focus.getChildren();
+        if (!children.isEmpty()) {
+            String[] allchildren = children.split(",");
+
+            for (String child_id : allchildren) {
+
+                if (!child_id.isEmpty()) createChildView(focus, child_id);
+
+            }//child
+        }//children
+
+        // calculate path
+        String path = focus.getTags();
+
+        DiagramModel parent = getStore().findParent(id);
+        while (null != parent) {
+
+            String tag = parent.getTags();
+            path = prepose(path, tag);
+
+
+            String parent_id = parent.getId();
+            parent = getStore().findParent(parent_id);
+        }
+
+        if (path.contains(DIAGRAM_NAME + DIAGRAM_PATH_DELIM)) {
+            path = path.substring(DIAGRAM_NAME.length() + DIAGRAM_PATH_DELIM.length());
+        }
+
+        diagram_path.setText(path);
+    }//setFocus
+
+
+    @Override
+    public void onBackPressed() {
+        DiagramModel parent = getStore().findParent(focus_id);
+        if (null == parent) {
+            super.onBackPressed();
+        } else {
+            doBeep();
+
+            String parent_id = parent.getId();
+            setFocus(parent_id, true);
+        }
+    }//onBackPressed
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+    //* create complex child view */
+    public void createChildView(DiagramModel parent, String id) {
+        DiagramModel child = getStore().findModel(id);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+
+        layout.setBackground(roundbox);
+        layout.setPadding(8, 8, 8, 8);
+
+
+        ImageView image = new ImageView(this);
+        image.setPadding(2, 2, 2, 2);
+        getConnector().loadViewImage(image, child.getSymbol());
+
+
+        TextView text = new TextView(this);
+        text.setPadding(8, 8, 8, 8);
+        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+        text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+
+        text.setText(child.getTitle());
+
+        layout.addView(image);
+        layout.addView(text);
+        layout.setOnClickListener(new SetFocus(id));
+
+        diagram_space.addView(layout);
+    }//createChildView
+
+
+
+    private class SetFocus implements View.OnClickListener {
+        String id = "";
+        public SetFocus(String set_id) {
+            id = set_id;
+        }
+
+        @Override
+        public void onClick(View view) {
+            doBeep();
+            setFocus(id, false);
+        }
+    }//SetFocus
+
+    private final LevelUpFocus doLevelUp = new LevelUpFocus();
+    private class LevelUpFocus implements View.OnClickListener {
+        String id = "";
+        public void setId(String set_id) {
+            id = set_id;
+        }
+
+        @Override
+        public void onClick(View v) {
+            DiagramModel parent = getStore().findParent(id);
+            if (null != parent) {
+                String parent_id = parent.getId();
+                setFocus(parent_id, false);
+            }
+        }
+    }//LevelUpFocus
+
+    private final OpenFocus doOpenFocus = new OpenFocus();
+    private static class OpenFocus implements View.OnClickListener {
+        String id = "";
+        public void setId(String set_id) {
+            id = set_id;
+        }
+
+        @Override
+        public void onClick(View v) {
+            // not used here
+        }
+    }//OpenFocus
+
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -114,169 +276,10 @@ public class WhoIsWho extends DiagramAbstraction {
 
     }//onCreate
 
-    @Override
-    public void setFocus(String id, boolean expand) {
-        if (id == null) {
-            id = getStore().getRootId();
-        }
-
-        boolean hasFocus = id.equals(focus_id);
-        focus_id = id;
-
-        DiagramModel focus = getStore().findModel(id);
-
-
-        doLevelUp.setId(id);
-        doOpenFocus.setId(id);
-
-
-        /*
-        String html = getString(Integer.parseInt(focus.getAdress())); // values
-        web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-         */
-        web.loadUrl(focus.getAdress());
-
-        // set focus title and subject
-        diagram_title.setText(focus.getTitle());
-        diagram_subject.setText(focus.getSubject());
-
-
-        // remove current children
-        diagram_space.removeAllViews();
-
-
-        // add focus children
-        String children = focus.getChildren();
-        if (!children.isEmpty()) {
-            String[] allchildren = children.split(",");
-
-            for (String child_id : allchildren) {
-
-                if (!child_id.isEmpty()) createChildView(focus, child_id);
-
-            }//child
-        }//children
-
-        // calculate path
-        String path = focus.getTags();
-
-        DiagramModel parent = getStore().findParent(id);
-        while (null != parent) {
-
-            String tag = parent.getTags();
-
-            if (!tag.isEmpty()) {
-
-                if (path.isEmpty()) { path = tag; }
-                else { path = tag + DIAGRAM_PATH_DELIM + path; }
-
-            }
-
-
-            String parent_id = parent.getId();
-            parent = getStore().findParent(parent_id);
-        }
-
-        if (path.contains(DIAGRAM_NAME + DIAGRAM_PATH_DELIM)) {
-            path = path.substring(DIAGRAM_NAME.length() + DIAGRAM_PATH_DELIM.length());
-        }
-
-        diagram_path.setText(path);
-    }//setFocus
-
-
-    //* create complex child view */
-    public void createChildView(DiagramModel parent, String id) {
-        DiagramModel child = getStore().findModel(id);
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-
-        Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-
-        layout.setBackground(roundbox);
-        layout.setPadding(8, 8, 8, 8);
-
-
-        ImageView image = new ImageView(this);
-        image.setPadding(2, 2, 2, 2);
-        getConnector().loadViewImage(image, child.getSymbol());
-
-
-        TextView text = new TextView(this);
-        text.setPadding(8, 8, 8, 8);
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
-
-        text.setText(child.getTitle());
-
-        layout.addView(image);
-        layout.addView(text);
-        layout.setOnClickListener(new SetFocus(id));
-
-        diagram_space.addView(layout);
-    }//createChildView
-
-    /* --------------------------------windvolt-------------------------------- */
-
-    @Override
-    public void onBackPressed() {
-        DiagramModel parent = getStore().findParent(focus_id);
-        if (null == parent) {
-            super.onBackPressed();
-        } else {
-            doBeep();
-
-            String parent_id = parent.getId();
-            setFocus(parent_id, true);
-        }
-    }//onBackPressed
-
-    private class SetFocus implements View.OnClickListener {
-        String id = "";
-        public SetFocus(String set_id) {
-            id = set_id;
-        }
-
-        @Override
-        public void onClick(View view) {
-            doBeep();
-            setFocus(id, false);
-        }
-    }//SetFocus
-
-
-    private final LevelUpFocus doLevelUp = new LevelUpFocus();
-    private class LevelUpFocus implements View.OnClickListener {
-        String id = "";
-        public void setId(String set_id) {
-            id = set_id;
-        }
-
-        @Override
-        public void onClick(View v) {
-            DiagramModel parent = getStore().findParent(id);
-            if (null != parent) {
-                String parent_id = parent.getId();
-                setFocus(parent_id, false);
-            }
-        }
-    }//LevelUpFocus
-
-    private final OpenFocus doOpenFocus = new OpenFocus();
-    private static class OpenFocus implements View.OnClickListener {
-        String id = "";
-        public void setId(String set_id) {
-            id = set_id;
-        }
-
-        @Override
-        public void onClick(View v) {
-            // not used here
-        }
-    }//OpenFocus
-
+    // preposes value to t
+    private String prepose(String t, String value) {
+        return value + t;
+    }//prepose
 
 
     private void doBeep() {
