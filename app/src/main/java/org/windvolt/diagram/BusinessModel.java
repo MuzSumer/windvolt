@@ -44,9 +44,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramAbstraction;
-import org.windvolt.diagram.model.DiagramConnector;
 import org.windvolt.diagram.model.DiagramModel;
-import org.windvolt.diagram.model.DiagramStore;
 
 public class BusinessModel extends DiagramAbstraction {
 
