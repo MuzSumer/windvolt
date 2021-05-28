@@ -47,8 +47,8 @@ public class Welcome extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.welcome, container, false);
+        View view = inflater.inflate(R.layout.welcome, container, false);
+        return view;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class Welcome extends Fragment {
 
 
         //* load live chart */
-        WebView webView = (WebView) view.findViewById(R.id.welcome_widget);
+        WebView webView = view.findViewById(R.id.welcome_widget);
 
         //String value = getString(R.string.welcome_html); // values
         //webView.loadDataWithBaseURL(null, value, "text/html", "utf-8", null);
@@ -84,7 +84,7 @@ public class Welcome extends Fragment {
 
     private void bindButtons(View view) {
         // view devices
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.action_open_devices);
+        FloatingActionButton fab = view.findViewById(R.id.action_open_devices);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +95,7 @@ public class Welcome extends Fragment {
 
 
         // open page0 wind
-        ImageButton open_page0 = (ImageButton) view.findViewById(R.id.open_page0);
+        ImageButton open_page0 = view.findViewById(R.id.open_page0);
         open_page0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +106,7 @@ public class Welcome extends Fragment {
         });
 
         // open page1 solar
-        ImageButton open_page1 = (ImageButton) view.findViewById(R.id.open_page1);
+        ImageButton open_page1 = view.findViewById(R.id.open_page1);
         open_page1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +119,7 @@ public class Welcome extends Fragment {
         });
 
         // open page2 geo
-        ImageButton open_page2 = (ImageButton) view.findViewById(R.id.open_page2);
+        ImageButton open_page2 = view.findViewById(R.id.open_page2);
         open_page2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +131,7 @@ public class Welcome extends Fragment {
         //open_geo.setVisibility(ImageButton.INVISIBLE);
 
         // open page3 neutro
-        ImageButton open_page3 = (ImageButton) view.findViewById(R.id.open_page3);
+        ImageButton open_page3 = view.findViewById(R.id.open_page3);
         open_page3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

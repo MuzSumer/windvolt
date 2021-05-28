@@ -35,10 +35,10 @@
 
     <!-- about -->
     <string name="about_action">Über diese App</string>
-    <string name="about_label">windvolt 2021</string>
+    <string name="about_label">windvolt 2021.2</string>
     <string name="about_hello">windvolt Deutschland</string>
 
-    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy</string>
+    <string name="about_message">windvolt targets the usage of free ernergy</string>
 
 
     <!-- location -->
@@ -47,12 +47,12 @@
 
 
     <!-- recommendation -->
-    <string name="recommendation_unavailable">In Zukunft werden hier tagesaktuelle Empfehlungen gegeben.</string>
+    <string name="recommendation_unavailable">Schreib\' uns an info@windvolt.eu</string>
 
     <string name="recommendation_charge_prevent">laden nur falls nötig</string>
-    <string name="recommendation_charge_smart">kleine Geräte laden</string>
-    <string name="recommendation_charge_more">große Geräte laden</string>
-    <string name="recommendation_charge_many">alle Geräte laden</string>
+    <string name="recommendation_charge_smart">Smartphones laden</string>
+    <string name="recommendation_charge_more">Smartphones und E-Bikes laden</string>
+    <string name="recommendation_charge_many">E-Cars tagsüber laden</string>
 
 
     <!-- story -->

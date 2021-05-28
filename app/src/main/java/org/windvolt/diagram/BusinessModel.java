@@ -25,7 +25,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -38,26 +37,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
+import org.windvolt.diagram.model.DiagramAbstraction;
 import org.windvolt.diagram.model.DiagramConnector;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
-public class BusinessModel extends AppCompatActivity {
+public class BusinessModel extends DiagramAbstraction {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
 
@@ -78,95 +69,17 @@ public class BusinessModel extends AppCompatActivity {
 
     final int CHILD_WIDTH = 360;
 
-    DiagramStore store;
-    DiagramConnector connector;
-
-
-    protected void createStore() {
-
-        store = new DiagramStore();
-
-        //* try to load model */
-        new ModelLoader().execute(MODEL_URL);
-
-    }//createStore
-
-    private void createLocalStore() {
-
-        String root = store.addChild("", "wind",
-                "Wind", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/economy/flow0.html", //R.string.diagram_flow0,
-                "wind");
-
-    }//createLocalStore
-
-
-    private class ModelLoader extends AsyncTask<String, Void, Boolean> {
-
-        HttpsURLConnection connection = null;
-        InputStream content = null;
-        String url = null;
-
-        @Override
-        protected Boolean doInBackground(String... values) {
-            url = values[0];
-
-            try {
-                URL uri = new URL(url);
-                connection = (HttpsURLConnection) uri.openConnection();
-
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-
-
-                connection.connect();
-
-                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-
-                    content = connection.getInputStream();
-                    connector.buildContent(store, content);
-
-                    return true;
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            {
-                if (content != null) {
-                    try {
-                        content.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }//cleanup
-
-            if (!result) {
-                createLocalStore();
-            }
-
-            // start diagram
-            addModelView(store.getRootId());
-            setFocus(store.getRootId(), false);
-
-        }//onPostExecute
-
-    }//ModelLoader
 
 
     /* --------------------------------windvolt-------------------------------- */
 
+
+    public void createStore() {
+        setStore(new DiagramStore());
+        setConnector(new DiagramConnector());
+
+        loadModel(this, MODEL_URL);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -216,21 +129,29 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-        connector = new DiagramConnector();
-        createStore();
 
+        createStore();
 
     }//onCreate
 
 
 
-    protected void setFocus(String id, boolean expand) {
+    public void setFocus(String id, boolean expand) {
+
+        if (id == null) {
+            id = getStore().getRootId();
+        }
 
         boolean hasFocus = id.equals(focus_id);
         focus_id = id;
 
-        DiagramModel focus = store.findModel(id);
+        DiagramModel focus = getStore().findModel(id);
         if (null == focus) return;
+
+        View layout = findModelView(id);
+        if (layout == null) {
+            addModelView(id);
+        }
 
         // load html
         web.loadUrl(focus.getAdress());
@@ -272,9 +193,6 @@ public class BusinessModel extends AppCompatActivity {
         for (int p=0; p<size; p++) {
             View layout = diagram.getChildAt(p);
 
-
-
-            int ww = CHILD_WIDTH;
             String p_id = layout.getContentDescription().toString();
 
             if (p_id.equals(focus_id)) {
@@ -315,7 +233,7 @@ public class BusinessModel extends AppCompatActivity {
 
     public void addModelView(String id) {
 
-        DiagramModel model = store.findModel(id);
+        DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
         LinearLayout layout = new LinearLayout(this);
@@ -327,7 +245,7 @@ public class BusinessModel extends AppCompatActivity {
 
         ImageView image = new ImageView(this);
         image.setPadding(4, 2, 4, 2);
-        connector.loadViewImage(image, model.getSymbol());
+        getConnector().loadViewImage(image, model.getSymbol());
 
 
         TextView text = new TextView(this);
@@ -353,7 +271,7 @@ public class BusinessModel extends AppCompatActivity {
 
     public void removeChildren(String id) {
 
-        DiagramModel model = store.findModel(id);
+        DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
         String c_id = model.getChildren(); // single schild only
@@ -390,7 +308,7 @@ public class BusinessModel extends AppCompatActivity {
 
 
 
-    private class FlowTreeLayout extends RelativeLayout {
+    private static class FlowTreeLayout extends RelativeLayout {
         Paint paint;
 
         public FlowTreeLayout(Context context) {

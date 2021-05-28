@@ -8,8 +8,8 @@ android {
         applicationId "org.windvolt"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 20211
-        versionName "2021.1"
+        versionCode 20212
+        versionName "2021.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,12 +39,12 @@ dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation 'androidx.fragment:fragment:1.3.3'
+    implementation 'androidx.fragment:fragment:1.3.4'
 
-    implementation 'com.google.android.material:material:1.4.0-alpha02'
+    implementation 'com.google.android.material:material:1.4.0-beta01'
     implementation 'com.google.android.material:material:1.3.0'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
 
     implementation 'androidx.preference:preference:1.1.1'
 

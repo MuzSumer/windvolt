@@ -30,7 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.windvolt.system.device_store.DeviceModel;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -53,7 +52,7 @@ public class DeviceModelStore {
 
     List<DeviceModel> deviceStore = new ArrayList<>();
 
-    private ArrayAdapter ListViewAdapter = null;
+    private ArrayAdapter<String> listViewAdapter = null;
 
 
     private String error_message = "okay";
@@ -67,13 +66,13 @@ public class DeviceModelStore {
     }
 
     public ArrayAdapter createListViewAdapter(int resourceId, int textViewResourceId) {
-        ListViewAdapter = new ArrayAdapter(context, resourceId, textViewResourceId, new ArrayList()) {
+        listViewAdapter = new ArrayAdapter(context, resourceId, textViewResourceId, new ArrayList()) {
 
         };
 
         return getListViewAdapter();
     }
-    public ArrayAdapter getListViewAdapter() { return ListViewAdapter; }
+    public ArrayAdapter getListViewAdapter() { return listViewAdapter; }
 
 
     public boolean initialize() {
@@ -294,7 +293,6 @@ public class DeviceModelStore {
 
         if (isSharingAllowed()) {
             // TODO update online catalog
-            ;
         }
 
         return true;

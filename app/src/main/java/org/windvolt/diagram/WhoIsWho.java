@@ -21,7 +21,6 @@ package org.windvolt.diagram;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -30,35 +29,22 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import org.windvolt.R;
+import org.windvolt.diagram.model.DiagramAbstraction;
 import org.windvolt.diagram.model.DiagramConnector;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
-public class WhoIsWho extends AppCompatActivity {
+public class WhoIsWho extends DiagramAbstraction {
 
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
 
     final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
-
-    DiagramStore store;
-    DiagramConnector connector;
 
     ImageView diagram_symbol;
     TextView diagram_path;
@@ -75,90 +61,12 @@ public class WhoIsWho extends AppCompatActivity {
     boolean ALLOW_BEEP = false;
 
 
+    public void createStore() {
+        setStore(new DiagramStore());
+        setConnector(new DiagramConnector());
 
-    protected void createStore() {
-
-        store = new DiagramStore();
-
-        //* try to load model */
-        new ModelLoader().execute(MODEL_URL);
-
-    }//createStore
-
-    private void createLocalStore() {
-        String symbol = "https://windvolt.eu/model/windvolt_small.png";
-
-
-        String root = store.addChild("", "windvolt", "Windenergie Galerie",
-                symbol, "https://windvolt.eu/model/dossier/0diagram.html",
-                DIAGRAM_NAME);
-
-
-    }//createLocalStore
-
-    private class ModelLoader extends AsyncTask<String, Void, Boolean> {
-
-        HttpsURLConnection connection = null;
-        InputStream content = null;
-        String url = null;
-
-        @Override
-        protected Boolean doInBackground(String... values) {
-            url = values[0];
-
-            try {
-                URL uri = new URL(url);
-                connection = (HttpsURLConnection) uri.openConnection();
-
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-
-
-                connection.connect();
-
-                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-
-                    content = connection.getInputStream();
-                    connector.buildContent(store, content);
-
-                    return true;
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            {
-                if (content != null) {
-                    try {
-                        content.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }//cleanup
-
-            if (!result) {
-                createLocalStore();
-            }
-
-            // start diagram
-            setFocus(store.getRootId());
-
-        }//onPostExecute
-
-    }//ModelLoader
-
+        loadModel(this, MODEL_URL);
+    }
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -180,14 +88,14 @@ public class WhoIsWho extends AppCompatActivity {
 
 
         // diagram elements
-        diagram_symbol = (ImageView) findViewById(R.id.diagram_symbol);
-        diagram_path = (TextView) findViewById(R.id.diagram_path);
+        diagram_symbol = findViewById(R.id.diagram_symbol);
+        diagram_path = findViewById(R.id.diagram_path);
 
-        diagram_title = (TextView) findViewById(R.id.diagram_title);
-        diagram_subject = (TextView) findViewById(R.id.diagram_subject);
+        diagram_title = findViewById(R.id.diagram_title);
+        diagram_subject = findViewById(R.id.diagram_subject);
 
-        diagram_space = (LinearLayout) findViewById(R.id.diagram_space);
-        web = (WebView) findViewById(R.id.diagram_dossier);
+        diagram_space = findViewById(R.id.diagram_space);
+        web = findViewById(R.id.diagram_dossier);
 
         web.setBackgroundColor(getColor(R.color.diagram_background));
 
@@ -205,19 +113,21 @@ public class WhoIsWho extends AppCompatActivity {
 
         // create the store
 
-        connector = new DiagramConnector();
         createStore();
 
 
     }//onCreate
 
     //* set focus */
-    private void setFocus(String id) {
+    public void setFocus(String id, boolean expand) {
+        if (id == null) {
+            id = getStore().getRootId();
+        }
 
         boolean hasFocus = id.equals(focus_id);
         focus_id = id;
 
-        DiagramModel focus = store.findModel(id);
+        DiagramModel focus = getStore().findModel(id);
 
 
         doLevelUp.setId(id);
@@ -254,7 +164,7 @@ public class WhoIsWho extends AppCompatActivity {
         // calculate path
         String path = focus.getTags();
 
-        DiagramModel parent = store.findParent(id);
+        DiagramModel parent = getStore().findParent(id);
         while (null != parent) {
 
             String tag = parent.getTags();
@@ -268,7 +178,7 @@ public class WhoIsWho extends AppCompatActivity {
 
 
             String parent_id = parent.getId();
-            parent = store.findParent(parent_id);
+            parent = getStore().findParent(parent_id);
         }
 
         if (path.contains(DIAGRAM_NAME + DIAGRAM_PATH_DELIM)) {
@@ -281,7 +191,7 @@ public class WhoIsWho extends AppCompatActivity {
 
     //* create complex child view */
     public void createChildView(DiagramModel parent, String id) {
-        DiagramModel child = store.findModel(id);
+        DiagramModel child = getStore().findModel(id);
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
@@ -294,7 +204,7 @@ public class WhoIsWho extends AppCompatActivity {
 
         ImageView image = new ImageView(this);
         image.setPadding(2, 2, 2, 2);
-        connector.loadViewImage(image, child.getSymbol());
+        getConnector().loadViewImage(image, child.getSymbol());
 
 
         TextView text = new TextView(this);
@@ -316,14 +226,14 @@ public class WhoIsWho extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DiagramModel parent = store.findParent(focus_id);
+        DiagramModel parent = getStore().findParent(focus_id);
         if (null == parent) {
             super.onBackPressed();
         } else {
             doBeep();
 
             String parent_id = parent.getId();
-            setFocus(parent_id);
+            setFocus(parent_id, true);
         }
     }//onBackPressed
 
@@ -336,12 +246,12 @@ public class WhoIsWho extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             doBeep();
-            setFocus(id);
+            setFocus(id, false);
         }
     }//SetFocus
 
 
-    private LevelUpFocus doLevelUp = new LevelUpFocus();
+    private final LevelUpFocus doLevelUp = new LevelUpFocus();
     private class LevelUpFocus implements View.OnClickListener {
         String id = "";
         public void setId(String set_id) {
@@ -350,16 +260,16 @@ public class WhoIsWho extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            DiagramModel parent = store.findParent(id);
+            DiagramModel parent = getStore().findParent(id);
             if (null != parent) {
                 String parent_id = parent.getId();
-                setFocus(parent_id);
+                setFocus(parent_id, false);
             }
         }
     }//LevelUpFocus
 
-    private OpenFocus doOpenFocus = new OpenFocus();
-    private class OpenFocus implements View.OnClickListener {
+    private final OpenFocus doOpenFocus = new OpenFocus();
+    private static class OpenFocus implements View.OnClickListener {
         String id = "";
         public void setId(String set_id) {
             id = set_id;
