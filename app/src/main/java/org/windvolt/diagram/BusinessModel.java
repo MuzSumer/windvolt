@@ -135,7 +135,7 @@ public class BusinessModel extends DiagramAbstraction {
     }//onCreate
 
 
-
+    @Override
     public void setFocus(String id, boolean expand) {
 
         if (id == null) {

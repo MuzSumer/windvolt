@@ -118,7 +118,7 @@ public class WhoIsWho extends DiagramAbstraction {
 
     }//onCreate
 
-    //* set focus */
+    @Override
     public void setFocus(String id, boolean expand) {
         if (id == null) {
             id = getStore().getRootId();
