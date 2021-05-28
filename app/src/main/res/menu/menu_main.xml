@@ -21,43 +21,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.windvolt.ActivityMain">
 
-    <group android:id="@+id/group_system">
-        <item
-            android:id="@+id/action_settings"
-            android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_devices"
-            android:orderInCategory="101"
-            android:title="@string/devices_action"
-            app:showAsAction="never" />
-        <item
-            android:id="@+id/action_about"
-            android:orderInCategory="102"
-            android:title="@string/about_action"
-            app:showAsAction="never" />
-    </group>
-
     <group
         android:id="@+id/group_windvolt"
-        android:checkableBehavior="single">
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/action_news"
+            android:orderInCategory="100"
+            android:title="@string/action_news"
+            app:showAsAction="never" />
+
         <item
             android:id="@+id/action_story"
             android:orderInCategory="110"
             android:title="@string/action_story"
             app:showAsAction="never" />
+
+    </group>
+
+    <group
+        android:id="@+id/group_diagram"
+        android:checkableBehavior="none">
+
         <item
             android:id="@+id/action_whoiswho"
-            android:orderInCategory="111"
+            android:orderInCategory="200"
             android:title="@string/action_whoiswho"
             app:showAsAction="never" />
+
         <item
             android:id="@+id/action_economy"
-            android:orderInCategory="112"
+            android:orderInCategory="210"
             android:title="@string/action_economy"
             app:showAsAction="never" />
     </group>
+
+    <group android:id="@+id/group_system">
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="900"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_devices"
+            android:orderInCategory="910"
+            android:title="@string/devices_action"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_about"
+            android:orderInCategory="990"
+            android:title="@string/about_action"
+            app:showAsAction="never" />
+    </group>
+
+
 
 
     <!-- divider -->

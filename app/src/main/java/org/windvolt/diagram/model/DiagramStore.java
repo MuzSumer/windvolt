@@ -34,8 +34,15 @@ public class DiagramStore {
 
     public int storeSize() {
         return store.size();
-    }
+    }//storeSize
 
+    public DiagramModel getModel(int p) {
+        if (p < 0) return null;
+
+        if (p > storeSize() - 1) return null;
+
+        return store.get(p);
+    }//getModel
 
     /* --------------------------------windvolt-------------------------------- */
 

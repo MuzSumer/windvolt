@@ -59,6 +59,11 @@
     <string name="action_story">Story</string>
     <string name="title_story">windvolt story</string>
 
+    <!-- news -->
+    <string name="action_news">Nachrichten</string>
+    <string name="title_news">Nachrichten</string>
+
+
     <!-- who is who -->
     <string name="action_whoiswho">who is who</string>
     <string name="title_whoiswho">who is who</string>

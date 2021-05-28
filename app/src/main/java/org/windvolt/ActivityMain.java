@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.BusinessModel;
+import org.windvolt.diagram.DiagramNews;
 import org.windvolt.diagram.WhoIsWho;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
@@ -66,7 +67,7 @@ public class ActivityMain extends AppCompatActivity {
         int id = item.getItemId();
 
 
-        //* system group */
+        // system group
         {
             // edit settings
             if (id == R.id.action_settings) {
@@ -92,14 +93,27 @@ public class ActivityMain extends AppCompatActivity {
 
 
 
-        //* windvolt group (possibly hidden) */
+        // windvolt group
         {
+            // show news
+            if (id == R.id.action_news) {
+
+                startActivity(new Intent(this, DiagramNews.class));
+                return true;
+            }
+
             // show story
             if (id == R.id.action_story) {
 
                 startActivity(new Intent(this, StoryOfWindvolt.class));
                 return true;
             }
+
+        }
+
+
+        // diagram group
+        {
 
             // show who is who
             if (id == R.id.action_whoiswho) {
@@ -115,7 +129,6 @@ public class ActivityMain extends AppCompatActivity {
                 return true;
             }
         }
-
 
         return super.onOptionsItemSelected(item);
     }//onOptionsItemSelected
