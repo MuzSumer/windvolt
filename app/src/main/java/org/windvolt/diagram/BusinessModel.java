@@ -75,8 +75,6 @@ public class BusinessModel extends DiagramAbstraction {
 
 
     public void createStore() {
-        setStore(new DiagramStore());
-        setConnector(new DiagramConnector());
 
         loadModel(this, MODEL_URL);
     }

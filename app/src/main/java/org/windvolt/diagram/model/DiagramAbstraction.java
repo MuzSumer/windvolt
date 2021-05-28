@@ -15,6 +15,9 @@ public class DiagramAbstraction extends AppCompatActivity {
     public void setFocus(String id, boolean expand) {}
 
     public void loadModel(DiagramAbstraction diagram, String url) {
+        setStore(new DiagramStore());
+        setConnector(new DiagramConnector());
+
         new ModelLoader(diagram).execute(url);
     }
 
