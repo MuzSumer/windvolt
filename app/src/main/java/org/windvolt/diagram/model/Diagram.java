@@ -30,6 +30,8 @@ public class Diagram extends AppCompatActivity {
 
 
     public void createStore() {}
+
+
     public void loadModel(Diagram diagram, String url) {
         setStore(new DiagramStore());
 

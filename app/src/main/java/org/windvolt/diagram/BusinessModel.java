@@ -91,9 +91,6 @@ public class BusinessModel extends Diagram {
             actionBar.setTitle(title);
         }
 
-        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Display display = getWindowManager().getDefaultDisplay();
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -103,6 +100,8 @@ public class BusinessModel extends Diagram {
             w = displayMetrics.widthPixels;
             h = displayMetrics.heightPixels;
         }
+
+        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
 
 
         web = findViewById(R.id.diagram_flow);

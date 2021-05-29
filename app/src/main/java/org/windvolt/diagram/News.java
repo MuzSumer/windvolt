@@ -156,7 +156,6 @@ public class News extends Diagram {
     /* --------------------------------windvolt-------------------------------- */
 
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,14 +170,6 @@ public class News extends Diagram {
             actionBar.setTitle(title);
         }
 
-        // metrics
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-
-        display.getRealMetrics(displayMetrics);
-
-        w = displayMetrics.widthPixels;
-        h = displayMetrics.heightPixels;
 
 
         // create diagram

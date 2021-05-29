@@ -34,6 +34,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.windvolt.diagram.BusinessModel;
+import org.windvolt.diagram.News;
 import org.windvolt.diagram.WhoIsWho;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.DeviceManagement;
@@ -99,7 +100,7 @@ public class Welcome extends Fragment {
         open_page0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), StoryOfWindvolt.class));
+                startActivity(new Intent(view.getContext(), News.class));
 
                 //NavHostFragment.findNavController(Welcome.this).navigate(R.id.action_open_wind);
             }

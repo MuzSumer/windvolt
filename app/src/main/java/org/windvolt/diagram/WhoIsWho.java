@@ -243,8 +243,6 @@ public class WhoIsWho extends Diagram {
         }
 
 
-
-
         // diagram elements
         diagram_symbol = findViewById(R.id.diagram_symbol);
         diagram_path = findViewById(R.id.diagram_path);
