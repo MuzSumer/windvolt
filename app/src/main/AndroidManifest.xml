@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".diagram.News"></activity>
+        <activity android:name=".diagram.News" />
         <activity android:name=".story.StoryOfWindvolt" />
 
         <activity android:name=".diagram.WhoIsWho" />
@@ -32,7 +32,7 @@
         <activity android:name=".system.Settings" />
 
         <activity
-            android:name=".ActivityMain"
+            android:name=".AppActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

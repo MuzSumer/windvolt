@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package org.windvolt.recommendation;
+package org.windvolt.diagram;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -133,7 +133,7 @@ public class Recommendation extends Fragment {
         // UPDATE RECOMMENDATION
         setRecommendation(view, RECOMMENDATION_NOT_AVAILABLE);
 
-        recommendation = (WebView) view.findViewById(R.id.recommendation_view);
+        recommendation = view.findViewById(R.id.recommendation_view);
         recommendation.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -148,7 +148,7 @@ public class Recommendation extends Fragment {
         recommendation.reload();
 
 
-        ImageView symbol = (ImageView) view.findViewById(R.id.recommendation_symbol);
+        ImageView symbol = view.findViewById(R.id.recommendation_symbol);
         symbol.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -162,11 +162,11 @@ public class Recommendation extends Fragment {
         // UPDATE LOCATION AND GEODATA
         //
         //ImageView rec_image = view.findViewById(R.id.recommendation_image);
-        loc_display = (TextView) view.findViewById(R.id.location_display);
-        geo_display = (TextView) view.findViewById(R.id.location_geodata);
+        loc_display = view.findViewById(R.id.location_display);
+        geo_display = view.findViewById(R.id.location_geodata);
 
         // update battery
-        bat_display = (TextView) view.findViewById(R.id.location_battery);
+        bat_display = view.findViewById(R.id.location_battery);
         if (history_allowed) {
             bat_display.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -218,7 +218,7 @@ public class Recommendation extends Fragment {
         displayGeodata();
 
         //* open services */
-        final FloatingActionButton services_open = (FloatingActionButton) view.findViewById(R.id.services_open);
+        final FloatingActionButton services_open = view.findViewById(R.id.services_open);
 
         if (services_allowed) {
             services_open.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +261,7 @@ public class Recommendation extends Fragment {
 
 
         //* location autocomplete */
-        location_chooser = (AutoCompleteTextView) view.findViewById(R.id.location_chooser);
+        location_chooser = view.findViewById(R.id.location_chooser);
 
         location_chooser.setText("");
         location_chooser.clearListSelection();
