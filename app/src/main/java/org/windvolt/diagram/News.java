@@ -2,7 +2,6 @@ package org.windvolt.diagram;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import android.content.Intent;
@@ -20,10 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramAbstraction;
+import org.windvolt.diagram.model.Diagram;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class News extends DiagramAbstraction {
+public class News extends Diagram {
 
     final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
 
@@ -99,8 +98,7 @@ public class News extends DiagramAbstraction {
         image.setPadding(4, 16, 4, 8);
 
         String symbol = model.getSymbol();
-        getConnector().loadViewImage(image, symbol);
-
+        loadViewImage(image, symbol);
 
 
         TextView title = new TextView(this);

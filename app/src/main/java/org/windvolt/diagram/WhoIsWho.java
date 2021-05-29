@@ -35,10 +35,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramAbstraction;
+import org.windvolt.diagram.model.Diagram;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class WhoIsWho extends DiagramAbstraction {
+public class WhoIsWho extends Diagram {
 
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
@@ -162,7 +162,7 @@ public class WhoIsWho extends DiagramAbstraction {
 
         ImageView image = new ImageView(this);
         image.setPadding(2, 2, 2, 2);
-        getConnector().loadViewImage(image, child.getSymbol());
+        loadViewImage(image, child.getSymbol());
 
 
         TextView text = new TextView(this);

@@ -43,10 +43,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramAbstraction;
+import org.windvolt.diagram.model.Diagram;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class BusinessModel extends DiagramAbstraction {
+public class BusinessModel extends Diagram {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
 
@@ -245,7 +245,7 @@ public class BusinessModel extends DiagramAbstraction {
 
         ImageView image = new ImageView(this);
         image.setPadding(4, 2, 4, 2);
-        getConnector().loadViewImage(image, model.getSymbol());
+        loadViewImage(image, model.getSymbol());
 
 
         TextView text = new TextView(this);

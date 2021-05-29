@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -24,7 +26,25 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class DiagramConnector {
+public class Diagram extends AppCompatActivity {
+
+
+    public void createStore() {}
+    public void loadModel(Diagram diagram, String url) {
+        setStore(new DiagramStore());
+
+        new ModelLoader(diagram).execute(url);
+    }
+
+    public void setFocus(String id, boolean expand) {}
+
+    public void loadViewImage(ImageView view, String url) {
+        new ImageLoader(view).execute(url);
+    }
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
 
     public void buildContent(DiagramStore store, InputStream stream) {
         try {
@@ -119,11 +139,87 @@ public class DiagramConnector {
     /* --------------------------------windvolt-------------------------------- */
 
 
-    public void loadViewImage(ImageView view, String url) {
-        new ImageLoader(view).execute(url);
-    }
+    private static class ModelLoader extends AsyncTask<String, Void, Boolean> {
 
-    static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
+        HttpsURLConnection connection = null;
+        InputStream content = null;
+        String url = null;
+
+        Diagram diagram;
+
+
+        public ModelLoader(Diagram set_diagram) {
+            diagram = set_diagram;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... values) {
+            url = values[0];
+
+            try {
+                URL uri = new URL(url);
+                connection = (HttpsURLConnection) uri.openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+
+
+                connection.connect();
+
+                if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+
+                    content = connection.getInputStream();
+                    diagram.buildContent(diagram.getStore(), content);
+
+                    return true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            {
+                if (content != null) {
+                    try {
+                        content.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }//cleanup
+
+            if (!result) {
+                createLocalStore();
+            }
+
+            // start diagram
+            diagram.setFocus(null, false);
+
+        }//onPostExecute
+
+        private void createLocalStore() {
+
+            diagram.getStore().addChild("", "Fehler",
+                    "Online-Modell nicht geladen", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/diagram_error.html", //R.string.diagram_flow0,
+                    "#error");
+
+        }//createLocalStore
+
+    }//ModelLoader
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+
+    private static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
         HttpsURLConnection connection = null;
         InputStream content = null;
         ImageView view;
@@ -189,4 +285,16 @@ public class DiagramConnector {
             }
         }
     }//ImageLoader
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+    DiagramStore store = null;
+    public void setStore(DiagramStore set_store) {
+        store = set_store;
+    }
+    public DiagramStore getStore() {
+        return store;
+    }
+
 }
