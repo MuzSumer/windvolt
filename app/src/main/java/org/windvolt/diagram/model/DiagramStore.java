@@ -111,9 +111,7 @@ public class DiagramStore {
 
         if (id.isEmpty()) return found;
 
-        int size = store.size();
-        for (int m=0; m<size; m++) {
-            DiagramModel model = store.get(m);
+        for (DiagramModel model : store) {
             String m_id = model.getId();
 
             if (m_id.equals(id)) {
@@ -134,9 +132,7 @@ public class DiagramStore {
     public DiagramModel findParent(String id) {
         DiagramModel parent = null;
 
-        int size = store.size();
-        for (int m=0; m<size; m++) {
-            DiagramModel model = store.get(m);
+        for (DiagramModel model : store) {
             String children = model.getChildren();
 
             if (children.contains(id)) {

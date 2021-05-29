@@ -23,7 +23,7 @@ import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramAbstraction;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class DiagramNews extends DiagramAbstraction {
+public class News extends DiagramAbstraction {
 
     final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
 
@@ -96,12 +96,9 @@ public class DiagramNews extends DiagramAbstraction {
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(4, 8, 4, 8);
+        image.setPadding(4, 16, 4, 8);
 
         String symbol = model.getSymbol();
-        if (symbol.isEmpty()) {
-            symbol = "https://windvolt.eu/model/windvolt_small.png";
-        }
         getConnector().loadViewImage(image, symbol);
 
 
@@ -126,8 +123,9 @@ public class DiagramNews extends DiagramAbstraction {
 
         outer.addView(image);
 
-        inner.addView(title);
+
         inner.addView(subject);
+        inner.addView(title);
 
         outer.addView(inner);
 

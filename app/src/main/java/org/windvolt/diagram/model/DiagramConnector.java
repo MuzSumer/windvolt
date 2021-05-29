@@ -26,7 +26,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class DiagramConnector {
 
-
     public void buildContent(DiagramStore store, InputStream stream) {
         try {
 
@@ -129,6 +128,8 @@ public class DiagramConnector {
         InputStream content = null;
         ImageView view;
 
+        final int SYMBOL_SIZE = 80;
+
         public ImageLoader(ImageView set_view) {
             view = set_view;
         }
@@ -137,6 +138,8 @@ public class DiagramConnector {
             String url = values[0];
 
             Bitmap bitmap = null;
+            if (url.isEmpty()) { return bitmap; }
+
 
             try {
                 URL uri = new URL(url);
@@ -181,7 +184,8 @@ public class DiagramConnector {
             }//cleanup
 
             if (result != null) {
-                view.setImageBitmap(result);
+                Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
+                view.setImageBitmap(scaled);
             }
         }
     }//ImageLoader

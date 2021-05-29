@@ -28,7 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.BusinessModel;
-import org.windvolt.diagram.DiagramNews;
+import org.windvolt.diagram.News;
 import org.windvolt.diagram.WhoIsWho;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
@@ -98,7 +98,7 @@ public class ActivityMain extends AppCompatActivity {
             // show news
             if (id == R.id.action_news) {
 
-                startActivity(new Intent(this, DiagramNews.class));
+                startActivity(new Intent(this, News.class));
                 return true;
             }
 
