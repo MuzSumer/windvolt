@@ -35,7 +35,7 @@ import org.windvolt.system.About;
 import org.windvolt.system.DeviceManagement;
 import org.windvolt.system.Settings;
 
-public class AppActivity20214 extends AppCompatActivity {
+public class AppActivity extends AppCompatActivity {
 
 
     /* --------------------------------windvolt-------------------------------- */

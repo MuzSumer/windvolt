@@ -26,7 +26,7 @@
     <!-- welcome -->
     <fragment
         android:id="@+id/page_welcome"
-        android:name="org.windvolt.Welcome"
+        android:name="org.windvolt.Welcome20214"
         android:label="@string/welcome_label"
         tools:layout="@layout/welcome">
 

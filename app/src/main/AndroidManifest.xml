@@ -32,7 +32,7 @@
         <activity android:name=".system.Settings" />
 
         <activity
-            android:name=".AppActivity20214"
+            android:name=".AppActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

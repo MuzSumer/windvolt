@@ -36,10 +36,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.windvolt.diagram.BusinessModel;
 import org.windvolt.diagram.News;
 import org.windvolt.diagram.WhoIsWho;
-import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.DeviceManagement;
 
-public class Welcome extends Fragment {
+public class Welcome20214 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,7 +135,7 @@ public class Welcome extends Fragment {
         open_page3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(Welcome.this).navigate(R.id.action_open_neutron);
+                NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_neutron);
             }
         });
         //open_neutron.setVisibility(ImageButton.INVISIBLE);
