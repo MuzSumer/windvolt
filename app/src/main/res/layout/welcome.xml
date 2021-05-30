@@ -33,6 +33,7 @@
         android:gravity="center"
         android:text="@string/welcome_hello"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/teal_700"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/web_widget"
         app:layout_constraintEnd_toEndOf="parent"
