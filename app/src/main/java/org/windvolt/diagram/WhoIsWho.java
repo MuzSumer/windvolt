@@ -228,7 +228,7 @@ public class WhoIsWho extends Diagram {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

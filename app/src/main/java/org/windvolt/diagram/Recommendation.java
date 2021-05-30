@@ -64,15 +64,16 @@ import java.util.Date;
 /*
     Recommendation
     this fragment provides
-        - location display
+
         - location editor
-        - location services dialog
+        - location display
 
         - latitude/longitude display
-
-
         - battery history display
-        - battery history dialog
+
+        - services dialog
+        - battery dialog
+
  */
 public class Recommendation extends Fragment {
 
