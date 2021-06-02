@@ -7,8 +7,7 @@ windvolt targets the usage and pricing of renewable energy
      alt="Get it on F-Droid"
      height="70">](https://f-droid.org/packages/org.windvolt/)
 
-windvolt does not collect any data at this time
-windvolt does not monetize
+- no data collected | no monetization
 
 
 #what's new in v2021
