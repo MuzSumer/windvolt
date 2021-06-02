@@ -35,10 +35,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.Diagram;
+import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class WhoIsWho extends Diagram {
+public class WhoIsWho extends DiagramActivity {
 
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
@@ -253,7 +253,9 @@ public class WhoIsWho extends Diagram {
         diagram_space = findViewById(R.id.diagram_space);
         web = findViewById(R.id.diagram_dossier);
 
-        web.setBackgroundColor(getColor(R.color.diagram_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            web.setBackgroundColor(getColor(R.color.diagram_background));
+        }
 
         web.setWebViewClient(new WebViewClient() {
             @Override

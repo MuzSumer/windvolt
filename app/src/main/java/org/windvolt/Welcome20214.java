@@ -83,13 +83,16 @@ public class Welcome20214 extends Fragment {
     /* --------------------------------windvolt-------------------------------- */
 
     private void bindButtons(View view) {
-        // view devices
+
+        // device management
         FloatingActionButton fab = view.findViewById(R.id.action_open_devices);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DeviceManagement.class);
-                view.getContext().startActivity(intent);
+
+                // start device management
+                startActivity(new Intent(view.getContext(), DeviceManagement.class));
+
             }
         });
 
@@ -99,9 +102,16 @@ public class Welcome20214 extends Fragment {
         open_page0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                /* news is started as an activity from the mneu */
+
+                // start news activity
                 startActivity(new Intent(view.getContext(), News.class));
 
-                //NavHostFragment.findNavController(Welcome.this).navigate(R.id.action_open_wind);
+
+                // navigate to news fragment
+                //NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_news);
             }
         });
 
@@ -113,7 +123,7 @@ public class Welcome20214 extends Fragment {
 
                 startActivity(new Intent(view.getContext(), WhoIsWho.class));
 
-                //NavHostFragment.findNavController(Welcome.this).navigate(R.id.action_open_solar);
+                //NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_solar);
 
             }
         });
@@ -125,7 +135,7 @@ public class Welcome20214 extends Fragment {
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), BusinessModel.class));
 
-                //NavHostFragment.findNavController(Welcome.this).navigate(R.id.action_open_geo);
+                //NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_geo);
             }
         });
         //open_geo.setVisibility(ImageButton.INVISIBLE);
@@ -135,6 +145,8 @@ public class Welcome20214 extends Fragment {
         open_page3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_neutron);
             }
         });

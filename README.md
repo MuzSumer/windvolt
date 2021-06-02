@@ -7,28 +7,35 @@ windvolt targets the usage and pricing of renewable energy
      alt="Get it on F-Droid"
      height="70">](https://f-droid.org/packages/org.windvolt/)
 
+windvolt does not collect any data at this time
+windvolt does not monetize
 
-#what's new
-  web model based diagrams
+
+#what's new in v2021
+* news page
+* online-models
 
 
 ## getting started
 
-- choose a location
-- configure settings
+* choose any location
+* configure settings
 
 
 
 ## what's contained
 
-+ device library
-+ charging recommendation
+* daily recommendation
+* news
 
-*    the story of windvolt
-*    who is who diagram
-*    wind economy diagram
+* the story of windvolt
 
-*    community links
+* who is who diagram
+* wind economy diagram
+
+* community links
+
+* device library
 
 
 <div>

@@ -44,6 +44,10 @@
         <action
             android:id="@+id/action_open_neutron"
             app:destination="@id/page_neutron" />
+
+        <action
+            android:id="@+id/action_open_news"
+            app:destination="@id/page_news" />
     </fragment>
 
 
@@ -92,6 +96,16 @@
 
         <action
             android:id="@+id/action_exit_neutron"
+            app:destination="@id/page_welcome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/page_news"
+        android:name="org.windvolt.diagram.NewsPage"
+        android:label="NewsPage">
+
+        <action
+            android:id="@+id/action_exit_news"
             app:destination="@id/page_welcome" />
     </fragment>
 

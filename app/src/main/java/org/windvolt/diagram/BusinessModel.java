@@ -43,10 +43,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.Diagram;
+import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class BusinessModel extends Diagram {
+public class BusinessModel extends DiagramActivity {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
 

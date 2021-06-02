@@ -44,19 +44,23 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class Diagram extends AppCompatActivity {
+public class DiagramActivity extends AppCompatActivity {
 
+    /*
+    *
+    * entend this class for activities that load models from a webserver
+    *
+    */
 
     public void createStore() {}
+    public void setFocus(String id, boolean expand) {}
 
 
-    public void loadModel(Diagram diagram, String url) {
+    public void loadModel(DiagramActivity diagram, String url) {
         setStore(new DiagramStore());
 
         new ModelLoader(diagram).execute(url);
     }
-
-    public void setFocus(String id, boolean expand) {}
 
     public void loadViewImage(ImageView view, String url) {
         new ImageLoader(view).execute(url);
@@ -165,10 +169,10 @@ public class Diagram extends AppCompatActivity {
         InputStream content = null;
         String url = null;
 
-        Diagram diagram;
+        DiagramActivity diagram;
 
 
-        public ModelLoader(Diagram set_diagram) {
+        public ModelLoader(DiagramActivity set_diagram) {
             diagram = set_diagram;
         }
 

@@ -8,8 +8,8 @@ android {
         applicationId "org.windvolt"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 20214
-        versionName "2021.4"
+        versionCode 20215
+        versionName "2021.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,7 +56,7 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
-
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 
 }

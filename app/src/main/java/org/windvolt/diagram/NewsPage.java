@@ -1,25 +1,4 @@
-/*
-    This file is part of windvolt.
-
-    created 2020 by Max Sumer
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package org.windvolt.diagram;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,16 +6,22 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramFragment;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class News extends DiagramActivity {
+public class NewsPage extends DiagramFragment {
+
 
     final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
 
@@ -93,33 +78,33 @@ public class News extends DiagramActivity {
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+        Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_rbox);
 
-        LinearLayout outer = new LinearLayout(this);
+        LinearLayout outer = new LinearLayout(getContext());
         outer.setBackground(roundbox);
         outer.setOrientation(LinearLayout.HORIZONTAL);
         outer.setPadding(4, 4, 4, 4);
 
 
-        LinearLayout inner = new LinearLayout(this);
+        LinearLayout inner = new LinearLayout(getContext());
         inner.setOrientation(LinearLayout.VERTICAL);
         inner.setPadding(4, 4, 4, 4);
 
 
-        ImageView image = new ImageView(this);
+        ImageView image = new ImageView(getContext());
         image.setPadding(4, 16, 4, 8);
 
         String symbol = model.getSymbol();
         loadViewImage(image, symbol);
 
 
-        TextView title = new TextView(this);
+        TextView title = new TextView(getContext());
         title.setPadding(8, 8, 8, 8);
         title.setGravity(Gravity.CENTER_VERTICAL);
         title.setText(model.getTitle());
 
 
-        TextView subject = new TextView(this);
+        TextView subject = new TextView(getContext());
         subject.setPadding(8, 8, 8, 8);
         subject.setTextSize(17);
 
@@ -169,25 +154,23 @@ public class News extends DiagramActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_news);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.diagram_news, container, false);
+        return view;
+    }
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-
-            String title = getString(R.string.title_news); // values
-            actionBar.setTitle(title);
-        }
-
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
         // create diagram
-        diagram = findViewById(R.id.diagram_news);
+        diagram = view.findViewById(R.id.diagram_news);
 
         createStore();
-    }//onCreate
-
+    }
 }
