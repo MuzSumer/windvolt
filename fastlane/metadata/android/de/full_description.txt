@@ -1,6 +1,6 @@
 <i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie.
 
-<i>Windvolt</i> empfiehlt das Laden Deiner elektrischen Geräte wenn die Erträge aus erneuerbarer Energie hoch sind.
+<i>Windvolt</i> zeigt die vorhergesagten Erträge aus Sonne und Wind und bietet eine tageskatuelle Empfehlung.
+Auf einen Blick kannst Du erkennen, ob und wann sich das Laden lohnt.
 
-
-* Leider gibt es für Windenergie keinen Open-Data Dienst, deshalb nutzt diese App NonFreeNet features.
+* Die App bettet ein Chart von windjournal.de ein
