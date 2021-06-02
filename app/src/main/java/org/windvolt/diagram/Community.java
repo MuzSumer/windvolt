@@ -145,7 +145,7 @@ public class Community extends DiagramFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_rbox);
+        roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_box_rounded);
     }
 
     @Override

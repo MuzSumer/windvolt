@@ -20,15 +20,18 @@ package org.windvolt.diagram.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.windvolt.R;
 import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
@@ -303,7 +306,10 @@ public class DiagramActivity extends AppCompatActivity {
                 }
             }//cleanup
 
-            if (result != null) {
+            if (result == null) {
+                view.setImageResource(R.drawable.ic_error);
+
+            } else {
                 //Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
                 //view.setImageBitmap(scaled);
 

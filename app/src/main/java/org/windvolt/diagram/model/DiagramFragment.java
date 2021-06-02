@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.windvolt.R;
 import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
@@ -286,13 +287,17 @@ public class DiagramFragment extends Fragment {
                 }
             }//cleanup
 
-            if (result != null) {
+            if (result == null) {
+                view.setImageResource(R.drawable.ic_error);
+
+            } else {
                 //Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
                 //view.setImageBitmap(scaled);
 
                 view.setImageBitmap(result);
             }
         }
+
     }//ImageLoader
 
 

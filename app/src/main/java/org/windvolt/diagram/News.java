@@ -93,7 +93,7 @@ public class News extends DiagramActivity {
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
 
         LinearLayout outer = new LinearLayout(this);
         outer.setBackground(roundbox);

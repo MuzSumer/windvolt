@@ -27,7 +27,7 @@ public class NewsPage extends DiagramFragment {
 
     LinearLayout diagram;
 
-    Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_rbox);
+    Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_box_rounded);
 
 
     public void createStore() {

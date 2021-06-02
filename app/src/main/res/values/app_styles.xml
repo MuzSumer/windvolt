@@ -18,14 +18,10 @@
 -->
 <resources>
 
-
-
-
     <!-- popup menu dividers -->
     <style name="PopupMenuListView" parent="@style/Widget.AppCompat.ListView.DropDown">
         <item name="android:divider">#373737</item>
         <item name="android:dividerHeight">1dp</item>
     </style>
-
 
 </resources>

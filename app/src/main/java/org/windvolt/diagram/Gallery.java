@@ -153,7 +153,7 @@ public class Gallery extends DiagramActivity {
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
 
         layout.setBackground(roundbox);
         layout.setPadding(8, 8, 8, 8);

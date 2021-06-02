@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/app_rbox"
+        android:background="@drawable/app_box_rounded"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

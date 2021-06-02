@@ -101,7 +101,7 @@ public class Economy extends DiagramActivity {
             h = displayMetrics.heightPixels;
         }
 
-        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
+        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
 
 
         web = findViewById(R.id.diagram_flow);
@@ -183,8 +183,8 @@ public class Economy extends DiagramActivity {
         //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
         //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox);
-        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_rbox_focus);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_box_focused);
 
 
         int size = diagram.getChildCount();
