@@ -23,11 +23,11 @@ windvolt targets the usage and pricing of renewable energy
 
 
 ## what's contained
-
+* daily chart
 * daily recommendation
-* news
 
-* the story of windvolt
+* news
+* motivation story
 
 * who is who diagram
 * wind economy diagram
