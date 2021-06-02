@@ -18,4 +18,33 @@
 -->
 <resources>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- show a watermark in linear layouts -->
+        <item name="android:windowBackground">@drawable/app_watermark</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- show dividers in popup menu
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+        -->
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+
+        <!-- show splash while app initializes @drawable/app_splash-->
+        <item name="android:windowBackground">@drawable/app_splash</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

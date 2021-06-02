@@ -56,8 +56,8 @@
 
 
     <!-- story -->
-    <string name="action_story">Story</string>
-    <string name="app_story">windvolt story</string>
+    <string name="action_story">Motivation</string>
+    <string name="app_story">Motivation Story</string>
 
     <!-- news -->
     <string name="action_news">Nachrichten</string>
