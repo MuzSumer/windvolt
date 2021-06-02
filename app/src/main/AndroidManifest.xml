@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.windvolt"
-    android:versionCode="20215"
-    android:versionName="V2021.5">
+    android:versionCode="20216"
+    android:versionName="V2021.6">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--

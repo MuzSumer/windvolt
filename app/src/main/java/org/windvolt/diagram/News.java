@@ -178,7 +178,7 @@ public class News extends DiagramActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.title_news); // values
+            String title = getString(R.string.app_news); // values
             actionBar.setTitle(title);
         }
 

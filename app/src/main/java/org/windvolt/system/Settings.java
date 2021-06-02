@@ -42,7 +42,7 @@ public class Settings extends AppCompatActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            actionBar.setTitle(getString(R.string.title_settings));
+            actionBar.setTitle(getString(R.string.app_settings));
         }
 
         getSupportFragmentManager()

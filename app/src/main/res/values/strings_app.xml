@@ -27,16 +27,16 @@
 
     <!-- welcome page -->
     <string name="welcome_label">Welcome</string>
-    <string name="welcome_hello">Erneuerbare Energie Deutschland</string>
+    <string name="app_welcome">Erneuerbare Energie Deutschland</string>
 
     <!-- settings -->
     <string name="action_settings">Einstellungen</string>
-    <string name="title_settings">Einstellungen vornehmen</string>
+    <string name="app_settings">Einstellungen vornehmen</string>
 
     <!-- about -->
     <string name="about_action">Über</string>
-    <string name="about_label">windvolt - Juni 2021 update</string>
-    <string name="about_hello">windvolt Deutschland</string>
+    <string name="app_about">windvolt - Juni 2021 update</string>
+    <string name="about_label">windvolt Deutschland</string>
 
     <string name="about_message">windvolt targets the usage and pricing of renewable ernergy</string>
 
@@ -57,23 +57,20 @@
 
     <!-- story -->
     <string name="action_story">Story</string>
-    <string name="title_story">windvolt story</string>
+    <string name="app_story">windvolt story</string>
 
     <!-- news -->
     <string name="action_news">Nachrichten</string>
-    <string name="title_news">Nachrichten</string>
+    <string name="app_news">Nachrichten</string>
 
 
     <!-- who is who -->
     <string name="action_gallery">Galerie</string>
-    <string name="title_gallery">Galerie</string>
+    <string name="app_gallery">Galerie</string>
 
     <!-- economy -->
     <string name="action_economy">Ökonomie</string>
-    <string name="title_economy">Ökonomie</string>
-
-
-
+    <string name="app_economy">Ökonomie</string>
 
 
 </resources>
