@@ -129,6 +129,7 @@ public class Gallery extends DiagramActivity {
     }//setFocus
 
 
+
     @Override
     public void onBackPressed() {
         DiagramModel parent = getStore().findParent(focus_id);
