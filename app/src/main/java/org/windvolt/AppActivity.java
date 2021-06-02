@@ -27,9 +27,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
-import org.windvolt.diagram.BusinessModel;
+import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.News;
-import org.windvolt.diagram.WhoIsWho;
+import org.windvolt.diagram.Gallery;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
 import org.windvolt.system.DeviceManagement;
@@ -118,14 +118,14 @@ public class AppActivity extends AppCompatActivity {
             // show who is who
             if (id == R.id.action_whoiswho) {
 
-                startActivity(new Intent(this, WhoIsWho.class));
+                startActivity(new Intent(this, Gallery.class));
                 return true;
             }
 
             // show economy
             if (id == R.id.action_economy) {
 
-                startActivity(new Intent(this, BusinessModel.class));
+                startActivity(new Intent(this, Economy.class));
                 return true;
             }
         }

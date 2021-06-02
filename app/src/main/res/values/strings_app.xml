@@ -65,12 +65,12 @@
 
 
     <!-- who is who -->
-    <string name="action_whoiswho">who is who</string>
-    <string name="title_whoiswho">who is who</string>
+    <string name="action_gallery">Galerie</string>
+    <string name="title_gallery">Galerie</string>
 
     <!-- economy -->
     <string name="action_economy">Ökonomie</string>
-    <string name="title_economy">Windökonomie</string>
+    <string name="title_economy">Ökonomie</string>
 
 
 

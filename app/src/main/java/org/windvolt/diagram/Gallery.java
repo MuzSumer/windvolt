@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -38,7 +37,7 @@ import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class WhoIsWho extends DiagramActivity {
+public class Gallery extends DiagramActivity {
 
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
@@ -232,7 +231,7 @@ public class WhoIsWho extends DiagramActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_boxtree);
+        setContentView(R.layout.diagram_gallery);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

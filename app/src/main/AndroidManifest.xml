@@ -21,8 +21,8 @@
         <activity android:name=".diagram.News" />
         <activity android:name=".story.StoryOfWindvolt" />
 
-        <activity android:name=".diagram.WhoIsWho" />
-        <activity android:name=".diagram.BusinessModel" />
+        <activity android:name=".diagram.Gallery" />
+        <activity android:name=".diagram.Economy" />
 
 
         <activity android:name=".system.DeviceList" />

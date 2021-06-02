@@ -46,7 +46,7 @@ import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class BusinessModel extends DiagramActivity {
+public class Economy extends DiagramActivity {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
 
@@ -81,7 +81,7 @@ public class BusinessModel extends DiagramActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_flow);
+        setContentView(R.layout.diagram_economy);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -46,7 +46,7 @@
         <item
             android:id="@+id/action_whoiswho"
             android:orderInCategory="200"
-            android:title="@string/action_whoiswho"
+            android:title="@string/action_gallery"
             app:showAsAction="never" />
 
         <item

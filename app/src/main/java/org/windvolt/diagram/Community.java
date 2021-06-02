@@ -20,15 +20,13 @@ import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramFragment;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class NewsPage extends DiagramFragment {
+public class Community extends DiagramFragment {
 
-
-    final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/community/0diagram.xml";
 
     LinearLayout diagram;
 
-    Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_rbox);
-
+    Drawable roundbox;
 
     public void createStore() {
 
@@ -39,16 +37,15 @@ public class NewsPage extends DiagramFragment {
 
     public void setFocus(String any_id, boolean expand) {
 
-        for (int p=0; p< getStore().storeSize(); p++) {
+        int size = getStore().storeSize();
+
+        for (int p=0; p<size; p++) {
 
             DiagramModel model = getStore().getModel(p);
 
             String id = model.getId();
+            addModelView(id);
 
-            View layout = findModelView(id);
-            if (layout == null) {
-                addModelView(id);
-            }
         }
     }//setFocus
 
@@ -83,18 +80,15 @@ public class NewsPage extends DiagramFragment {
 
 
         LinearLayout outer = new LinearLayout(getContext());
+        outer.setHorizontalGravity(LinearLayout.AUTOFILL_TYPE_LIST);
         outer.setBackground(roundbox);
         outer.setOrientation(LinearLayout.HORIZONTAL);
         outer.setPadding(4, 4, 4, 4);
 
 
-        LinearLayout inner = new LinearLayout(getContext());
-        inner.setOrientation(LinearLayout.VERTICAL);
-        inner.setPadding(4, 4, 4, 4);
-
 
         ImageView image = new ImageView(getContext());
-        image.setPadding(4, 16, 4, 8);
+        image.setPadding(4, 12, 4, 8);
 
         String symbol = model.getSymbol();
         loadViewImage(image, symbol);
@@ -107,7 +101,7 @@ public class NewsPage extends DiagramFragment {
 
 
         TextView subject = new TextView(getContext());
-        subject.setPadding(8, 8, 8, 8);
+        subject.setPadding(8, 16, 8, 8);
         subject.setTextSize(17);
 
         subject.setGravity(Gravity.CENTER_VERTICAL);
@@ -117,14 +111,8 @@ public class NewsPage extends DiagramFragment {
         //text.setText(w + "/" + h);
 
         outer.setContentDescription(id);
-
         outer.addView(image);
-
-
-        inner.addView(subject);
-        inner.addView(title);
-
-        outer.addView(inner);
+        outer.addView(subject);
 
         outer.setOnClickListener(new OnFocus(id));
 
@@ -153,16 +141,19 @@ public class NewsPage extends DiagramFragment {
 
 
     /* --------------------------------windvolt-------------------------------- */
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_rbox);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.diagram_news, container, false);
+        View view = inflater.inflate(R.layout.diagram_community, container, false);
+
+        diagram = view.findViewById(R.id.diagram_links);
+
         return view;
     }
 
@@ -171,8 +162,6 @@ public class NewsPage extends DiagramFragment {
 
 
         // create diagram
-        diagram = view.findViewById(R.id.diagram_news);
-
         createStore();
     }
 }

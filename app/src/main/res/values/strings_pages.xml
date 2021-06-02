@@ -25,14 +25,14 @@
     <string name="page0_exit">zurück</string>
 
     <!-- page1 'solar' -->
-    <string name="page1_label">who is who</string>
-    <string name="page1_hello">who is who</string>
+    <string name="page1_label">Galerie</string>
+    <string name="page1_hello">Galerie</string>
     <string name="page1_open">whoiswho</string>
     <string name="page1_exit">zurück</string>
 
     <!-- page2 'geothermal' -->
-    <string name="page2_label">Markt</string>
-    <string name="page2_hello">Windökonomie</string>
+    <string name="page2_label">Ökonomie</string>
+    <string name="page2_hello">Ökonomie</string>
     <string name="page2_open">economics</string>
     <string name="page2_exit">zurück</string>
 

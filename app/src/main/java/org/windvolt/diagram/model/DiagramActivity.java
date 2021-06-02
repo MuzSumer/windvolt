@@ -304,8 +304,10 @@ public class DiagramActivity extends AppCompatActivity {
             }//cleanup
 
             if (result != null) {
-                Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
-                view.setImageBitmap(scaled);
+                //Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
+                //view.setImageBitmap(scaled);
+
+                view.setImageBitmap(result);
             }
         }
     }//ImageLoader

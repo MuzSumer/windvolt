@@ -33,9 +33,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.windvolt.diagram.BusinessModel;
+import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.News;
-import org.windvolt.diagram.WhoIsWho;
+import org.windvolt.diagram.Gallery;
 import org.windvolt.system.DeviceManagement;
 
 public class Welcome20215 extends Fragment {
@@ -121,7 +121,7 @@ public class Welcome20215 extends Fragment {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(view.getContext(), WhoIsWho.class));
+                startActivity(new Intent(view.getContext(), Gallery.class));
 
                 //NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_solar);
 
@@ -133,7 +133,7 @@ public class Welcome20215 extends Fragment {
         open_page2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), BusinessModel.class));
+                startActivity(new Intent(view.getContext(), Economy.class));
 
                 //NavHostFragment.findNavController(Welcome20214.this).navigate(R.id.action_open_geo);
             }
