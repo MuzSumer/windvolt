@@ -28,6 +28,7 @@ public class Community extends DiagramFragment {
 
     Drawable roundbox;
 
+    @Override
     public void createStore() {
 
         // load model
@@ -35,6 +36,7 @@ public class Community extends DiagramFragment {
 
     }//createStore
 
+    @Override
     public void setFocus(String any_id, boolean expand) {
 
         int size = getStore().storeSize();
@@ -91,7 +93,7 @@ public class Community extends DiagramFragment {
         image.setPadding(4, 12, 4, 8);
 
         String symbol = model.getSymbol();
-        loadViewImage(image, symbol);
+        loadViewImage(image, symbol, 160, 70);
 
 
         TextView title = new TextView(getContext());

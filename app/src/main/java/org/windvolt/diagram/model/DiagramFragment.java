@@ -47,9 +47,11 @@ public class DiagramFragment extends Fragment {
     }
 
     public void loadViewImage(ImageView view, String url) {
-        new ImageLoader(view).execute(url);
+        new ImageLoader(view, -1, -1).execute(url);
     }
-
+    public void loadViewImage(ImageView view, String url, int w, int h) {
+        new ImageLoader(view, w, h).execute(url);
+    }
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -231,11 +233,13 @@ public class DiagramFragment extends Fragment {
         HttpsURLConnection connection = null;
         InputStream content = null;
         ImageView view;
+        int w, h;
 
-        final int SYMBOL_SIZE = 80;
 
-        public ImageLoader(ImageView set_view) {
+        public ImageLoader(ImageView set_view, int set_w, int set_h) {
             view = set_view;
+            w = set_w;
+            h = set_h;
         }
 
         protected Bitmap doInBackground(String... values) {
@@ -291,10 +295,17 @@ public class DiagramFragment extends Fragment {
                 view.setImageResource(R.drawable.ic_error);
 
             } else {
-                //Bitmap scaled = Bitmap.createScaledBitmap(result, SYMBOL_SIZE, SYMBOL_SIZE, false);
-                //view.setImageBitmap(scaled);
 
-                view.setImageBitmap(result);
+                if (w < 0 && h < 0) {
+
+                    view.setImageBitmap(result);
+                } else {
+                    Bitmap scaled = Bitmap.createScaledBitmap(result, w, h, false);
+                    view.setImageBitmap(scaled);
+                }
+
+
+
             }
         }
 

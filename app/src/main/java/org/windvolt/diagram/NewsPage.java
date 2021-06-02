@@ -29,7 +29,7 @@ public class NewsPage extends DiagramFragment {
 
     Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_box_rounded);
 
-
+    @Override
     public void createStore() {
 
         // load model
@@ -37,6 +37,7 @@ public class NewsPage extends DiagramFragment {
 
     }//createStore
 
+    @Override
     public void setFocus(String any_id, boolean expand) {
 
         for (int p=0; p< getStore().storeSize(); p++) {

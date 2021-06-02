@@ -42,7 +42,7 @@ public class News extends DiagramActivity {
 
     LinearLayout diagram;
 
-
+    @Override
     public void createStore() {
 
         // load model
@@ -50,6 +50,7 @@ public class News extends DiagramActivity {
 
     }//createStore
 
+    @Override
     public void setFocus(String any_id, boolean expand) {
 
         for (int p=0; p< getStore().storeSize(); p++) {
@@ -110,7 +111,7 @@ public class News extends DiagramActivity {
         image.setPadding(4, 16, 4, 8);
 
         String symbol = model.getSymbol();
-        loadViewImage(image, symbol);
+        loadViewImage(image, symbol, 80, 80);
 
 
         TextView title = new TextView(this);

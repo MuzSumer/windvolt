@@ -71,7 +71,7 @@ public class Economy extends DiagramActivity {
 
     /* --------------------------------windvolt-------------------------------- */
 
-
+    @Override
     public void createStore() {
 
         loadModel(this, MODEL_URL);
@@ -244,7 +244,7 @@ public class Economy extends DiagramActivity {
 
         ImageView image = new ImageView(this);
         image.setPadding(4, 2, 4, 2);
-        loadViewImage(image, model.getSymbol());
+        loadViewImage(image, model.getSymbol(), 56, 56);
 
 
         TextView text = new TextView(this);
