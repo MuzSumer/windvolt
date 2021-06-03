@@ -40,6 +40,8 @@ public class News extends DiagramActivity {
 
     final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
 
+    String focus_id;
+
     LinearLayout diagram;
 
     @Override
@@ -51,22 +53,56 @@ public class News extends DiagramActivity {
     }//createStore
 
     @Override
-    public void setFocus(String any_id, boolean expand) {
+    public void setFocus(String id, boolean expand) {
 
-        for (int p=0; p< getStore().storeSize(); p++) {
-
-            DiagramModel model = getStore().getModel(p);
-
-            String id = model.getId();
-
-            View layout = findModelView(id);
-            if (layout == null) {
-                addModelView(id);
-            }
+        if (id == null) {
+            id = getStore().getRootId();
         }
+        if (id.isEmpty()) {
+            id = getStore().getRootId();
+        }
+
+        DiagramModel focus = getStore().findModel(id);
+        if (focus == null) {
+            return;
+        }
+
+        diagram.removeAllViews();
+
+
+        // add focus children
+        String children = focus.getChildren();
+
+        //children = "204,203,202,201,200";
+
+        if (!children.isEmpty()) {
+            String[] allchildren = children.split(",");
+
+            for (String child_id : allchildren) {
+
+                if (!child_id.isEmpty()) {
+                    addModelView(child_id);
+                }
+            }//child
+        }//children
+
+        focus_id = id;
     }//setFocus
 
+    @Override
+    public void onBackPressed() {
 
+        DiagramModel parent = getStore().findParent(focus_id);
+
+        if (null == parent) {
+            super.onBackPressed();
+        } else {
+
+            String parent_id = parent.getId();
+            setFocus(parent_id, true);
+
+        }
+    }//onBackPressed
     /* --------------------------------windvolt-------------------------------- */
 
 
@@ -146,23 +182,35 @@ public class News extends DiagramActivity {
 
     }//addModelView
 
-
     class OnFocus implements View.OnClickListener {
 
         String id;
 
         public OnFocus(String set_id) { id = set_id; }
+
         @Override
         public void onClick(View view) {
 
             DiagramModel model = getStore().findModel(id);
-            if (model == null) { return; }
-
-            String address = model.getAddress();
-            if (!address.isEmpty()) {
-                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
+            if (model == null) {
+                return;
             }
-        }
+
+            if (model.getChildren().isEmpty()) {
+
+                // open address
+                String address = model.getAddress();
+                if (!address.isEmpty()) {
+                    view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
+                }
+            } else {
+
+                // dive into category
+                setFocus(id, false);
+            }
+
+        }//onClick
+
     }//OnFocus
 
 

@@ -19,26 +19,26 @@
 <resources>
 
     <!-- page0 'wind' -->
-    <string name="page0_label">story</string>
-    <string name="page0_hello">windvolt story</string>
-    <string name="page0_open">windvolt</string>
-    <string name="page0_exit">zurück</string>
+    <string name="page0_label">Nachrichten</string>
+    <string name="page0_hello">Nachrichten</string>
+    <string name="page0_open">news</string>
+    <string name="page0_exit">back</string>
 
     <!-- page1 'solar' -->
     <string name="page1_label">Galerie</string>
     <string name="page1_hello">Galerie</string>
-    <string name="page1_open">whoiswho</string>
-    <string name="page1_exit">zurück</string>
+    <string name="page1_open">gallery</string>
+    <string name="page1_exit">back</string>
 
     <!-- page2 'geothermal' -->
     <string name="page2_label">Ökonomie</string>
     <string name="page2_hello">Ökonomie</string>
-    <string name="page2_open">economics</string>
-    <string name="page2_exit">zurück</string>
+    <string name="page2_open">economy</string>
+    <string name="page2_exit">back</string>
 
     <!-- page3 'neutronal' -->
-    <string name="page3_label">community</string>
-    <string name="page3_hello">Wind Community</string>
+    <string name="page3_label">Community</string>
+    <string name="page3_hello">Community</string>
     <string name="page3_open">links</string>
     <string name="page3_exit">zurück</string>
 

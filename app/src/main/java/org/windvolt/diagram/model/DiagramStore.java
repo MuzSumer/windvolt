@@ -107,9 +107,14 @@ public class DiagramStore {
     /* --------------------------------windvolt-------------------------------- */
 
     public DiagramModel findModel(String id) {
-        DiagramModel found = null;
+        if (id == null) {
+            return null;
+        }
+        if (id.isEmpty()) {
+            return null;
+        }
 
-        if (id.isEmpty()) return found;
+        DiagramModel found = null;
 
         for (DiagramModel model : store) {
             String m_id = model.getId();
@@ -130,6 +135,14 @@ public class DiagramStore {
     }//findModel
 
     public DiagramModel findParent(String id) {
+
+        if (id == null) {
+            return null;
+        }
+        if (id.isEmpty()) {
+            return null;
+        }
+
         DiagramModel parent = null;
 
         for (DiagramModel model : store) {

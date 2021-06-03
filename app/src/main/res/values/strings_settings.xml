@@ -18,47 +18,56 @@
 -->
 <resources>
 
-    <!-- preferences -->
+    <!-- disclaimer -->
     <string name="settings_disclaimer">*beim nächsten Start der App</string>
 
 
+
+    <!-- language -->
     <string name="language_category">Sprache</string>
 
     <string name="language_title">Deutsch</string>
-    <string name="language_summary">*Sprache.</string>
+    <string name="language_summary">*Sprache wählen.</string>
 
 
+
+    <!-- location -->
     <string name="location_category">Ort</string>
 
-    <string name="location_title">Dein Ort</string>
+    <string name="location_title">Ort</string>
     <string name="location_summary">*freie Ortsangabe.</string>
 
-    <string name="location_longitude">Längengrad.</string>
+    <string name="location_longitude">Längengrad</string>
     <string name="location_longitude_summary">*freie Längenangabe.</string>
 
-    <string name="location_latitude">Breitengrad.</string>
+    <string name="location_latitude">Breitengrad</string>
     <string name="location_latitude_summary">*freie Breitenangabe.</string>
 
 
+
+    <!-- services -->
     <string name="location_services">Ortsdienste verwenden</string>
     <string name="location_services_summary">*Durch die Verwendung von Ortsdiensten gibst Du Daten preis.</string>
 
 
+    <!-- display -->
     <string name="display_category">Anzeige anpassen</string>
 
-
-    <string name="battery_state">Batteriestatus anzeigen</string>
+    <string name="battery_state">Batteriestatus zeigen</string>
     <string name="battery_summary">*Ich interessiere mich für den Stromverbrauch meines Smartphones.</string>
 
-    <string name="location_geodata">Geodaten anzeigen</string>
+    <string name="location_geodata">Ortsdaten zeigen</string>
     <string name="location_geodata_summary">*Länge und Breite anzeigen.</string>
 
 
+    <!-- community -->
     <string name="community_category">Community</string>
 
     <string name="sharing_title">Community beitreten</string>
     <string name="sharing_summary">Ich teile meine Gerätedaten und verbessere damit die Empfehlungen.</string>
 
-    <string name="notification_title">Benachrichtigungen empfangen</string>
+    <string name="notification_title">Empfehlungen erhalten</string>
     <string name="notification_summary">Ich will benachrichtigt werden wenn sich das Laden lohnt.</string>
+
+
 </resources>

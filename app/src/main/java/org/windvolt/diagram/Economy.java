@@ -52,7 +52,7 @@ public class Economy extends DiagramActivity {
 
     boolean ALLOW_BEEP = false;
 
-    Drawable windvolt_icon;
+    Drawable default_icon;
     FlowTreeLayout diagram;
     WebView web;
 
@@ -76,59 +76,6 @@ public class Economy extends DiagramActivity {
 
         loadModel(this, MODEL_URL);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_economy);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-
-            String title = getString(R.string.page2_hello); // values
-            actionBar.setTitle(title);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Display display = getWindowManager().getDefaultDisplay();
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-
-            display.getRealMetrics(displayMetrics);
-
-            w = displayMetrics.widthPixels;
-            h = displayMetrics.heightPixels;
-        }
-
-        windvolt_icon = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
-
-
-        web = findViewById(R.id.diagram_flow);
-        web.setBackgroundColor(getColor(R.color.diagram_background));
-        web.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
-
-        diagram = new FlowTreeLayout(this);
-        diagram.setBackgroundColor(getColor(R.color.diagram_background));
-
-
-        LinearLayout layout = findViewById(R.id.flow_container);
-        layout.addView(diagram);
-
-
-
-
-        createStore();
-
-    }//onCreate
-
 
     @Override
     public void setFocus(String id, boolean expand) {
@@ -177,134 +124,60 @@ public class Economy extends DiagramActivity {
     }//setFocus
 
 
-    private void layoutDiagram() {
-        // layout children
-
-        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
-
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
-        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_box_focused);
+    /* --------------------------------windvolt-------------------------------- */
 
 
-        int size = diagram.getChildCount();
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.diagram_economy);
 
-        for (int p=0; p<size; p++) {
-            View layout = diagram.getChildAt(p);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String p_id = layout.getContentDescription().toString();
+            String title = getString(R.string.page2_hello); // values
+            actionBar.setTitle(title);
+        }
 
-            if (p_id.equals(focus_id)) {
-                layout.setBackground(focusbox);
-            } else {
-                layout.setBackground(roundbox);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Display display = getWindowManager().getDefaultDisplay();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+
+            display.getRealMetrics(displayMetrics);
+
+            w = displayMetrics.widthPixels;
+            h = displayMetrics.heightPixels;
+        }
+
+        default_icon = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+
+
+        web = findViewById(R.id.diagram_flow);
+        web.setBackgroundColor(getColor(R.color.diagram_background));
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
             }
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
-
-            params.leftMargin = (w - CHILD_WIDTH)/2;
-            params.topMargin = 20 + CHILD_MARGIN * p;
-            params.width = CHILD_WIDTH;
-            params.height = CHILD_HEIGHT;
-
-            layout.setLayoutParams(params);
-        }
-    }//layoutDiagram
-
-    private View findModelView(String id) {
-        View found = null;
-
-        int size = diagram.getChildCount();
-
-        for (int p=0; p<size; p++) {
-            View layout = diagram.getChildAt(p);
-
-            String p_id = layout.getContentDescription().toString();
-            if (p_id.equals(id)) found = layout;
-
-            // detect multiple id error here
-        }
-
-        return found;
-    }//findModelView
-
-    /* --------------------------------windvolt-------------------------------- */
-
-    public void addModelView(String id) {
-
-        DiagramModel model = getStore().findModel(id);
-        if (null == model) return;
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
+        });
 
 
-        layout.setPadding(8, 8, 8, 8);
+        diagram = new FlowTreeLayout(this);
+        diagram.setBackgroundColor(getColor(R.color.diagram_background));
 
 
-        ImageView image = new ImageView(this);
-        image.setPadding(4, 2, 4, 2);
-        loadViewImage(image, model.getSymbol(), 56, 56);
-
-
-        TextView text = new TextView(this);
-        text.setPadding(8, 8, 8, 8);
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
-
-        text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setText(model.getSubject());
-        //text.setText(w + "/" + h);
-
-        layout.setContentDescription(id);
-
-        layout.addView(image);
-        layout.addView(text);
-
-        layout.setOnClickListener(new OnFocus(id));
-
-        diagram.addView(layout);
-
-    }//addModelView
-
-    public void removeChildren(String id) {
-
-        DiagramModel model = getStore().findModel(id);
-        if (null == model) return;
-
-        String c_id = model.getChildren(); // single schild only
-        View found = findModelView(c_id);
-
-        if (found != null) {
-
-            removeChildren(c_id);
-
-            diagram.removeView(found);
-        }
-
-    }//removeChildren
+        LinearLayout layout = findViewById(R.id.flow_container);
+        layout.addView(diagram);
 
 
 
-    class OnFocus implements View.OnClickListener {
 
-        String id;
+        createStore();
 
-        public OnFocus(String set_id) { id = set_id; }
-        @Override
-        public void onClick(View view) {
-
-            setFocus(id, true);
-
-        }
-    }//OnFocus
-
-
-
-    /* --------------------------------windvolt-------------------------------- */
-
-
+    }//onCreate
 
     private static class FlowTreeLayout extends RelativeLayout {
         Paint paint;
@@ -409,6 +282,136 @@ public class Economy extends DiagramActivity {
         }
     }//FlowTreeLayout
 
+
+    /* --------------------------------windvolt-------------------------------- */
+
+
+    private void layoutDiagram() {
+        // layout children
+
+        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
+        //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
+
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_box_focused);
+
+
+        int size = diagram.getChildCount();
+
+        for (int p=0; p<size; p++) {
+            View layout = diagram.getChildAt(p);
+
+            String p_id = layout.getContentDescription().toString();
+
+            if (p_id.equals(focus_id)) {
+                layout.setBackground(focusbox);
+            } else {
+                layout.setBackground(roundbox);
+            }
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
+
+            params.leftMargin = (w - CHILD_WIDTH)/2;
+            params.topMargin = 20 + CHILD_MARGIN * p;
+            params.width = CHILD_WIDTH;
+            params.height = CHILD_HEIGHT;
+
+            layout.setLayoutParams(params);
+        }
+    }//layoutDiagram
+
+    private View findModelView(String id) {
+        View found = null;
+
+        int size = diagram.getChildCount();
+
+        for (int p=0; p<size; p++) {
+            View layout = diagram.getChildAt(p);
+
+            String p_id = layout.getContentDescription().toString();
+            if (p_id.equals(id)) found = layout;
+
+            // detect multiple id error here
+        }
+
+        return found;
+    }//findModelView
+
+    /* --------------------------------windvolt-------------------------------- */
+
+    public void addModelView(String id) {
+
+        DiagramModel model = getStore().findModel(id);
+        if (null == model) return;
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+
+
+        layout.setPadding(8, 8, 8, 8);
+
+
+        ImageView image = new ImageView(this);
+        image.setPadding(4, 2, 4, 2);
+        loadViewImage(image, model.getSymbol(), 64, 64);
+
+
+        TextView text = new TextView(this);
+        text.setPadding(8, 8, 8, 8);
+        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+
+        text.setGravity(Gravity.CENTER_VERTICAL);
+        text.setText(model.getSubject());
+        //text.setText(w + "/" + h);
+
+        layout.setContentDescription(id);
+
+        layout.addView(image);
+        layout.addView(text);
+
+        layout.setOnClickListener(new OnFocus(id));
+
+        diagram.addView(layout);
+
+    }//addModelView
+
+    public void removeChildren(String id) {
+
+        DiagramModel model = getStore().findModel(id);
+        if (null == model) return;
+
+        String c_id = model.getChildren(); // single schild only
+        View found = findModelView(c_id);
+
+        if (found != null) {
+
+            removeChildren(c_id);
+
+            diagram.removeView(found);
+        }
+
+    }//removeChildren
+
+
+
+    class OnFocus implements View.OnClickListener {
+
+        String id;
+
+        public OnFocus(String set_id) { id = set_id; }
+        @Override
+        public void onClick(View view) {
+
+            setFocus(id, true);
+
+        }
+    }//OnFocus
+
+
+
+    /* --------------------------------windvolt-------------------------------- */
 
 
     private void doBeep() {

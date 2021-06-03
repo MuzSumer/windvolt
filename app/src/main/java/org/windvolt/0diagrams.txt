@@ -21,8 +21,17 @@ initialize diagram, dive-in, open
 
 
 
+Community       list of model links
+Economy         flow model
+Gallery         boxtree model
+News            list of model news
 
-### model sample:
+
+
+
+
+
+*) sample:
 
 <?xml version="1.0" encoding="utf-8"?>
 <diagram>
