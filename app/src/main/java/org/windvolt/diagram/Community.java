@@ -39,16 +39,23 @@ public class Community extends DiagramFragment {
     @Override
     public void setFocus(String any_id, boolean expand) {
 
-        int size = getStore().storeSize();
+        if (any_id == null) {
+            int size = getStore().storeSize();
 
-        for (int p=0; p<size; p++) {
+            for (int p=0; p<size; p++) {
 
-            DiagramModel model = getStore().getModel(p);
+                DiagramModel model = getStore().getModel(p);
 
-            String id = model.getId();
-            addModelView(id);
+                String id = model.getId();
+                addModelView(id);
 
-        }
+            }
+
+            return;
+        }//null
+
+
+
     }//setFocus
 
 
@@ -134,10 +141,19 @@ public class Community extends DiagramFragment {
             DiagramModel model = getStore().findModel(id);
             if (model == null) { return; }
 
-            String address = model.getAddress();
-            if (!address.isEmpty()) {
-                view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
+            String children = model.getChildren();
+            if (children.isEmpty()) {
+
+                // no children, show address
+                String address = model.getAddress();
+                if (!address.isEmpty()) {
+                    view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
+                }
+
+            } else { // show children
+                setFocus(id, false);
             }
+
         }
     }//OnFocus
 

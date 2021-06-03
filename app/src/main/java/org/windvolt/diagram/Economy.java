@@ -319,7 +319,7 @@ public class Economy extends DiagramActivity {
         protected void dispatchDraw(Canvas canvas) {
 
             //* diagram symbol */
-            drawDiagramSybol(canvas);
+            //drawDiagramSybol(canvas);
 
 
             //* draw connections */
@@ -404,8 +404,8 @@ public class Economy extends DiagramActivity {
             paint.setStrokeWidth(8);
 
             canvas.drawLine(0, 0, 20, 20, paint);
-            canvas.drawLine(20, 20, 0, 40, paint);
-            canvas.drawLine(20, 20, 40, 0, paint);
+            canvas.drawLine(20, 20, 0, 20, paint);
+            canvas.drawLine(20, 20, 20, 0, paint);
         }
     }//FlowTreeLayout
 

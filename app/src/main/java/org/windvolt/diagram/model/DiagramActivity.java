@@ -55,6 +55,8 @@ public class DiagramActivity extends AppCompatActivity {
     *
     */
 
+    final int BUFFER_SIZE = 8192;
+
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
 
@@ -83,7 +85,7 @@ public class DiagramActivity extends AppCompatActivity {
             BufferedReader buffer = new BufferedReader(reader);
 
             // convert
-            byte[] bytes = new byte[8192];
+            byte[] bytes = new byte[BUFFER_SIZE];
             int c = 0;
 
             int r = buffer.read();

@@ -35,6 +35,7 @@ public class DiagramFragment extends Fragment {
      *
      */
 
+    final int BUFFER_SIZE = 8192;
 
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
@@ -63,7 +64,7 @@ public class DiagramFragment extends Fragment {
             BufferedReader buffer = new BufferedReader(reader);
 
             // convert
-            byte[] bytes = new byte[8192];
+            byte[] bytes = new byte[BUFFER_SIZE];
             int c = 0;
 
             int r = buffer.read();
@@ -73,6 +74,8 @@ public class DiagramFragment extends Fragment {
 
                 r = buffer.read();
             }
+            buffer.close();
+
             ByteArrayInputStream input = new ByteArrayInputStream(bytes);
 
 
