@@ -1,4 +1,4 @@
-<i>Windvolt</i> hilft bei der strategischen Nutzung erneuerbarer Energie.
+<i>Windvolt</i> hilft bei der strategischen Nutzung regenerativer Energie.
 
 <i>Windvolt</i> zeigt die vorhergesagten Erträge aus Sonne und Wind und bietet eine tageskatuelle Empfehlung.
 Auf einen Blick kannst Du erkennen, ob und wann sich das Laden lohnt.

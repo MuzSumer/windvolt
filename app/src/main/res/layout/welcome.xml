@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_box_rounded"
-    tools:context=".Welcome20216">
+    tools:context=".Welcome20217">
 
 
     <TextView

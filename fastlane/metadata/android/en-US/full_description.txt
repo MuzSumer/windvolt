@@ -1,7 +1,7 @@
-<i>windvolt</i> targets the usage and pricing of renewable energy in Germany.
+<i>windvolt</i> targets the usage and pricing of regenerative energy.
 
-<i>Windvolt</i> shows a chart of expected energy harvested from sun and wind and a recommendation.
-At a glance you can see if its okay to charge.
+<i>Windvolt</i> shows a chart of expected energy from sun and wind and a daily recommendation.
+At a glance you can see if its worth charging.
 
 
 * this app embeds a chart from windjournal.de

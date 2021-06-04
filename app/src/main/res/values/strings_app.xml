@@ -27,7 +27,7 @@
 
     <!-- welcome page -->
     <string name="welcome_label">Welcome</string>
-    <string name="app_welcome">Erneuerbare Energie Deutschland</string>
+    <string name="app_welcome">Regenerative Energie Deutschland</string>
 
     <!-- settings -->
     <string name="action_settings">Einstellungen</string>
@@ -38,7 +38,7 @@
     <string name="app_about">windvolt - Juni 2021 update</string>
     <string name="about_label">windvolt Deutschland</string>
 
-    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy</string>
+    <string name="about_message">windvolt targets the usage and pricing of regenerative ernergy</string>
 
 
     <!-- location -->
