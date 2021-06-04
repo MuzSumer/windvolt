@@ -141,11 +141,11 @@ public class Community extends DiagramFragment {
             DiagramModel model = getStore().findModel(id);
             if (model == null) { return; }
 
-            String children = model.getChildren();
+            String children = model.getTargets();
             if (children.isEmpty()) {
 
                 // no children, show address
-                String address = model.getAddress();
+                String address = model.getContent();
                 if (!address.isEmpty()) {
                     view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
                 }

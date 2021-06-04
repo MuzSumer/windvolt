@@ -145,7 +145,7 @@ public class NewsPage extends DiagramFragment {
             DiagramModel model = getStore().findModel(id);
             if (model == null) { return; }
 
-            String address = model.getAddress();
+            String address = model.getContent();
             if (!address.isEmpty()) {
                 view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
             }

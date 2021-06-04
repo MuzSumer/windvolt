@@ -35,7 +35,7 @@ public class DiagramFragment extends Fragment {
      *
      */
 
-    final int BUFFER_SIZE = 8192;
+    final int BUFFER_SIZE = 10000;
 
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
@@ -114,30 +114,31 @@ public class DiagramFragment extends Fragment {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
-                String id = element.getElementsByTagName("id").item(0).getTextContent();
-                String type = element.getElementsByTagName("type").item(0).getTextContent();
-                String symbol = element.getElementsByTagName("symbol").item(0).getTextContent();
+                String id = readItem(element,"id");
+                String type = readItem(element, "type");
+                String state = readItem(element,"state");
+                String symbol = readItem(element, "symbol");
 
-                String title = element.getElementsByTagName("title").item(0).getTextContent();
-                String subject = element.getElementsByTagName("subject").item(0).getTextContent();
+                String title = readItem(element, "title");
+                String subject = readItem(element, "subject");
 
-                String address = element.getElementsByTagName("address").item(0).getTextContent();
-                String children = element.getElementsByTagName("children").item(0).getTextContent();
-                String tags = element.getElementsByTagName("tags").item(0).getTextContent();
-
+                String content = readItem(element, "content");
+                String targets = readItem(element, "targets");
+                String tags = readItem(element, "tags");
 
                 DiagramModel model = new DiagramModel();
 
                 model.setId(id);
                 model.setType(type);
+                model.setState(state);
                 model.setSymbol(symbol);
 
                 model.setTitle(title);
                 model.setSubject(subject);
 
-                model.setAddress(address);
+                model.setContent(content);
 
-                model.setChildren(children);
+                model.setTargets(targets);
                 model.setTags(tags);
 
 
@@ -147,6 +148,17 @@ public class DiagramFragment extends Fragment {
         }//node
 
     }//parseContent
+
+    private String readItem(Element element, String item_name) {
+        String result = "";
+
+        NodeList node = element.getElementsByTagName(item_name);
+        if (node != null) {
+            result = node.item(0).getTextContent();
+        }
+
+        return result;
+    }//readItem
 
 
     /* --------------------------------windvolt-------------------------------- */

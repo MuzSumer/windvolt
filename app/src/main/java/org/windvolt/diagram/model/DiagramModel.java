@@ -28,6 +28,10 @@ public class DiagramModel {
     public String getType() { return type; }
     public void setType(String value) { type = value; }
 
+    String state = "";
+    public String getState() { return state; }
+    public void setState(String value) { state = value; }
+
     String symbol = "";
     public String getSymbol() { return symbol; }
     public void setSymbol(String value) { symbol = value; }
@@ -43,14 +47,14 @@ public class DiagramModel {
     public void setSubject(String value) { subject = value; }
 
 
-    String address = "";
-    public String getAddress() { return address; }
-    public void setAddress(String vlaue) { address = vlaue; }
+    String content = "";
+    public String getContent() { return content; }
+    public void setContent(String vlaue) { content = vlaue; }
 
 
-    String children = "";
-    public String getChildren() { return children; }
-    public void setChildren(String value) { children = value; }
+    String targets = "";
+    public String getTargets() { return targets; }
+    public void setTargets(String value) { targets = value; }
 
     String tags = "";
     public String getTags() { return tags; }

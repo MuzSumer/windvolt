@@ -39,10 +39,15 @@ import org.windvolt.diagram.model.DiagramModel;
 
 public class Gallery extends DiagramActivity {
 
+
+    final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
+
+    boolean ALLOW_BEEP = false;
+
+
     final String DIAGRAM_NAME = "who is who";
     final String DIAGRAM_PATH_DELIM = ">";
 
-    final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
 
     ImageView diagram_symbol;
     TextView diagram_path;
@@ -56,7 +61,7 @@ public class Gallery extends DiagramActivity {
 
     String focus_id;
 
-    boolean ALLOW_BEEP = false;
+
 
     @Override
     public void createStore() {
@@ -84,7 +89,7 @@ public class Gallery extends DiagramActivity {
         String html = getString(Integer.parseInt(focus.getAdress())); // values
         web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
          */
-        web.loadUrl(focus.getAddress());
+        web.loadUrl(focus.getContent());
 
         // set focus title and subject
         diagram_title.setText(focus.getTitle());
@@ -96,7 +101,7 @@ public class Gallery extends DiagramActivity {
 
 
         // add focus children
-        String children = focus.getChildren();
+        String children = focus.getTargets();
         if (!children.isEmpty()) {
             String[] allchildren = children.split(",");
 

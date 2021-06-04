@@ -71,7 +71,7 @@ public class News extends DiagramActivity {
 
 
         // add focus children
-        String children = focus.getChildren();
+        String children = focus.getTargets();
 
         //children = "204,203,202,201,200";
 
@@ -103,6 +103,8 @@ public class News extends DiagramActivity {
 
         }
     }//onBackPressed
+
+
     /* --------------------------------windvolt-------------------------------- */
 
 
@@ -196,10 +198,10 @@ public class News extends DiagramActivity {
                 return;
             }
 
-            if (model.getChildren().isEmpty()) {
+            if (model.getTargets().isEmpty()) {
 
                 // open address
-                String address = model.getAddress();
+                String address = model.getContent();
                 if (!address.isEmpty()) {
                     view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(address)));
                 }

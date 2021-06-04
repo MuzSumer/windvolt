@@ -96,9 +96,9 @@ public class Economy extends DiagramActivity {
         }
 
         // load html
-        web.loadUrl(focus.getAddress());
+        web.loadUrl(focus.getContent());
 
-        String c_id = focus.getChildren();
+        String c_id = focus.getTargets();
         View child = findModelView(c_id);
 
 
@@ -382,7 +382,7 @@ public class Economy extends DiagramActivity {
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
-        String c_id = model.getChildren(); // single schild only
+        String c_id = model.getTargets(); // single schild only
         View found = findModelView(c_id);
 
         if (found != null) {

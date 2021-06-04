@@ -61,7 +61,7 @@ public class DiagramStore {
     }
 
     public String getChildren(DiagramModel parent) {
-        return parent.getChildren();
+        return parent.getTargets();
     }
 
     public String addChild(String parent_id, String title, String subject, String symbol, String address, String tags) {
@@ -79,7 +79,7 @@ public class DiagramStore {
 
         // add to parent
         if (parent != null) {
-            String children = parent.getChildren();
+            String children = parent.getTargets();
 
             if (children.isEmpty()) {
                 children = id;
@@ -87,14 +87,14 @@ public class DiagramStore {
                 children += "," +id;
             }
 
-            parent.setChildren(children);
+            parent.setTargets(children);
         }
 
 
         child.setTitle(title);
         child.setSubject(subject);
         child.setSymbol(symbol);
-        child.setAddress(address);
+        child.setContent(address);
         child.setTags(tags);
 
 
@@ -146,7 +146,7 @@ public class DiagramStore {
         DiagramModel parent = null;
 
         for (DiagramModel model : store) {
-            String children = model.getChildren();
+            String children = model.getTargets();
 
             if (children.contains(id)) {
 
