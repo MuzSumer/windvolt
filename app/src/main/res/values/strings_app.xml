@@ -35,7 +35,9 @@
 
     <!-- about -->
     <string name="about_action">Über</string>
-    <string name="app_about">windvolt - Juni 2021 update</string>
+
+
+    <string name="app_about">windvolt - V2021.7</string>
     <string name="about_label">windvolt Deutschland</string>
 
     <string name="about_message">windvolt targets the usage and pricing of regenerative ernergy</string>

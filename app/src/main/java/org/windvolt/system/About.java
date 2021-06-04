@@ -18,6 +18,8 @@
 */
 package org.windvolt.system;
 
+import android.app.Application;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -37,7 +39,8 @@ public class About extends AppCompatActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            actionBar.setTitle(R.string.app_about);
+            String title = getString(R.string.app_about);
+            actionBar.setTitle(title);
 
         }
 
