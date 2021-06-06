@@ -34,8 +34,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.windvolt.diagram.Economy;
-import org.windvolt.diagram.News;
 import org.windvolt.diagram.Gallery;
+import org.windvolt.diagram.News;
 import org.windvolt.system.DeviceManagement;
 
 public class Welcome20217 extends Fragment {

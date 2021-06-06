@@ -18,9 +18,6 @@
 */
 package org.windvolt.diagram;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.content.res.AppCompatResources;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -31,6 +28,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;

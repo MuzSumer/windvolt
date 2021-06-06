@@ -28,8 +28,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.Economy;
-import org.windvolt.diagram.News;
 import org.windvolt.diagram.Gallery;
+import org.windvolt.diagram.News;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
 import org.windvolt.system.DeviceManagement;

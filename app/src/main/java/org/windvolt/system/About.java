@@ -18,8 +18,6 @@
 */
 package org.windvolt.system;
 
-import android.app.Application;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;

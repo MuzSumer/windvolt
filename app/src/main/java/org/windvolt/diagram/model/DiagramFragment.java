@@ -12,20 +12,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.windvolt.R;
-import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class DiagramFragment extends Fragment {
 
@@ -92,13 +89,10 @@ public class DiagramFragment extends Fragment {
 
             parseContent(store, document);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//buildContent
 
     private void parseContent(DiagramStore store, Document document) {
@@ -283,9 +277,7 @@ public class DiagramFragment extends Fragment {
 
                 }
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
