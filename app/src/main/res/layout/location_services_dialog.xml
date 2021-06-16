@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Durch die Verwendung von Diensten gibst Du Daten preis."
+        android:text="@string/service_warning"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/red_pure" />
 
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@drawable/app_box_rounded"
+        android:background="@drawable/app_roundbox"
         android:orientation="horizontal">
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Windwetter"
+            android:text="@string/cat0_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
@@ -61,7 +61,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="*windy.com"
+            android:text="@string/cat0_service"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@drawable/app_box_rounded"
+        android:background="@drawable/app_roundbox"
         android:orientation="horizontal">
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Karte"
+            android:text="@string/cat1_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
@@ -89,7 +89,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="openstreetmap"
+            android:text="@string/cat1_service"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
@@ -99,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@drawable/app_box_rounded"
+        android:background="@drawable/app_roundbox"
         android:orientation="horizontal">
 
         <TextView
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Wissen"
+            android:text="@string/cat2_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
@@ -118,7 +118,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="wikipedia"
+            android:text="@string/cat2_service"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorPrimary" />
 
@@ -128,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="*non-free-net"
+        android:text="@string/service_notice"
         android:textColor="@color/black" />
 
 </LinearLayout>

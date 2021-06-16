@@ -27,12 +27,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
+import org.windvolt.diagram.Devices;
 import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.Gallery;
 import org.windvolt.diagram.News;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
-import org.windvolt.system.DeviceManagement;
 import org.windvolt.system.Settings;
 
 public class AppActivity extends AppCompatActivity {
@@ -79,7 +79,7 @@ public class AppActivity extends AppCompatActivity {
             // edit devices
             if (id == R.id.action_devices) {
 
-                startActivity(new Intent(this, DeviceManagement.class));
+                startActivity(new Intent(this, Devices.class));
                 return true;
             }
 

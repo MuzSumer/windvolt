@@ -22,7 +22,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_box_rounded"
+    android:background="@drawable/app_roundbox_background"
     tools:context=".Welcome20217">
 
 
@@ -62,7 +62,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="    Quelle: windjournal.de, ohne Gewähr"
+            android:text="@string/app_partner"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 
@@ -98,7 +98,7 @@
                 android:id="@+id/open_page0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/app_box_rounded"
+                android:background="@drawable/app_roundbox"
                 android:contentDescription="@string/page0_hello"
                 android:src="@drawable/page0_v10" />
 
@@ -106,7 +106,7 @@
                 android:id="@+id/open_page1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/app_box_rounded"
+                android:background="@drawable/app_roundbox"
                 android:contentDescription="@string/page1_hello"
                 android:src="@drawable/page1_v10" />
 
@@ -114,7 +114,7 @@
                 android:id="@+id/open_page2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/app_box_rounded"
+                android:background="@drawable/app_roundbox"
                 android:contentDescription="@string/page2_hello"
                 android:src="@drawable/page2_v10" />
 
@@ -122,7 +122,7 @@
                 android:id="@+id/open_page3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/app_box_rounded"
+                android:background="@drawable/app_roundbox"
                 android:contentDescription="@string/page3_hello"
                 android:src="@drawable/page3_v10a" />
         </LinearLayout>

@@ -5,9 +5,6 @@
     android:versionName="V2021.7">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    -->
 
     <application
         android:allowBackup="true"
@@ -18,19 +15,17 @@
         android:theme="@style/AppTheme">
 
 
+
         <activity android:name=".diagram.News" />
         <activity android:name=".story.StoryOfWindvolt" />
 
         <activity android:name=".diagram.Gallery" />
         <activity android:name=".diagram.Economy" />
 
-
-        <activity android:name=".system.DeviceList" />
-        <activity android:name=".system.DeviceManagement" />
+        <activity android:name=".diagram.Devices" />
 
         <activity android:name=".system.About" />
         <activity android:name=".system.Settings" />
-
         <activity
             android:name=".AppActivity"
             android:label="@string/app_name"

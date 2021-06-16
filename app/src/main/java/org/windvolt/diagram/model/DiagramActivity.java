@@ -18,8 +18,12 @@
 */
 package org.windvolt.diagram.model;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -33,6 +37,9 @@ import org.windvolt.R;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,22 +48,22 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class DiagramActivity extends AppCompatActivity {
-
-    /*
-    *
-    * entend this class for activities that load models from a webserver
-    *
-    */
-
-    final int BUFFER_SIZE = 10000;
 
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
 
+    public String getNamespace() {
+        return null;
+    }
 
-    public void loadModel(DiagramActivity diagram, String url) {
+    public void loadRemoteModel(DiagramActivity diagram, String url) {
         setStore(new DiagramStore());
 
         new ModelLoader(diagram).execute(url);
@@ -71,38 +78,125 @@ public class DiagramActivity extends AppCompatActivity {
     }
 
     /* --------------------------------windvolt-------------------------------- */
+    Document document;
 
+    public boolean loadPrivateModel(String filename) {
+        setStore(new DiagramStore());
 
-    public void buildContent(DiagramStore store, InputStream stream) {
         try {
 
-            InputStreamReader reader = new InputStreamReader(stream);
-            BufferedReader buffer = new BufferedReader(reader);
+            FileInputStream fileInputStream = openFileInput(filename);
 
-            // convert
-            byte[] bytes = new byte[BUFFER_SIZE];
-            int c = 0;
+            buildContent(getStore(), fileInputStream);
 
-            int r = buffer.read();
-            while (r != -1) {
-                bytes[c] = (byte) r;
-                c++;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 
-                r = buffer.read();
-            }
-            ByteArrayInputStream input = new ByteArrayInputStream(bytes);
+        return true;
+    }
 
+    public boolean savePrivateModel(String filename) {
+
+
+
+        try {
+            FileOutputStream fileOutputStream = openFileOutput(filename, Context.MODE_PRIVATE);
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
-            Document document = builder.parse(input);
+            document = builder.newDocument();
+            //document.setXmlStandalone(false);
 
-            {// cleanup
-                buffer.close();
-                reader.close();
+            Element diagram = document.createElement("diagram");
+            document.appendChild(diagram);
+
+            for (int p = 0; p<getStore().size(); p++) {
+                DiagramModel model = getStore().getModel(p);
+
+                // create model
+                Element e = document.createElement("model");
+                diagram.appendChild(e);
+
+
+                textElement(e,"id", model.getId());
+                textElement(e,"type", model.getType());
+                textElement(e,"state", model.getState());
+                textElement(e,"symbol", model.getSymbol());
+                textElement(e,"title", model.getTitle());
+                textElement(e,"subject", model.getSubject());
+                textElement(e,"content", model.getContent());
+                textElement(e,"targets", model.getTargets());
+                textElement(e,"tags", model.getTags());
             }
 
+
+            // save
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            //transformerFactory.setAttribute("indent-number", 1);
+            Transformer transformer = transformerFactory.newTransformer();
+            //transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+
+            //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
+
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(fileOutputStream);
+            transformer.transform(source, result);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    private Element textElement(Element parent, String element_name, String element_value) {
+
+        Element e = document.createElement(element_name);
+        e.appendChild(document.createTextNode(element_value));
+        parent.appendChild(e);
+
+        return e;
+    }
+
+    /* --------------------------------windvolt-------------------------------- */
+
+
+    public void buildContent(DiagramStore store, InputStream stream) {
+        Document document;
+
+        try {
+            // create builder
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            if (stream instanceof FileInputStream) {
+                // do not convert
+                document = builder.parse(stream);
+            } else {
+
+                // convert byte array
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+                int b;
+                while ((b = stream.read()) != -1) {
+                    output.write(b);
+                }
+
+                ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+
+                // build and parse
+                document = builder.parse(input);
+
+            }
 
             parseContent(store, document);
 
@@ -244,9 +338,26 @@ public class DiagramActivity extends AppCompatActivity {
 
         private void createLocalStore() {
 
-            diagram.getStore().addChild("", "Fehler",
-                    "Online-Modell nicht geladen", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/diagram_error.html", //R.string.diagram_flow0,
-                    "#error");
+            DiagramModel model = new DiagramModel();
+
+
+            model.setId(diagram.getStore().getNewId());
+            model.setType("alert");
+            model.setState("error");
+            model.setSymbol("https://windvolt.eu/model/windvolt_small.png");
+
+            model.setTitle("Fehler");
+            model.setSubject("Online-Modell nicht geladen");
+
+            model.setContent("https://windvolt.eu/model/diagram_error.html");
+
+            model.setTargets("");
+
+            model.setTags("#error");
+
+
+
+            diagram.getStore().addModel(model);
 
         }//createLocalStore
 
@@ -257,6 +368,7 @@ public class DiagramActivity extends AppCompatActivity {
 
 
     private static class ImageLoader extends AsyncTask<String, Void, Bitmap> {
+        String url;
         HttpsURLConnection connection = null;
         InputStream content = null;
         ImageView view;
@@ -269,11 +381,15 @@ public class DiagramActivity extends AppCompatActivity {
         }
 
         protected Bitmap doInBackground(String... values) {
-            String url = values[0];
+            url = values[0];
+
+            if (url.isEmpty()) { return null; }
 
             Bitmap bitmap = null;
-            if (url.isEmpty()) { return bitmap; }
 
+            if (url == "windvolt") {
+                return null;
+            }
 
             try {
                 URL uri = new URL(url);
@@ -316,16 +432,35 @@ public class DiagramActivity extends AppCompatActivity {
             }//cleanup
 
             if (result == null) {
-                view.setImageResource(R.drawable.ic_error);
+
+                switch (url) {
+                    case "windvolt":
+                        view.setImageResource(R.drawable.windvolt_small);
+                        break;
+
+                    case "mobile":
+                        break;
+
+                    case "smartphone":
+                        break;
+
+                    default:
+                        view.setImageResource(R.drawable.ic_error);
+                }
+
 
             } else {
 
-                if (w < 0 && h < 0) {
-                    view.setImageBitmap(result);
-                } else {
-                    Bitmap scaled = Bitmap.createScaledBitmap(result, w, h, false);
-                    view.setImageBitmap(scaled);
+                if (w<0) {
+                    w = result.getWidth();
                 }
+                if (h<0) {
+                    h = result.getHeight();
+                }
+
+                Bitmap scaled = Bitmap.createScaledBitmap(result, w, h, false);
+                view.setImageBitmap(scaled);
+
             }
         }
     }//ImageLoader

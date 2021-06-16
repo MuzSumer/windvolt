@@ -22,24 +22,21 @@ import java.util.ArrayList;
 
 public class DiagramStore {
 
-    boolean DISABLE_REMOTE_MODEL = true;
-
     ArrayList<DiagramModel> store = new ArrayList<>();
-
 
 
     public DiagramStore() {
         store.clear();
-    }
+    }//DiagramStore
 
-    public int storeSize() {
+    public int size() {
         return store.size();
     }//storeSize
 
     public DiagramModel getModel(int p) {
         if (p < 0) return null;
 
-        if (p > storeSize() - 1) return null;
+        if (p > size() - 1) return null;
 
         return store.get(p);
     }//getModel
@@ -52,57 +49,95 @@ public class DiagramStore {
         return "100";
     }//getRootId
     public String getNewId() {
-        return Integer.toString(rootId + store.size());
+        return Integer.toString(rootId + size());
     }//getNewId
 
+
+
+
+    public String getTargets(DiagramModel parent) {
+        return parent.getTargets();
+    }//getTargets
 
     public void addModel(DiagramModel model) {
         store.add(model);
     }
 
-    public String getChildren(DiagramModel parent) {
-        return parent.getTargets();
-    }
-
-    public String addChild(String parent_id, String title, String subject, String symbol, String address, String tags) {
+    public String addTarget(String parent_id, String type, String state, String symbol, String title, String subject, String content, String tags) {
 
         DiagramModel parent = null;
-        DiagramModel child = new DiagramModel();
+        DiagramModel target = new DiagramModel();
 
         if (!parent_id.isEmpty()) {
             parent = findModel(parent_id);
         }
 
         String id = getNewId();
-        child.setId(id);
+        target.setId(id);
 
+        target.setType(type);
+        target.setState(state);
+
+        target.setSymbol(symbol);
 
         // add to parent
         if (parent != null) {
-            String children = parent.getTargets();
+            String targets = parent.getTargets();
 
-            if (children.isEmpty()) {
-                children = id;
+            if (targets.isEmpty()) {
+                targets = id;
             } else {
-                children += "," +id;
+                targets += "," +id;
             }
 
-            parent.setTargets(children);
+            parent.setTargets(targets);
         }
 
 
-        child.setTitle(title);
-        child.setSubject(subject);
-        child.setSymbol(symbol);
-        child.setContent(address);
-        child.setTags(tags);
+        target.setTitle(title);
+        target.setSubject(subject);
+        target.setContent(content);
+
+        target.setTargets("");
+        target.setTags(tags);
 
 
-        store.add(child);
+        store.add(target);
 
         return id;
-    }//addChild
+    }//addTarget
 
+    public void removeModelPosition(int position) {
+
+        if (position < 0) {
+            return;
+        }
+        if (position > size()) {
+            return;
+        }
+
+
+        // copy to new array
+        ArrayList<DiagramModel> new_store = new ArrayList<>();
+
+        int p = 0;
+
+        for (DiagramModel model : store) {
+            if (p != position) {
+                new_store.add(model);
+            }
+
+            p++;
+        }
+
+        store.clear();
+
+
+        // copy back
+        store.addAll(new_store);
+        new_store.clear();
+
+    }
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -146,19 +181,28 @@ public class DiagramStore {
         DiagramModel parent = null;
 
         for (DiagramModel model : store) {
-            String children = model.getTargets();
+            String targets = model.getTargets();
 
-            if (children.contains(id)) {
+            if (!targets.isEmpty()) {
+                String[] alltargets = targets.split(",");
 
-                if (parent == null) { // first hit
-                    parent = model;
+                for (String target_id : alltargets) {
 
-                } else { // detect multiple parents error here
-                    parent = model;
+                    if (target_id.equals(id)) {
 
-                    //multiple parents error
-                }
-            }
+                        if (parent == null) { // first hit
+                            parent = model;
+
+                        } else { // detect multiple parents error here
+                            parent = model;
+
+                            //multiple parents error
+                        }
+                    }
+
+                }//target
+            }//targets
+
         }//for
 
         return parent;

@@ -74,13 +74,15 @@ public class Economy extends DiagramActivity {
     @Override
     public void createStore() {
 
-        loadModel(this, MODEL_URL);
+        loadRemoteModel(this, MODEL_URL);
     }
 
     @Override
     public void setFocus(String id, boolean expand) {
-
         if (id == null) {
+            id = getStore().getRootId();
+        }
+        if (id.isEmpty()) {
             id = getStore().getRootId();
         }
 
@@ -98,23 +100,24 @@ public class Economy extends DiagramActivity {
         // load html
         web.loadUrl(focus.getContent());
 
-        String c_id = focus.getTargets();
-        View child = findModelView(c_id);
+
+        // expand target
+        String target_id = focus.getTargets();
+        View target_view = findModelView(target_id);
 
 
-        if (null == child) {
+        if (target_view == null) {
             if (hasFocus) {
                 if (expand) {
-                    addModelView(c_id);
+                    addModelView(target_id);
 
                     // changes behaviour
-                    setFocus(c_id, false);
-
+                    setFocus(target_id, false);
                 }
             }
 
         } else {
-            removeChildren(id);
+            removeTargetModelViews(id);
         }
 
         layoutDiagram();
@@ -151,7 +154,7 @@ public class Economy extends DiagramActivity {
             h = displayMetrics.heightPixels;
         }
 
-        default_icon = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        default_icon = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
 
         web = findViewById(R.id.diagram_flow);
@@ -292,7 +295,7 @@ public class Economy extends DiagramActivity {
         //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
         //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
         Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_box_focused);
 
 
@@ -377,7 +380,7 @@ public class Economy extends DiagramActivity {
 
     }//addModelView
 
-    public void removeChildren(String id) {
+    public void removeTargetModelViews(String id) {
 
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
@@ -387,12 +390,12 @@ public class Economy extends DiagramActivity {
 
         if (found != null) {
 
-            removeChildren(c_id);
+            removeTargetModelViews(c_id);
 
             diagram.removeView(found);
         }
 
-    }//removeChildren
+    }//removeTargets
 
 
 

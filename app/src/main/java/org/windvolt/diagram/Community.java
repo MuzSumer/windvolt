@@ -39,22 +39,16 @@ public class Community extends DiagramFragment {
     @Override
     public void setFocus(String any_id, boolean expand) {
 
-        if (any_id == null) {
-            int size = getStore().storeSize();
+        int size = getStore().size();
 
-            for (int p=0; p<size; p++) {
+        for (int p=0; p<size; p++) {
 
-                DiagramModel model = getStore().getModel(p);
+            DiagramModel model = getStore().getModel(p);
 
-                String id = model.getId();
-                addModelView(id);
+            String id = model.getId();
+            addModelView(id);
 
-            }
-
-            return;
-        }//null
-
-
+        }
 
     }//setFocus
 
@@ -89,7 +83,7 @@ public class Community extends DiagramFragment {
 
 
         LinearLayout outer = new LinearLayout(getContext());
-        outer.setHorizontalGravity(LinearLayout.AUTOFILL_TYPE_LIST);
+        //outer.setHorizontalGravity(LinearLayout.AUTOFILL_TYPE_LIST);
         outer.setBackground(roundbox);
         outer.setOrientation(LinearLayout.HORIZONTAL);
         outer.setPadding(4, 4, 4, 4);
@@ -163,7 +157,7 @@ public class Community extends DiagramFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_box_rounded);
+        roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_roundbox);
     }
 
     @Override

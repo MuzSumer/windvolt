@@ -66,7 +66,7 @@ public class Gallery extends DiagramActivity {
     @Override
     public void createStore() {
 
-        loadModel(this, MODEL_URL);
+        loadRemoteModel(this, MODEL_URL);
     }//createStore
 
     @Override
@@ -96,21 +96,23 @@ public class Gallery extends DiagramActivity {
         diagram_subject.setText(focus.getSubject());
 
 
-        // remove current children
+        // remove current views
         diagram_space.removeAllViews();
 
 
-        // add focus children
-        String children = focus.getTargets();
-        if (!children.isEmpty()) {
-            String[] allchildren = children.split(",");
+        // add targets
+        String targets = focus.getTargets();
+        if (!targets.isEmpty()) {
+            String[] alltargets = targets.split(",");
 
-            for (String child_id : allchildren) {
+            for (String target_id : alltargets) {
 
-                if (!child_id.isEmpty()) createChildView(focus, child_id);
+                if (!target_id.isEmpty()) {
+                    addTargetModelView(focus, target_id);
+                }
 
-            }//child
-        }//children
+            }//target
+        }//targets
 
         // calculate path
         String path = focus.getTags();
@@ -152,14 +154,14 @@ public class Gallery extends DiagramActivity {
     /* --------------------------------windvolt-------------------------------- */
 
     //* create complex child view */
-    public void createChildView(DiagramModel parent, String id) {
+    public void addTargetModelView(DiagramModel parent, String id) {
         DiagramModel child = getStore().findModel(id);
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
 
         //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
         layout.setBackground(roundbox);
         layout.setPadding(8, 8, 8, 8);
@@ -188,15 +190,15 @@ public class Gallery extends DiagramActivity {
 
 
     private class SetFocus implements View.OnClickListener {
-        String id = "";
+        String click_id = "";
         public SetFocus(String set_id) {
-            id = set_id;
+            click_id = set_id;
         }
 
         @Override
         public void onClick(View view) {
             doBeep();
-            setFocus(id, false);
+            setFocus(click_id, false);
         }
     }//SetFocus
 

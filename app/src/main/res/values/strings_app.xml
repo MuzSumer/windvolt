@@ -29,6 +29,9 @@
     <string name="welcome_label">Welcome</string>
     <string name="app_welcome">Regenerative Energie Deutschland</string>
 
+    <string name="app_partner">    Quelle: windjournal.de, ohne Gewähr</string>
+
+
     <!-- settings -->
     <string name="action_settings">Einstellungen</string>
     <string name="app_settings">Einstellungen vornehmen</string>
@@ -42,6 +45,7 @@
 
     <string name="about_message">windvolt targets the usage and pricing of regenerative ernergy</string>
 
+    <string name="about_web">windvolt.eu</string>
 
     <!-- location -->
     <string name="location_notice">Wähle einen Ort</string>
@@ -74,5 +78,9 @@
     <string name="action_economy">Ökonomie</string>
     <string name="app_economy">Ökonomie</string>
 
+    <!-- battery -->
+    <string name="battery_level">•  •  •  •  •  •  •  •  •  •</string>
+    <string name="battery_position">1  1  2  3  4  5  6  7  8  9</string>
 
+    <string name="battery_analysis">level </string>
 </resources>

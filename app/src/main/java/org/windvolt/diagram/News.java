@@ -48,7 +48,7 @@ public class News extends DiagramActivity {
     public void createStore() {
 
         // load model
-        loadModel(this, MODEL_URL);
+        loadRemoteModel(this, MODEL_URL);
 
     }//createStore
 
@@ -67,24 +67,23 @@ public class News extends DiagramActivity {
             return;
         }
 
+        // cleanup
         diagram.removeAllViews();
 
 
-        // add focus children
-        String children = focus.getTargets();
+        // add focus targets
+        String targets = focus.getTargets();
 
-        //children = "204,203,202,201,200";
+        if (!targets.isEmpty()) {
+            String[] alltargets = targets.split(",");
 
-        if (!children.isEmpty()) {
-            String[] allchildren = children.split(",");
+            for (String target_id : alltargets) {
 
-            for (String child_id : allchildren) {
-
-                if (!child_id.isEmpty()) {
-                    addModelView(child_id);
+                if (!target_id.isEmpty()) {
+                    addModelView(target_id);
                 }
-            }//child
-        }//children
+            }//target
+        }//targets
 
         focus_id = id;
     }//setFocus
@@ -132,7 +131,7 @@ public class News extends DiagramActivity {
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_box_rounded);
+        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
         LinearLayout outer = new LinearLayout(this);
         outer.setBackground(roundbox);

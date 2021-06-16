@@ -15,6 +15,7 @@ import org.windvolt.R;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,17 +27,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class DiagramFragment extends Fragment {
 
-    /*
-     *
-     * entend this class for fragments that load models from a webserver
-     *
-     */
-
-    final int BUFFER_SIZE = 10000;
-
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
 
+    public String getNamespace() {
+        return null;
+    }
 
     public void loadModel(DiagramFragment diagram, String url) {
         setStore(new DiagramStore());
@@ -57,35 +53,25 @@ public class DiagramFragment extends Fragment {
     public void buildContent(DiagramStore store, InputStream stream) {
         try {
 
-            InputStreamReader reader = new InputStreamReader(stream);
-            BufferedReader buffer = new BufferedReader(reader);
-
-            // convert
-            byte[] bytes = new byte[BUFFER_SIZE];
-            int c = 0;
-
-            int r = buffer.read();
-            while (r != -1) {
-                bytes[c] = (byte) r;
-                c++;
-
-                r = buffer.read();
-            }
-            buffer.close();
-
-            ByteArrayInputStream input = new ByteArrayInputStream(bytes);
-
-
+            // create builder
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
-            Document document = builder.parse(input);
 
-            {// cleanup
-                buffer.close();
-                reader.close();
+
+            // convert byte array
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+            int b;
+            while ((b = stream.read()) != -1) {
+                output.write(b);
             }
 
+            ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+
+
+            // build and parse
+            Document document = builder.parse(input);
 
             parseContent(store, document);
 
@@ -226,9 +212,25 @@ public class DiagramFragment extends Fragment {
 
         private void createLocalStore() {
 
-            diagram.getStore().addChild("", "Fehler",
-                    "Online-Modell nicht geladen", "https://windvolt.eu/model/windvolt_small.png", "https://windvolt.eu/model/diagram_error.html", //R.string.diagram_flow0,
-                    "#error");
+            DiagramModel model = new DiagramModel();
+
+
+            model.setId(diagram.getStore().getNewId());
+            model.setType("alert");
+            model.setState("error");
+            model.setSymbol("https://windvolt.eu/model/windvolt_small.png");
+
+            model.setTitle("Fehler");
+            model.setSubject("Online-Modell nicht geladen");
+
+            model.setContent("https://windvolt.eu/model/diagram_error.html");
+
+            model.setTargets("");
+            model.setTags("#error");
+
+
+
+            diagram.getStore().addModel(model);
 
         }//createLocalStore
 
@@ -303,15 +305,15 @@ public class DiagramFragment extends Fragment {
 
             } else {
 
-                if (w < 0 && h < 0) {
-
-                    view.setImageBitmap(result);
-                } else {
-                    Bitmap scaled = Bitmap.createScaledBitmap(result, w, h, false);
-                    view.setImageBitmap(scaled);
+                if (w<0) {
+                    w = result.getWidth();
+                }
+                if (h<0) {
+                    h = result.getHeight();
                 }
 
-
+                Bitmap scaled = Bitmap.createScaledBitmap(result, w, h, false);
+                view.setImageBitmap(scaled);
 
             }
         }

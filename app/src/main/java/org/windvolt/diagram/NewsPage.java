@@ -27,7 +27,7 @@ public class NewsPage extends DiagramFragment {
 
     LinearLayout diagram;
 
-    Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_box_rounded);
+    Drawable roundbox = AppCompatResources.getDrawable(getContext(), R.drawable.app_roundbox);
 
     @Override
     public void createStore() {
@@ -40,7 +40,7 @@ public class NewsPage extends DiagramFragment {
     @Override
     public void setFocus(String any_id, boolean expand) {
 
-        for (int p=0; p< getStore().storeSize(); p++) {
+        for (int p = 0; p< getStore().size(); p++) {
 
             DiagramModel model = getStore().getModel(p);
 
@@ -163,8 +163,7 @@ public class NewsPage extends DiagramFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.diagram_news, container, false);
-        return view;
+        return inflater.inflate(R.layout.diagram_news, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

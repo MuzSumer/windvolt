@@ -40,7 +40,7 @@
                 android:id="@+id/chart_line4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="•  •  •  •  •  •  •  •  •  •"
+                android:text="@string/battery_level"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/blue_700"
                 android:typeface="monospace" />
@@ -54,7 +54,7 @@
                 android:id="@+id/chart_line3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="•  •  •  •  •  •  •  •  •  •"
+                android:text="@string/battery_level"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/blue_700"
                 android:typeface="monospace" />
@@ -68,7 +68,7 @@
                 android:id="@+id/chart_line2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="•  •  •  •  •  •  •  •  •  •"
+                android:text="@string/battery_level"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/blue_700"
                 android:typeface="monospace" />
@@ -82,7 +82,7 @@
                 android:id="@+id/chart_line1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="•  •  •  •  •  •  •  •  •  •"
+                android:text="@string/battery_level"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/blue_700"
                 android:typeface="monospace" />
@@ -96,7 +96,7 @@
                 android:id="@+id/chart_line0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="•  •  •  •  •  •  •  •  •  •"
+                android:text="@string/battery_level"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/blue_700"
                 android:typeface="monospace" />
@@ -111,7 +111,7 @@
                 android:id="@+id/chart_legend0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0  1  2  3  4  5  6  7  8  9"
+                android:text="@string/battery_position"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorAccent"
                 android:typeface="monospace" />
@@ -126,7 +126,7 @@
                 android:id="@+id/chart_legend1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1  1  2  3  4  5  6  7  8  9"
+                android:text="@string/battery_position"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/red_pure"
                 android:typeface="monospace" />
@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/app_box_rounded"
+        android:background="@drawable/app_roundbox"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="level    "
+                android:text="@string/battery_analysis"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <TextView

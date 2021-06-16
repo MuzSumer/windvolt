@@ -33,10 +33,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.windvolt.diagram.Devices;
 import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.Gallery;
 import org.windvolt.diagram.News;
-import org.windvolt.system.DeviceManagement;
 
 public class Welcome20217 extends Fragment {
 
@@ -47,8 +47,7 @@ public class Welcome20217 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.welcome, container, false);
-        return view;
+        return inflater.inflate(R.layout.welcome, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -91,7 +90,7 @@ public class Welcome20217 extends Fragment {
             public void onClick(View view) {
 
                 // start device management
-                startActivity(new Intent(view.getContext(), DeviceManagement.class));
+                startActivity(new Intent(view.getContext(), Devices.class));
 
             }
         });
