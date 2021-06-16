@@ -31,7 +31,7 @@ public class Devices extends DiagramActivity {
     final String MODEL_URL = "devices.xml";
 
     LinearLayout diagram;
-
+    TextView analysis;
     /* --------------------------------windvolt-------------------------------- */
 
     @Override
@@ -47,7 +47,9 @@ public class Devices extends DiagramActivity {
         loadPrivateModel(getNamespace());
 
         if (getStore().size() == 0) {
-            createSmartphoneModel();
+            createBuildModel();
+
+            savePrivateModel(getNamespace());
         }
 
         setFocus(null, false);
@@ -59,21 +61,28 @@ public class Devices extends DiagramActivity {
 
         diagram.removeAllViews();
 
+        int power = 0;
 
         for (int p=0; p<getStore().size(); p++) {
 
             DiagramModel model = getStore().getModel(p);
             id = model.getId();
 
+            String model_power = model.getContent();
+            if (isNumeric(model_power)) {
+                power += Integer.parseInt(model_power);
+            }
             addViewModel(id);
 
         }
 
-
+        analysis.setText("Gesamtleistung " + power + " mAh");
 
     }//setFocus
 
-
+    private boolean isNumeric(String str) {
+        return str != null && str.matches("[-+]?\\d*\\.?\\d+");
+    }
 
     private void addViewModel(String id) {
         DiagramModel model = getStore().findModel(id);
@@ -128,7 +137,7 @@ public class Devices extends DiagramActivity {
 
 
 
-    private void createSmartphoneModel() {
+    private void createBuildModel() {
         // add current device
         String cell_manufacturer = Build.MANUFACTURER;
         String cell_model = Build.MODEL;
@@ -146,6 +155,7 @@ public class Devices extends DiagramActivity {
         */
 
 
+        // create model
         DiagramModel model = new DiagramModel();
 
 
@@ -157,12 +167,9 @@ public class Devices extends DiagramActivity {
         model.setTitle(cell_manufacturer);
         model.setSubject(cell_model);
 
-
-
         model.setContent("11");
 
         model.setTargets("");
-
         model.setTags("");
 
 
@@ -337,6 +344,7 @@ public class Devices extends DiagramActivity {
 
         bindActions();
 
+        analysis = findViewById(R.id.label_devices);
 
         // start diagram
         diagram = findViewById(R.id.content_devices);

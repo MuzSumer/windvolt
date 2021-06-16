@@ -44,11 +44,17 @@ public class News extends DiagramActivity {
 
     LinearLayout diagram;
 
+
+    @Override
+    public String getNamespace() {
+        return MODEL_URL;
+    }
+
     @Override
     public void createStore() {
 
         // load model
-        loadRemoteModel(this, MODEL_URL);
+        loadRemoteModel(this, getNamespace());
 
     }//createStore
 

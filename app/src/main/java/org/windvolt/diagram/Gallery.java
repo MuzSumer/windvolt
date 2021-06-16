@@ -62,11 +62,15 @@ public class Gallery extends DiagramActivity {
     String focus_id;
 
 
+    @Override
+    public String getNamespace() {
+        return MODEL_URL;
+    }
 
     @Override
     public void createStore() {
 
-        loadRemoteModel(this, MODEL_URL);
+        loadRemoteModel(this, getNamespace());
     }//createStore
 
     @Override

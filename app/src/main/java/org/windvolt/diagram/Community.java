@@ -29,10 +29,16 @@ public class Community extends DiagramFragment {
     Drawable roundbox;
 
     @Override
+    public String getNamespace() {
+        return MODEL_URL;
+    }
+
+
+    @Override
     public void createStore() {
 
         // load model
-        loadModel(this, MODEL_URL);
+        loadModel(this, getNamespace());
 
     }//createStore
 

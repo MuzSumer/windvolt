@@ -72,9 +72,14 @@ public class Economy extends DiagramActivity {
     /* --------------------------------windvolt-------------------------------- */
 
     @Override
+    public String getNamespace() {
+        return MODEL_URL;
+    }
+
+    @Override
     public void createStore() {
 
-        loadRemoteModel(this, MODEL_URL);
+        loadRemoteModel(this, getNamespace());
     }
 
     @Override
