@@ -31,6 +31,7 @@ import org.windvolt.diagram.Devices;
 import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.Gallery;
 import org.windvolt.diagram.News;
+import org.windvolt.diagram.Personal;
 import org.windvolt.story.StoryOfWindvolt;
 import org.windvolt.system.About;
 import org.windvolt.system.Settings;
@@ -106,6 +107,13 @@ public class AppActivity extends AppCompatActivity {
             if (id == R.id.action_story) {
 
                 startActivity(new Intent(this, StoryOfWindvolt.class));
+                return true;
+            }
+
+            // show personaö
+            if (id == R.id.action_personal) {
+
+                startActivity(new Intent(this, Personal.class));
                 return true;
             }
 

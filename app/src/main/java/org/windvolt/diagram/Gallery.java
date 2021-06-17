@@ -40,7 +40,7 @@ import org.windvolt.diagram.model.DiagramModel;
 public class Gallery extends DiagramActivity {
 
 
-    final String MODEL_URL = "https://windvolt.eu/model/dossier/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/dossier/de/0diagram.xml";
 
     boolean ALLOW_BEEP = false;
 
@@ -255,14 +255,14 @@ public class Gallery extends DiagramActivity {
 
 
         // diagram elements
-        diagram_symbol = findViewById(R.id.diagram_symbol);
-        diagram_path = findViewById(R.id.diagram_path);
+        diagram_symbol = findViewById(R.id.gallery_symbol);
+        diagram_path = findViewById(R.id.gallery_path);
 
-        diagram_title = findViewById(R.id.diagram_title);
-        diagram_subject = findViewById(R.id.diagram_subject);
+        diagram_title = findViewById(R.id.gallery_title);
+        diagram_subject = findViewById(R.id.gallery_subject);
 
-        diagram_space = findViewById(R.id.diagram_space);
-        web = findViewById(R.id.diagram_dossier);
+        diagram_space = findViewById(R.id.gallery_content);
+        web = findViewById(R.id.gallery_dossier);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             web.setBackgroundColor(getColor(R.color.diagram_background));

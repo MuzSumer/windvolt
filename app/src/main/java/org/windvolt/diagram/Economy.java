@@ -48,7 +48,7 @@ import org.windvolt.diagram.model.DiagramModel;
 
 public class Economy extends DiagramActivity {
 
-    final String MODEL_URL = "https://windvolt.eu/model/economy/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/economy/de/0diagram.xml";
 
     boolean ALLOW_BEEP = false;
 
@@ -108,22 +108,31 @@ public class Economy extends DiagramActivity {
 
         // expand target
         String target_id = focus.getTargets();
-        View target_view = findModelView(target_id);
 
+        if (!target_id.isEmpty()) {
+            View target_view = findModelView(target_id);
 
-        if (target_view == null) {
-            if (hasFocus) {
-                if (expand) {
-                    addModelView(target_id);
+            if (target_view == null) {
+                if (hasFocus) {
+                    if (expand) {
+                        addModelView(target_id);
 
-                    // changes behaviour
-                    setFocus(target_id, false);
+                        // changes behaviour
+                        setFocus(target_id, false);
+                    }
                 }
-            }
 
-        } else {
-            removeTargetModelViews(id);
-        }
+            } else {
+
+                removeTargetModelViews(id);
+
+            }//targetView
+
+        }//empty
+
+
+
+
 
         layoutDiagram();
         doBeep();
@@ -162,7 +171,7 @@ public class Economy extends DiagramActivity {
         default_icon = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
 
-        web = findViewById(R.id.diagram_flow);
+        web = findViewById(R.id.economy_diagram);
         web.setBackgroundColor(getColor(R.color.diagram_background));
         web.setWebViewClient(new WebViewClient() {
             @Override
@@ -177,7 +186,7 @@ public class Economy extends DiagramActivity {
         diagram.setBackgroundColor(getColor(R.color.diagram_background));
 
 
-        LinearLayout layout = findViewById(R.id.flow_container);
+        LinearLayout layout = findViewById(R.id.economy_container);
         layout.addView(diagram);
 
 

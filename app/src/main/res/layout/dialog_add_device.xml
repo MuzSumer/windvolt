@@ -68,7 +68,7 @@
             android:text="@string/device_add_capacity" />
 
         <EditText
-            android:id="@+id/capacity_edit"
+            android:id="@+id/content_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"

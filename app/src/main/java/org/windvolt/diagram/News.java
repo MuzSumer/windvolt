@@ -38,7 +38,7 @@ import org.windvolt.diagram.model.DiagramModel;
 
 public class News extends DiagramActivity {
 
-    final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/news/de/0diagram.xml";
 
     String focus_id;
 
@@ -241,7 +241,7 @@ public class News extends DiagramActivity {
 
 
         // create diagram
-        diagram = findViewById(R.id.diagram_news);
+        diagram = findViewById(R.id.news_content);
 
         createStore();
     }//onCreate

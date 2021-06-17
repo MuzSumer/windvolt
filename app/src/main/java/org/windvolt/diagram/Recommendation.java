@@ -84,7 +84,7 @@ public class Recommendation extends Fragment {
 
     boolean history_allowed;
 
-    final String RECOMMENDATION_URL = "https://windvolt.eu/today/recommendation.html";
+    final String RECOMMENDATION_URL = "https://windvolt.eu/today/de/recommendation.html";
 
     final int RECOMMENDATION_NOT_AVAILABLE = -1;
 

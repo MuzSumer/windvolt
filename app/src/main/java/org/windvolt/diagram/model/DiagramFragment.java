@@ -13,12 +13,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.windvolt.R;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -73,6 +71,7 @@ public class DiagramFragment extends Fragment {
             // build and parse
             Document document = builder.parse(input);
 
+            stream.close();
             parseContent(store, document);
 
         } catch (Exception e) {

@@ -23,7 +23,7 @@ import org.windvolt.diagram.model.DiagramModel;
 public class NewsPage extends DiagramFragment {
 
 
-    final String MODEL_URL = "https://windvolt.eu/model/news/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/news/de/0diagram.xml";
 
     LinearLayout diagram;
 
@@ -176,7 +176,7 @@ public class NewsPage extends DiagramFragment {
 
 
         // create diagram
-        diagram = view.findViewById(R.id.diagram_news);
+        diagram = view.findViewById(R.id.news_content);
 
         createStore();
     }

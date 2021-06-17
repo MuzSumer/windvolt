@@ -19,11 +19,8 @@
 package org.windvolt.diagram.model;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
@@ -35,14 +32,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.windvolt.R;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -198,6 +193,7 @@ public class DiagramActivity extends AppCompatActivity {
 
             }
 
+            stream.close();
             parseContent(store, document);
 
         } catch (Exception e) {
@@ -385,11 +381,22 @@ public class DiagramActivity extends AppCompatActivity {
 
             if (url.isEmpty()) { return null; }
 
-            Bitmap bitmap = null;
-
             if (url == "windvolt") {
                 return null;
             }
+
+            if (isNumeric(url)) {
+                String numeric = url;
+
+                while (numeric.length() < 3) {
+                    numeric = "0" + numeric;
+                }
+
+                url = "https://windvolt.eu/model/icons/actn/actn" + numeric + ".gif";
+            }
+
+
+            Bitmap bitmap = null;
 
             try {
                 URL uri = new URL(url);
@@ -467,6 +474,10 @@ public class DiagramActivity extends AppCompatActivity {
 
 
     /* --------------------------------windvolt-------------------------------- */
+
+    public static boolean isNumeric(String str) {
+        return str != null && str.matches("[-+]?\\d*\\.?\\d+");
+    }
 
     DiagramStore store = null;
     public void setStore(DiagramStore set_store) {

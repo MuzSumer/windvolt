@@ -9,14 +9,12 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,13 +24,11 @@ import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 import org.windvolt.diagram.model.DiagramStore;
 
-public class Devices extends DiagramActivity {
+public class Personal extends DiagramActivity {
 
-    final String MODEL_URL = "devices.xml";
+    final String MODEL_URL = "personal.xml";
 
     LinearLayout diagram;
-    TextView analysis;
-    /* --------------------------------windvolt-------------------------------- */
 
     @Override
     public String getNamespace() {
@@ -43,14 +39,9 @@ public class Devices extends DiagramActivity {
     public void createStore() {
 
         setStore(new DiagramStore());
-        
+
         loadPrivateModel(getNamespace());
 
-        if (getStore().size() == 0) {
-            createBuildModel();
-
-            savePrivateModel(getNamespace());
-        }
 
         setFocus(null, false);
     }
@@ -61,26 +52,17 @@ public class Devices extends DiagramActivity {
 
         diagram.removeAllViews();
 
-        int power = 0;
 
         for (int p=0; p<getStore().size(); p++) {
 
             DiagramModel model = getStore().getModel(p);
             id = model.getId();
 
-            String model_power = model.getContent();
-            if (isNumeric(model_power)) {
-                power += Integer.parseInt(model_power);
-            }
             addViewModel(id);
 
         }
 
-        analysis.setText("Gesamtleistung " + power + " mAh");
-
     }//setFocus
-
-
 
     private void addViewModel(String id) {
         DiagramModel model = getStore().findModel(id);
@@ -93,7 +75,7 @@ public class Devices extends DiagramActivity {
         outer.setPadding(4,4,4,4);
 
         LinearLayout inner = new LinearLayout(this);
-        inner.setOrientation(LinearLayout.HORIZONTAL);
+        inner.setOrientation(LinearLayout.VERTICAL);
         inner.setPadding(4,4,4,4);
 
 
@@ -102,19 +84,19 @@ public class Devices extends DiagramActivity {
         title.setPadding(4, 4, 4, 4);
         title.setTextColor(Color.RED);
 
+        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+        title.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+        //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
-        String value = model.getContent() + " mAh";
-        title.setText(value);
+        title.setText(model.getTitle());
 
 
 
         TextView subject = new TextView(this);
         subject.setPadding(4, 4, 4, 4);
 
-        subject.setText(model.getSubject());
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+        subject.setText(model.getContent());
+
 
 
         ImageView image = new ImageView(this);
@@ -132,54 +114,12 @@ public class Devices extends DiagramActivity {
         diagram.addView(outer);
     }
 
-
-
-
-    private void createBuildModel() {
-        // add current device
-        String cell_manufacturer = Build.MANUFACTURER;
-        String cell_model = Build.MODEL;
-
-        /*
-        Android ID via Settings.Secure
-        Android Build.SERIAL 	HT6C90202028
-        Android Build.MODEL 	Pixel XL
-        Android Build.BRAND 	google
-        Android Build.MANUFACTURER 	Google
-        Android Build.DEVICE 	marlin
-        Android Build.PRODUCT 	marlin
-
-        String androidId = Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-        */
-
-
-        // create model
-        DiagramModel model = new DiagramModel();
-
-
-        model.setId(getStore().getNewId());
-        model.setType("0");
-        model.setState("full");
-        model.setSymbol("windvolt");
-
-        model.setTitle(cell_manufacturer);
-        model.setSubject(cell_model);
-
-        model.setContent("11");
-
-        model.setTargets("");
-        model.setTags("");
-
-
-        getStore().addModel(model);
-
-    }
     /* --------------------------------windvolt-------------------------------- */
 
-    public static class AddDeviceDialog extends DialogFragment {
+    public static class AddRecordDialog extends DialogFragment {
         DiagramActivity activity;
 
-        public AddDeviceDialog(DiagramActivity set_activity) {
+        public AddRecordDialog(DiagramActivity set_activity) {
             activity = set_activity;
         }
 
@@ -190,12 +130,12 @@ public class Devices extends DiagramActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-            final View view = inflater.inflate(R.layout.dialog_add_device, null);
+            final View view = inflater.inflate(R.layout.dialog_add_personal_record, null);
 
             builder.setView(view)
-                    .setTitle(getString(R.string.device_add_title))
+                    .setTitle(getString(R.string.personal_add_record))
 
-                    .setPositiveButton(getString(R.string.device_action_add), new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.personal_add_record), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
 
@@ -206,43 +146,27 @@ public class Devices extends DiagramActivity {
                             model.setId(activity.getStore().getNewId());
 
 
-                            // evaluate type
-                            RadioButton edit_type;
-                            String type = "0";
-                            {
-                                edit_type = view.findViewById(R.id.type_mobile);
-                                if (edit_type.isChecked()) type = "0";
 
-                                edit_type = view.findViewById(R.id.type_ebike);
-                                if (edit_type.isChecked()) type = "1";
-
-                                edit_type = view.findViewById(R.id.type_ecar);
-                                if (edit_type.isChecked()) type = "10";
-
-                                edit_type = view.findViewById(R.id.type_household);
-                                if (edit_type.isChecked()) type = "11";
-
-                                edit_type = view.findViewById(R.id.type_other);
-                                if (edit_type.isChecked()) type = "99";
-
-                            }
-                            model.setType(type);
+                            model.setType("personal");
 
 
-                            model.setState("active");
-                            model.setSymbol("windvolt");
+                            model.setState("");
 
-                            model.setTitle("mobile");
+                            EditText edit_symbol = view.findViewById(R.id.symbol_edit);
+                            model.setSymbol(edit_symbol.getText().toString());
+
+
 
                             // subject
+
                             EditText edit_name = view.findViewById(R.id.position_input);
-                            String name = edit_name.getText().toString();
-                            model.setSubject(name);
+                            model.setTitle(edit_name.getText().toString());
+
+                            model.setSubject(edit_name.getText().toString());
 
 
-                            EditText edit_capacity = view.findViewById(R.id.content_edit);
-                            String capacity = edit_capacity.getText().toString();
-                            model.setContent(capacity);
+                            EditText edit_content = view.findViewById(R.id.content_edit);
+                            model.setContent(edit_content.getText().toString());
 
                             model.setTargets("");
 
@@ -261,7 +185,7 @@ public class Devices extends DiagramActivity {
                         }
 
                     })
-                    .setNegativeButton(getString(R.string.device_action_cancel), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // do nothing
                         }
@@ -271,12 +195,12 @@ public class Devices extends DiagramActivity {
             return builder.create();
         }
 
-    }//AddDeviceDialog
+    }//AddRecordDialog
 
-    public static class RemoveDeviceDialog extends DialogFragment {
+    public static class RemoveRecordDialog extends DialogFragment {
         DiagramActivity activity;
 
-        public RemoveDeviceDialog(DiagramActivity set_activity) {
+        public RemoveRecordDialog(DiagramActivity set_activity) {
             activity = set_activity;
         }
 
@@ -291,9 +215,9 @@ public class Devices extends DiagramActivity {
             final View view = inflater.inflate(R.layout.dialog_remove_position, null);
 
             builder.setView(view)
-                    .setTitle(getString(R.string.device_del_title))
+                    .setTitle(getString(R.string.personal_remove_record))
 
-                    .setPositiveButton(getString(R.string.device_action_delete), new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.personal_remove_record), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                             // delete device
@@ -311,7 +235,7 @@ public class Devices extends DiagramActivity {
                         }
 
                     })
-                    .setNegativeButton(getString(R.string.device_action_cancel), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // do nothing
                         }
@@ -320,42 +244,39 @@ public class Devices extends DiagramActivity {
             // Create the AlertDialog object and return it
             return builder.create();
         }
-    }//RemoveDeviceDialog
+    }//RemoveRecordDialog
+
 
     /* --------------------------------windvolt-------------------------------- */
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_devices);
+        setContentView(R.layout.diagram_personal);
 
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            actionBar.setTitle(R.string.devices_title); // devices_title
+            actionBar.setTitle(R.string.personal_title); // title
         }
 
 
 
         bindActions();
 
-        analysis = findViewById(R.id.device_label);
 
         // start diagram
-        diagram = findViewById(R.id.device_content);
+        diagram = findViewById(R.id.record_content);
 
         createStore();
     }
 
-
-
     private void bindActions() {
 
         // share action
-        findViewById(R.id.device_share).setOnClickListener(
+        findViewById(R.id.record_share).setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
@@ -374,27 +295,27 @@ public class Devices extends DiagramActivity {
 
 
         // add action
-        findViewById(R.id.device_add).setOnClickListener(
+        findViewById(R.id.record_add).setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        AddDeviceDialog dialog = new AddDeviceDialog(Devices.this);
+                        AddRecordDialog dialog = new AddRecordDialog(Personal.this);
 
-                        dialog.show(getSupportFragmentManager(), "add device");
+                        dialog.show(getSupportFragmentManager(), "add record");
                     }
                 }
         );
 
         // remove action
-        findViewById(R.id.device_remove).setOnClickListener(
+        findViewById(R.id.record_remove).setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        RemoveDeviceDialog dialog = new RemoveDeviceDialog(Devices.this);
+                        RemoveRecordDialog dialog = new RemoveRecordDialog(Personal.this);
 
-                        dialog.show(getSupportFragmentManager(), "remove device");
+                        dialog.show(getSupportFragmentManager(), "remove record");
                     }
                 }
         );

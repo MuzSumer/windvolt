@@ -26,7 +26,7 @@
 
 
     <TextView
-        android:id="@+id/label"
+        android:id="@+id/community_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,17 +40,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/community_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label"
+        app:layout_constraintTop_toBottomOf="@+id/community_title"
         app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
-            android:id="@+id/diagram_links"
+            android:id="@+id/community_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

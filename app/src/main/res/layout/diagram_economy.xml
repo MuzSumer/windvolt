@@ -27,7 +27,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/flow_container"
+            android:id="@+id/economy_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -37,7 +37,7 @@
         </LinearLayout>
 
         <WebView
-            android:id="@+id/diagram_flow"
+            android:id="@+id/economy_diagram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -40,7 +40,7 @@
     <string name="about_action">Über</string>
 
 
-    <string name="app_about">windvolt - V2021.7</string>
+    <string name="app_about">windvolt - V2021.8</string>
     <string name="about_label">windvolt Deutschland</string>
 
     <string name="about_message">windvolt targets the usage and pricing of regenerative ernergy</string>
@@ -69,6 +69,16 @@
     <string name="action_news">Nachrichten</string>
     <string name="app_news">Nachrichten</string>
 
+    <!-- personal -->
+    <string name="action_personal">persönlich</string>
+    <string name="app_personal">Persönlich</string>
+    <string name="personal_title">persönlich</string>
+    <string name="personal_content">URL</string>
+    <string name="personal_symbol">Symbol</string>
+
+    <string name="personal_add_record">hinzufügen</string>
+    <string name="personal_remove_record">entfernen</string>
+    <string name="personal_record_cancel">abbrechen</string>
 
     <!-- who is who -->
     <string name="action_gallery">Galerie</string>

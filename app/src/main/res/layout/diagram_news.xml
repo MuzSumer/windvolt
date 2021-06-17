@@ -26,6 +26,7 @@
 
 
     <ScrollView
+        android:id="@+id/news_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/diagram_background"
@@ -35,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/diagram_news"
+            android:id="@+id/news_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"

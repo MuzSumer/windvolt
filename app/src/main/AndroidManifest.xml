@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.windvolt"
-    android:versionCode="20217"
-    android:versionName="V2021.7">
+    android:versionCode="20218"
+    android:versionName="V2021.8">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,15 +15,15 @@
         android:theme="@style/AppTheme">
 
 
-
         <activity android:name=".diagram.News" />
         <activity android:name=".story.StoryOfWindvolt" />
 
         <activity android:name=".diagram.Gallery" />
         <activity android:name=".diagram.Economy" />
 
-        <activity android:name=".diagram.Devices" />
+        <activity android:name=".diagram.Personal" />
 
+        <activity android:name=".diagram.Devices" />
         <activity android:name=".system.About" />
         <activity android:name=".system.Settings" />
         <activity

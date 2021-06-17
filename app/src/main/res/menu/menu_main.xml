@@ -37,6 +37,12 @@
             android:title="@string/action_story"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/action_personal"
+            android:orderInCategory="120"
+            android:title="@string/action_personal"
+            app:showAsAction="never" />
+
     </group>
 
     <group

@@ -22,7 +22,7 @@ import org.windvolt.diagram.model.DiagramModel;
 
 public class Community extends DiagramFragment {
 
-    final String MODEL_URL = "https://windvolt.eu/model/community/0diagram.xml";
+    final String MODEL_URL = "https://windvolt.eu/model/community/de/0diagram.xml";
 
     LinearLayout diagram;
 
@@ -170,7 +170,7 @@ public class Community extends DiagramFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.diagram_community, container, false);
 
-        diagram = view.findViewById(R.id.diagram_links);
+        diagram = view.findViewById(R.id.community_content);
 
         return view;
     }
