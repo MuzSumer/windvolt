@@ -6,12 +6,17 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,7 +58,7 @@ public class Personal extends DiagramActivity {
         diagram.removeAllViews();
 
 
-        for (int p=0; p<getStore().size(); p++) {
+        for (int p = 0; p < getStore().size(); p++) {
 
             DiagramModel model = getStore().getModel(p);
             id = model.getId();
@@ -64,6 +69,7 @@ public class Personal extends DiagramActivity {
 
     }//setFocus
 
+    // complex view
     private void addViewModel(String id) {
         DiagramModel model = getStore().findModel(id);
         if (model == null) {
@@ -72,11 +78,11 @@ public class Personal extends DiagramActivity {
 
         LinearLayout outer = new LinearLayout(this);
         outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setPadding(4,4,4,4);
+        outer.setPadding(4, 4, 4, 4);
 
         LinearLayout inner = new LinearLayout(this);
         inner.setOrientation(LinearLayout.VERTICAL);
-        inner.setPadding(4,4,4,4);
+        inner.setPadding(4, 4, 4, 4);
 
 
         TextView title = new TextView(this);
@@ -91,12 +97,10 @@ public class Personal extends DiagramActivity {
         title.setText(model.getTitle());
 
 
-
         TextView subject = new TextView(this);
         subject.setPadding(4, 4, 4, 4);
 
         subject.setText(model.getContent());
-
 
 
         ImageView image = new ImageView(this);
@@ -104,6 +108,8 @@ public class Personal extends DiagramActivity {
 
         loadViewImage(image, model.getSymbol(), 80, 80);
 
+        image.setContentDescription(id);
+        image.setOnClickListener(editContent);
 
         inner.addView(title);
         inner.addView(subject);
@@ -111,90 +117,169 @@ public class Personal extends DiagramActivity {
         outer.addView(image);
         outer.addView(inner);
 
-        diagram.addView(outer);
-    }
+        outer.setContentDescription(id);
+        outer.setOnClickListener(openContent);
 
+        diagram.addView(outer);
+    }//addViewModel
+
+    private View.OnClickListener openContent = new OpenContent();
+    private class OpenContent implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            String id = view.getContentDescription().toString();
+
+
+            DiagramModel model = getStore().findModel(id);
+            if (model == null) {
+                return;
+            }
+
+            String content = model.getContent();
+            view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(content)));
+        }
+    }//OnClick
+
+
+    private EditContent editContent = new EditContent();
+    private class EditContent implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            String id = view.getContentDescription().toString();
+
+            DiagramModel model = getStore().findModel(id);
+            if (model == null) {
+                return;
+            }
+
+            EditRecordDialog dialog = new EditRecordDialog(Personal.this, model);
+            dialog.show(getSupportFragmentManager(), "edit record");
+        }
+    }
     /* --------------------------------windvolt-------------------------------- */
 
-    public static class AddRecordDialog extends DialogFragment {
+    public static class EditRecordDialog extends DialogFragment {
         DiagramActivity activity;
+        DiagramModel model;
 
-        public AddRecordDialog(DiagramActivity set_activity) {
+        EditText edit_symbol;
+        EditText edit_subject;
+        EditText edit_content;
+
+        public EditRecordDialog(DiagramActivity set_activity, DiagramModel set_model) {
             activity = set_activity;
+            model = set_model;
         }
 
         @NonNull
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-            final View view = inflater.inflate(R.layout.dialog_add_personal_record, null);
+            final View view = inflater.inflate(R.layout.dialog_edit_personal_record, null);
 
-            builder.setView(view)
-                    .setTitle(getString(R.string.personal_add_record))
-
-                    .setPositiveButton(getString(R.string.personal_add_record), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+            builder.setView(view).setTitle(getString(R.string.personal_add_record)); // values
 
 
-                            // create device model
-                            DiagramModel model = new DiagramModel();
+            // parameters
+            edit_symbol = view.findViewById(R.id.symbol_edit);
+            edit_subject = view.findViewById(R.id.position_input);
+            edit_content = view.findViewById(R.id.content_edit);
+
+            if (model != null) {
+                edit_symbol.setText(model.getSymbol());
+                edit_subject.setText(model.getSubject());
+                edit_content.setText(model.getContent());
+            }
 
 
-                            model.setId(activity.getStore().getNewId());
+            // build list of available symbols
+            LinearLayout grid = view.findViewById(R.id.symbol_grid);
+
+            for (int i=0; i<154; i++) {
+                ImageView action = new ImageView(activity);
+                activity.loadViewImage(action, Integer.toString(i+1), 80, 80);
+
+                action.setContentDescription(Integer.toString(i+1));
+                action.setOnClickListener(symbolClick);
+
+                grid.addView(action);
+            }
+
+
+            builder.setPositiveButton(getString(R.string.personal_add_record), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                    boolean create = model == null;
+
+                    if (create) {
+                        model = new DiagramModel();
+                        model.setId(activity.getStore().getNewId());
+                    }// create
+
+                    model.setType("personal");
+                    model.setState("");
 
 
 
-                            model.setType("personal");
+                    model.setSymbol(edit_symbol.getText().toString());
+
+                    // subject
+                    model.setTitle(edit_subject.getText().toString());
+                    model.setSubject(edit_subject.getText().toString());
+
+                    // address
+                    model.setContent(edit_content.getText().toString());
+
+                    model.setTargets("");
+
+                    model.setTags("");
 
 
-                            model.setState("");
+                    if (create) {
+                        activity.getStore().addModel(model);
+                    }
 
-                            EditText edit_symbol = view.findViewById(R.id.symbol_edit);
-                            model.setSymbol(edit_symbol.getText().toString());
+                    // save chage
+                    activity.savePrivateModel(activity.getNamespace());
 
+                    // redraw diagram
+                    activity.setFocus(null, false);
 
+                }
 
-                            // subject
+            });
 
-                            EditText edit_name = view.findViewById(R.id.position_input);
-                            model.setTitle(edit_name.getText().toString());
-
-                            model.setSubject(edit_name.getText().toString());
-
-
-                            EditText edit_content = view.findViewById(R.id.content_edit);
-                            model.setContent(edit_content.getText().toString());
-
-                            model.setTargets("");
-
-                            model.setTags("");
-
-
-                            activity.getStore().addModel(model);
-
-
-                            // save chage
-                            activity.savePrivateModel(activity.getNamespace());
-
-                            // redraw diagram
-                            activity.setFocus(null, false);
-
-                        }
-
-                    })
-                    .setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // do nothing
-                        }
-                    });
+            builder.setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // do nothing
+                }
+            });
 
             // Create the AlertDialog object and return it
             return builder.create();
         }
 
+        private void closeKeyboard(View view) {
+            if (view != null) {
+                InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }//closeKeyboard
+
+        private SymbolClick symbolClick = new SymbolClick();
+        private class SymbolClick implements View.OnClickListener {
+
+            @Override
+            public void onClick(View v) {
+                String id = v.getContentDescription().toString();
+                edit_symbol.setText(id);
+            }
+        }
     }//AddRecordDialog
 
     public static class RemoveRecordDialog extends DialogFragment {
@@ -263,7 +348,6 @@ public class Personal extends DiagramActivity {
         }
 
 
-
         bindActions();
 
 
@@ -271,6 +355,7 @@ public class Personal extends DiagramActivity {
         diagram = findViewById(R.id.record_content);
 
         createStore();
+
     }
 
     private void bindActions() {
@@ -293,14 +378,13 @@ public class Personal extends DiagramActivity {
         );
 
 
-
         // add action
         findViewById(R.id.record_add).setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        AddRecordDialog dialog = new AddRecordDialog(Personal.this);
+                        EditRecordDialog dialog = new EditRecordDialog(Personal.this, null);
 
                         dialog.show(getSupportFragmentManager(), "add record");
                     }

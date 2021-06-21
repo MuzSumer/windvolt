@@ -60,6 +60,13 @@
             android:orderInCategory="210"
             android:title="@string/action_economy"
             app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_fotos"
+            android:orderInCategory="220"
+            android:title="@string/action_fotos"
+            app:showAsAction="never" />
+
     </group>
 
     <group android:id="@+id/group_system">

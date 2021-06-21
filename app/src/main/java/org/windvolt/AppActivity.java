@@ -29,6 +29,7 @@ import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.Devices;
 import org.windvolt.diagram.Economy;
+import org.windvolt.diagram.Fotos;
 import org.windvolt.diagram.Gallery;
 import org.windvolt.diagram.News;
 import org.windvolt.diagram.Personal;
@@ -110,12 +111,14 @@ public class AppActivity extends AppCompatActivity {
                 return true;
             }
 
-            // show personaö
+            // show personal
             if (id == R.id.action_personal) {
 
                 startActivity(new Intent(this, Personal.class));
                 return true;
             }
+
+
 
         }
 
@@ -134,6 +137,14 @@ public class AppActivity extends AppCompatActivity {
             if (id == R.id.action_economy) {
 
                 startActivity(new Intent(this, Economy.class));
+                return true;
+            }
+
+
+            // show fotos
+            if (id == R.id.action_fotos) {
+
+                startActivity(new Intent(this, Fotos.class));
                 return true;
             }
         }
