@@ -83,7 +83,7 @@
     <!-- fotos -->
     <string name="action_fotos">Fotos</string>
     <string name="app_fotos">Fotos</string>
-
+    <string name="fotos_title">Fotoalbum</string>
 
     <!-- who is who -->
     <string name="action_gallery">Galerie</string>
