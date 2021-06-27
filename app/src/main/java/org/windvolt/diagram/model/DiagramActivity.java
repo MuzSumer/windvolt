@@ -22,6 +22,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+
+import android.util.Base64;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +40,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
@@ -58,22 +62,82 @@ public class DiagramActivity extends AppCompatActivity {
         return null;
     }
 
+    private Document doc = null;
+
+
     public void loadRemoteModel(DiagramActivity diagram, String url) {
         setStore(new DiagramStore());
 
         new ModelLoader(diagram).execute(url);
     }
 
-    public void loadViewImage(ImageView view, String url) {
-        new ImageLoader(view, -1, -1).execute(url);
-    }
+    public boolean saveRemoteModel(String username, String password, String url) {
 
-    public void loadViewImage(ImageView view, String url, int w, int h) {
-        new ImageLoader(view, w, h).execute(url);
+        doc = buildDocument();
+
+        if (doc == null) {
+            return false;
+        }
+
+
+        // TODO draft
+
+        try {
+            URL uri = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) uri.openConnection();
+
+            // login
+            String auth = username + ":" + password;
+            byte[] encodedAuth = Base64.encode(auth.getBytes(), Base64.DEFAULT);
+            String authHeaderValue = "Basic " + new String(encodedAuth);
+
+            connection.setRequestProperty("Authorization", authHeaderValue);
+
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+
+            //DataOutputStream output = new DataOutputStream(connection.getOutputStream());
+
+
+
+
+
+
+            // save
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            //transformerFactory.setAttribute("indent-number", 1);
+            Transformer transformer = transformerFactory.newTransformer();
+            //transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+
+            //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
+
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(connection.getOutputStream());
+            transformer.transform(source, result);
+
+
+            
+
+
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == 200) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /* --------------------------------windvolt-------------------------------- */
-    Document document;
 
     public boolean loadPrivateModel(String filename) {
         setStore(new DiagramStore());
@@ -94,39 +158,17 @@ public class DiagramActivity extends AppCompatActivity {
 
     public boolean savePrivateModel(String filename) {
 
-
-
         try {
             FileOutputStream fileOutputStream = openFileOutput(filename, Context.MODE_PRIVATE);
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
-            document = builder.newDocument();
-            //document.setXmlStandalone(false);
+            doc = buildDocument();
 
-            Element diagram = document.createElement("diagram");
-            document.appendChild(diagram);
-
-            for (int p = 0; p<getStore().size(); p++) {
-                DiagramModel model = getStore().getModel(p);
-
-                // create model
-                Element e = document.createElement("model");
-                diagram.appendChild(e);
-
-
-                textElement(e,"id", model.getId());
-                textElement(e,"type", model.getType());
-                textElement(e,"state", model.getState());
-                textElement(e,"symbol", model.getSymbol());
-                textElement(e,"title", model.getTitle());
-                textElement(e,"subject", model.getSubject());
-                textElement(e,"content", model.getContent());
-                textElement(e,"targets", model.getTargets());
-                textElement(e,"tags", model.getTags());
+            if (doc == null) {
+                return false;
             }
-
 
             // save
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -140,7 +182,7 @@ public class DiagramActivity extends AppCompatActivity {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
 
-            DOMSource source = new DOMSource(document);
+            DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(fileOutputStream);
             transformer.transform(source, result);
 
@@ -153,14 +195,20 @@ public class DiagramActivity extends AppCompatActivity {
         return true;
     }
 
-    private Element textElement(Element parent, String element_name, String element_value) {
 
-        Element e = document.createElement(element_name);
-        e.appendChild(document.createTextNode(element_value));
-        parent.appendChild(e);
 
-        return e;
+    /* --------------------------------windvolt-------------------------------- */
+
+    public void loadViewImage(ImageView view, String url) {
+        new ImageLoader(view, -1, -1).execute(url);
     }
+
+    public void loadViewImage(ImageView view, String url, int w, int h) {
+        new ImageLoader(view, w, h).execute(url);
+    }
+
+
+
 
     /* --------------------------------windvolt-------------------------------- */
 
@@ -261,6 +309,60 @@ public class DiagramActivity extends AppCompatActivity {
 
         return result;
     }//readItem
+
+
+    /* --------------------------------windvolt-------------------------------- */
+
+    private Document buildDocument() {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+
+            doc = builder.newDocument();
+            //document.setXmlStandalone(false);
+
+            Element d = doc.createElement("diagram");
+            doc.appendChild(d);
+
+            for (int p = 0; p<getStore().size(); p++) {
+                DiagramModel model = getStore().getModel(p);
+
+                // create model
+                Element m = doc.createElement("model");
+                d.appendChild(m);
+
+
+                addElement(m,"id", model.getId());
+                addElement(m,"type", model.getType());
+                addElement(m,"state", model.getState());
+                addElement(m,"symbol", model.getSymbol());
+                addElement(m,"title", model.getTitle());
+                addElement(m,"subject", model.getSubject());
+                addElement(m,"content", model.getContent());
+                addElement(m,"targets", model.getTargets());
+                addElement(m,"tags", model.getTags());
+            }
+
+            return doc;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private Element addElement(Element parent, String element_name, String element_value) {
+
+        Element e = doc.createElement(element_name);
+        e.appendChild(doc.createTextNode(element_value));
+        parent.appendChild(e);
+
+        return e;
+    }
 
 
     /* --------------------------------windvolt-------------------------------- */

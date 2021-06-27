@@ -44,23 +44,23 @@ public class StoryPage extends Fragment {
     };
 
     private String[] story = {
-            "Den Wind zu nutzen lernten die Menschen schon früh.",
-            "Es liegt nahe den Wind in Strom umzuwandeln.",
-            "Leider ist der Wind sehr flackerig.",
-            "Mit unseren Smartphones können wir den Windstrom speichern.",
-            "Das Smartphone kann man immer laden. Auch wenn es noch nicht leer ist.",
-            "Dekarbonisiere den Strom und unterstütze damit die ökologische Bewegung.",
-            "Benutze windvolt täglich und verändere so Deine Ladegewohnheiten.",
-            "windvolt informiert Dich wenn sich das Laden lohnt."
+            //"Den Wind zu nutzen lernten die Menschen schon früh.",
+            "Wind in Strom umzuwandeln liegt nahe.",
+            "Leider ist der Wind sehr flackerig. Die Windenergie schwankt stark.",
+            "Bei starkem Wind können wir den Strom mit unseren Smartphones speichern.",
+            "Smartphones kann man immer laden, auch wenn der Akku noch nicht leer ist.",
+            //"Dekarbonisiere den Strom und unterstütze damit die ökologische Bewegung.",
+            "Benutze windvolt morgens und schau' nach, ob und wann sich das Laden lohnt.",
+            "windvolt informiert Dich auf einen Blick."
     };
 
     private int[] images = {
-            R.drawable.story_page_0,
+            //R.drawable.story_page_0,
             R.drawable.story_page_1,
             R.drawable.story_page_2,
             R.drawable.story_page_3,
             R.drawable.story_page_4,
-            R.drawable.story_page_5,
+            //R.drawable.story_page_5,
             R.drawable.story_page_6,
             R.drawable.story_page_7
     };

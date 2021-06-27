@@ -42,8 +42,6 @@ public class Devices extends DiagramActivity {
     @Override
     public void createStore() {
 
-        setStore(new DiagramStore());
-        
         loadPrivateModel(getNamespace());
 
         if (getStore().size() == 0) {

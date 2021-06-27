@@ -54,7 +54,7 @@ public class StoryOfWindvolt extends AppCompatActivity {
 
 
     public class SlipAdapter extends FragmentStateAdapter {
-        private static final int CARD_ITEM_SIZE = 8;
+        private static final int CARD_ITEM_SIZE = 6;
 
         public SlipAdapter(@NonNull FragmentActivity fragmentActivity) {
             super(fragmentActivity);

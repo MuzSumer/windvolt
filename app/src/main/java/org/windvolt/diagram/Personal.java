@@ -43,10 +43,7 @@ public class Personal extends DiagramActivity {
     @Override
     public void createStore() {
 
-        setStore(new DiagramStore());
-
         loadPrivateModel(getNamespace());
-
 
         setFocus(null, false);
     }
