@@ -24,7 +24,6 @@ import com.google.android.material.snackbar.Snackbar;
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
-import org.windvolt.diagram.model.DiagramStore;
 
 public class Devices extends DiagramActivity {
 
@@ -87,38 +86,51 @@ public class Devices extends DiagramActivity {
         }
 
         LinearLayout outer = new LinearLayout(this);
-        outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setPadding(4,4,4,4);
-
         LinearLayout inner = new LinearLayout(this);
-        inner.setOrientation(LinearLayout.HORIZONTAL);
-        inner.setPadding(4,4,4,4);
+        {
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setPadding(4,4,4,4);
+
+
+            inner.setOrientation(LinearLayout.HORIZONTAL);
+            inner.setPadding(4,4,4,4);
+
+        }
+
 
 
         TextView title = new TextView(this);
+        {
+            title.setPadding(4, 4, 4, 4);
+            title.setTextColor(Color.RED);
 
-        title.setPadding(4, 4, 4, 4);
-        title.setTextColor(Color.RED);
 
-
-        String value = model.getContent() + " mAh";
-        title.setText(value);
-
+            String value = model.getContent() + " mAh";
+            title.setText(value);
+        }
 
 
         TextView subject = new TextView(this);
-        subject.setPadding(4, 4, 4, 4);
+        {
+            subject.setPadding(4, 4, 4, 4);
 
-        subject.setText(model.getSubject());
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+            subject.setText(model.getSubject());
+            //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+            subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+            //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+        }
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(2, 2, 2, 2);
+        {
+            image.setPadding(2, 2, 2, 2);
+            loadViewImage(image, model.getSymbol(), 80, 80);
 
-        loadViewImage(image, model.getSymbol(), 80, 80);
+            image.setContentDescription(id);
+            image.setOnClickListener(editContent);
+        }
+
+
 
 
         inner.addView(title);
@@ -131,7 +143,22 @@ public class Devices extends DiagramActivity {
     }
 
 
+    private EditContent editContent = new EditContent();
+    private class EditContent implements View.OnClickListener {
 
+        @Override
+        public void onClick(View view) {
+            String id = view.getContentDescription().toString();
+
+            DiagramModel model = getStore().findModel(id);
+            if (model == null) {
+                return;
+            }
+
+            EditDeviceDialog dialog = new EditDeviceDialog(Devices.this, model);
+            dialog.show(getSupportFragmentManager(), "edit device");
+        }
+    }
 
     private void createBuildModel() {
         // add current device
@@ -174,11 +201,25 @@ public class Devices extends DiagramActivity {
     }
     /* --------------------------------windvolt-------------------------------- */
 
-    public static class AddDeviceDialog extends DialogFragment {
-        DiagramActivity activity;
+    public static class EditDeviceDialog extends DialogFragment {
 
-        public AddDeviceDialog(DiagramActivity set_activity) {
+        DiagramActivity activity;
+        DiagramModel model;
+
+        RadioButton type_mobile;
+        RadioButton type_ebike;
+        RadioButton type_ecar;
+        RadioButton type_household;
+        RadioButton type_other;
+
+        EditText edit_name;
+        EditText edit_capacity;
+
+        boolean create;
+
+        public EditDeviceDialog(DiagramActivity set_activity, DiagramModel set_model) {
             activity = set_activity;
+            model = set_model;
         }
 
         @NonNull
@@ -190,82 +231,89 @@ public class Devices extends DiagramActivity {
 
             final View view = inflater.inflate(R.layout.dialog_add_device, null);
 
-            builder.setView(view)
-                    .setTitle(getString(R.string.device_add_title))
+            builder.setView(view).setTitle(getString(R.string.device_add_title));
 
-                    .setPositiveButton(getString(R.string.device_action_add), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+            type_mobile = view.findViewById(R.id.type_mobile);
+            type_ebike = view.findViewById(R.id.type_ebike);
+            type_ecar = view.findViewById(R.id.type_ecar);
+            type_household = view.findViewById(R.id.type_household);
+            type_other = view.findViewById(R.id.type_other);
 
+            edit_name = view.findViewById(R.id.position_input);
+            edit_capacity = view.findViewById(R.id.content_edit);
 
-                            // create device model
-                            DiagramModel model = new DiagramModel();
+            create = model == null;
+            if (create) {
+                model = new DiagramModel();
+                model.setId(activity.getStore().getNewId());
+            } else {
+                // preset values
+                edit_name.setText(model.getSubject());
+                edit_capacity.setText(model.getContent());
 
+                type_mobile.setChecked(true);
+            }
 
-                            model.setId(activity.getStore().getNewId());
+            builder.setPositiveButton(getString(R.string.record_add_action), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
 
+                    // evaluate type
+                    String type = "0";
+                    {
+                        if (type_mobile.isChecked()) type = "0";
 
-                            // evaluate type
-                            RadioButton edit_type;
-                            String type = "0";
-                            {
-                                edit_type = view.findViewById(R.id.type_mobile);
-                                if (edit_type.isChecked()) type = "0";
+                        if (type_ebike.isChecked()) type = "1";
 
-                                edit_type = view.findViewById(R.id.type_ebike);
-                                if (edit_type.isChecked()) type = "1";
+                        if (type_ecar.isChecked()) type = "10";
 
-                                edit_type = view.findViewById(R.id.type_ecar);
-                                if (edit_type.isChecked()) type = "10";
+                        if (type_household.isChecked()) type = "11";
 
-                                edit_type = view.findViewById(R.id.type_household);
-                                if (edit_type.isChecked()) type = "11";
+                        if (type_other.isChecked()) type = "99";
 
-                                edit_type = view.findViewById(R.id.type_other);
-                                if (edit_type.isChecked()) type = "99";
-
-                            }
-                            model.setType(type);
-
-
-                            model.setState("active");
-                            model.setSymbol("windvolt");
-
-                            model.setTitle("mobile");
-
-                            // subject
-                            EditText edit_name = view.findViewById(R.id.position_input);
-                            String name = edit_name.getText().toString();
-                            model.setSubject(name);
+                    }
+                    model.setType(type);
 
 
-                            EditText edit_capacity = view.findViewById(R.id.content_edit);
-                            String capacity = edit_capacity.getText().toString();
-                            model.setContent(capacity);
+                    model.setState("active");
+                    model.setSymbol("windvolt");
 
-                            model.setTargets("");
-
-                            model.setTags("");
+                    model.setTitle("mobile");
 
 
-                            activity.getStore().addModel(model);
+                    // subject
+
+                    String name = edit_name.getText().toString();
+                    model.setSubject(name);
 
 
-                            // save chage
-                            activity.savePrivateModel(activity.getNamespace());
+                    String capacity = edit_capacity.getText().toString();
+                    model.setContent(capacity);
 
-                            // redraw diagram
-                            activity.setFocus(null, false);
+                    model.setTargets("");
 
-                        }
+                    model.setTags("");
 
-                    })
-                    .setNegativeButton(getString(R.string.device_action_cancel), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // do nothing
-                        }
-                    });
+                    if (create) {
+                        activity.getStore().addModel(model);
+                    }
 
-            // Create the AlertDialog object and return it
+
+                    // save changes
+                    activity.savePrivateModel(activity.getNamespace());
+
+                    // redraw diagram
+                    activity.setFocus(null, false);
+
+                }
+
+            });
+
+            builder.setNegativeButton(getString(R.string.record_cancel_action), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // do nothing
+                }
+            });
+
             return builder.create();
         }
 
@@ -291,7 +339,7 @@ public class Devices extends DiagramActivity {
             builder.setView(view)
                     .setTitle(getString(R.string.device_del_title))
 
-                    .setPositiveButton(getString(R.string.device_action_delete), new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.record_delete_action), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                             // delete device
@@ -309,7 +357,7 @@ public class Devices extends DiagramActivity {
                         }
 
                     })
-                    .setNegativeButton(getString(R.string.device_action_cancel), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.record_cancel_action), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // do nothing
                         }
@@ -377,7 +425,7 @@ public class Devices extends DiagramActivity {
 
                     @Override
                     public void onClick(View view) {
-                        AddDeviceDialog dialog = new AddDeviceDialog(Devices.this);
+                        EditDeviceDialog dialog = new EditDeviceDialog(Devices.this, null);
 
                         dialog.show(getSupportFragmentManager(), "add device");
                     }

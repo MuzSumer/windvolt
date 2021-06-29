@@ -85,14 +85,7 @@ public class Gallery extends DiagramActivity {
         DiagramModel focus = getStore().findModel(id);
 
 
-        doLevelUp.setId(id);
-        doOpenFocus.setId(id);
 
-
-        /*
-        String html = getString(Integer.parseInt(focus.getAdress())); // values
-        web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-         */
         web.loadUrl(focus.getContent());
 
         // set focus title and subject
@@ -159,62 +152,69 @@ public class Gallery extends DiagramActivity {
 
     //* create complex child view */
     public void addTargetModelView(DiagramModel parent, String id) {
-        DiagramModel child = getStore().findModel(id);
+        DiagramModel model = getStore().findModel(id);
+        if (model == null) {
+            return;
+        }
+
 
         LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
+        {
+            layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        layout.setBackground(roundbox);
-        layout.setPadding(8, 8, 8, 8);
+            layout.setBackground(AppCompatResources.getDrawable(this, R.drawable.app_roundbox));
+            layout.setPadding(8, 8, 8, 8);
+        }
+
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(2, 2, 2, 2);
-        loadViewImage(image, child.getSymbol());
+        {
+            image.setPadding(2, 2, 2, 2);
+            loadViewImage(image, model.getSymbol());
+        }
+
 
 
         TextView text = new TextView(this);
-        text.setPadding(8, 8, 8, 8);
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+        {
+            text.setPadding(8, 8, 8, 8);
+            //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+            //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+            text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
-        text.setText(child.getTitle());
+            text.setText(model.getTitle());
+        }
+
 
         layout.addView(image);
         layout.addView(text);
-        layout.setOnClickListener(new SetFocus(id));
+
+        layout.setContentDescription(id);
+        layout.setOnClickListener(setFocus);
 
         diagram_space.addView(layout);
     }//createChildView
 
-
-
+    private SetFocus setFocus = new SetFocus();
     private class SetFocus implements View.OnClickListener {
-        String click_id = "";
-        public SetFocus(String set_id) {
-            click_id = set_id;
-        }
 
         @Override
         public void onClick(View view) {
+            String id = view.getContentDescription().toString();
+
             doBeep();
-            setFocus(click_id, false);
+            setFocus(id, false);
         }
     }//SetFocus
 
     private final LevelUpFocus doLevelUp = new LevelUpFocus();
     private class LevelUpFocus implements View.OnClickListener {
-        String id = "";
-        public void setId(String set_id) {
-            id = set_id;
-        }
-
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
+            String id = view.getContentDescription().toString();
+
             DiagramModel parent = getStore().findParent(id);
             if (null != parent) {
                 String parent_id = parent.getId();
@@ -223,16 +223,13 @@ public class Gallery extends DiagramActivity {
         }
     }//LevelUpFocus
 
-    private final OpenFocus doOpenFocus = new OpenFocus();
+    private final OpenFocus openFocus = new OpenFocus();
     private static class OpenFocus implements View.OnClickListener {
-        String id = "";
-        public void setId(String set_id) {
-            id = set_id;
-        }
 
         @Override
         public void onClick(View v) {
-            // not used here
+            String id = v.getContentDescription().toString();
+
         }
     }//OpenFocus
 

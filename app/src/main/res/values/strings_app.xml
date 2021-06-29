@@ -18,33 +18,28 @@
 -->
 <resources>
 
-
     <!-- windvolt -->
     <string name="app_name">windvolt</string>
-
     <string name="app_disclaimer">Zur Zeit sammeln wir selbst mit Deiner Zustimmung keine Daten.</string>
 
 
     <!-- welcome page -->
     <string name="welcome_label">Welcome</string>
-    <string name="app_welcome">Regenerative Energie Deutschland</string>
+    <string name="welcome_app">Erneuerbare Energie Deutschland</string>
 
     <string name="app_partner">    Quelle: windjournal.de, ohne Gewähr</string>
 
 
     <!-- settings -->
-    <string name="action_settings">Einstellungen</string>
-    <string name="app_settings">Einstellungen vornehmen</string>
+    <string name="settings_action">Einstellungen</string>
+    <string name="settings_app">Einstellungen vornehmen</string>
 
     <!-- about -->
     <string name="about_action">Über</string>
+    <string name="about_app">windvolt - V2021.10</string>
+    <string name="about_title">windvolt Deutschland</string>
 
-
-    <string name="app_about">windvolt - V2021.9</string>
-    <string name="about_label">windvolt Deutschland</string>
-
-    <string name="about_message">windvolt targets the usage and pricing of regenerative ernergy</string>
-
+    <string name="about_message">windvolt targets the usage and pricing of renewable ernergy</string>
     <string name="about_web">windvolt.eu</string>
 
     <!-- location -->
@@ -61,41 +56,47 @@
     <string name="recommendation_charge_many">E-Cars tagsüber laden</string>
 
 
+
+    <!-- record actions -->
+    <string name="record_add_action">okay</string>
+    <string name="record_delete_action">entfernen</string>
+    <string name="record_cancel_action">abbrechen</string>
+
+    <string name="record_add_confirm">okay</string>
+    <string name="record_remove_confirm">entfernen</string>
+    <string name="record_cancel_confirm">abbrechen</string>
+
+
     <!-- story -->
-    <string name="action_story">Motivation</string>
-    <string name="app_story">Motivation Story</string>
+    <string name="story_action">Motivation</string>
+    <string name="story_app">Motivation Story</string>
 
     <!-- news -->
-    <string name="action_news">Nachrichten</string>
-    <string name="app_news">Nachrichten</string>
+    <string name="news_action">Nachrichten</string>
+    <string name="news_app">Nachrichten</string>
 
     <!-- personal -->
-    <string name="action_personal">persönlich</string>
-    <string name="app_personal">Persönlich</string>
+    <string name="personal_action">persönlich</string>
+    <string name="personal_app">Persönlich</string>
+
     <string name="personal_title">persönlich</string>
     <string name="personal_content">URL</string>
     <string name="personal_symbol">Symbol</string>
 
-    <string name="personal_add_record">okay</string>
-    <string name="personal_remove_record">entfernen</string>
-    <string name="personal_record_cancel">abbrechen</string>
+
+
 
     <!-- fotos -->
-    <string name="action_fotos">Fotos</string>
-    <string name="app_fotos">Fotos</string>
+    <string name="fotos_action">Fotos</string>
+    <string name="fotos_app">Fotos</string>
     <string name="fotos_title">Fotoalbum</string>
 
     <!-- who is who -->
-    <string name="action_gallery">Galerie</string>
-    <string name="app_gallery">Galerie</string>
+    <string name="gallery_action">Galerie</string>
+    <string name="gallery_app">Galerie</string>
 
     <!-- economy -->
-    <string name="action_economy">Ökonomie</string>
-    <string name="app_economy">Ökonomie</string>
+    <string name="economy_action">Ökonomie</string>
+    <string name="economy_app">Ökonomie</string>
 
-    <!-- battery -->
-    <string name="battery_level">•  •  •  •  •  •  •  •  •  •</string>
-    <string name="battery_position">1  1  2  3  4  5  6  7  8  9</string>
-
-    <string name="battery_analysis">level </string>
 </resources>

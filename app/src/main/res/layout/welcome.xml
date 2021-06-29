@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_roundbox_background"
-    tools:context=".Welcome20219">
+    tools:context=".Welcome202110">
 
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/app_welcome"
+        android:text="@string/welcome_app"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/teal_700"
         android:textSize="24sp"

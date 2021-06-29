@@ -97,46 +97,57 @@ public class Fotos extends DiagramActivity {
         Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
         LinearLayout outer = new LinearLayout(this);
-        outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setContentDescription(id);
+        LinearLayout inner = new LinearLayout(this);
+        {
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setContentDescription(id);
 
-        outer.setPadding(8,8,8,8);
-        outer.setBackground(roundbox);
+            outer.setPadding(8,8,8,8);
+            outer.setBackground(roundbox);
+
+            inner.setOrientation(LinearLayout.VERTICAL);
+
+            inner.setPadding(8,8,8,8);
+        }
+
+
 
         ImageView symbol = new ImageView(this);
-        symbol.setPadding(8,8,8,8);
+        {
+            symbol.setPadding(8,8,8,8);
 
-        loadViewImage(symbol, model.getContent(), 200, 120);
+            loadViewImage(symbol, model.getContent(), 200, 120);
+        }
 
-
-
-        LinearLayout innertexts = new LinearLayout(this);
-        innertexts.setOrientation(LinearLayout.VERTICAL);
-
-        innertexts.setPadding(8,8,8,8);
 
         // title
         TextView title = new TextView(this);
-        title.setPadding(8,8,8,8);
+        {
+            title.setPadding(8,8,8,8);
 
-        title.setText(model.getTitle());
+            title.setText(model.getTitle());
+        }
 
 
         // subject
         TextView subject = new TextView(this);
-        subject.setPadding(8,8,8,8);
+        {
+            subject.setPadding(8,8,8,8);
 
-        subject.setText(model.getSubject());
+            subject.setText(model.getSubject());
+        }
 
 
-        innertexts.addView(title);
-        innertexts.addView(subject);
+
+        inner.addView(title);
+        inner.addView(subject);
 
 
 
         outer.addView(symbol);
-        outer.addView(innertexts);
+        outer.addView(inner);
 
+        outer.setContentDescription(id);
         outer.setOnClickListener(onFocus);
 
         diagram.addView(outer);
@@ -150,21 +161,26 @@ public class Fotos extends DiagramActivity {
             return;
         }
 
-        LinearLayout cell = new LinearLayout(this);
-        cell.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout outer = new LinearLayout(this);
+        {
+            outer.setOrientation(LinearLayout.VERTICAL);
+        }
+
 
         ImageView image = new ImageView(this);
+        {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(scroll.getWidth(), scroll.getHeight());
+            image.setLayoutParams(params);
+
+            loadViewImage(image, model.getContent());
+
+            //image.setOnClickListener(new OnFocus(id));
+        }
 
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(scroll.getWidth(), scroll.getHeight());
-        image.setLayoutParams(params);
 
-        loadViewImage(image, model.getContent());
-
-        //image.setOnClickListener(new OnFocus(id));
-
-        cell.addView(image);
-        diagram.addView(cell);
+        outer.addView(image);
+        diagram.addView(outer);
 
     }//addImageview
 
@@ -194,7 +210,7 @@ public class Fotos extends DiagramActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.app_fotos); // values
+            String title = getString(R.string.fotos_app); // values
             actionBar.setTitle(title);
         }
 

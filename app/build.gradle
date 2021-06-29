@@ -8,8 +8,8 @@ android {
         applicationId "org.windvolt"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 20219
-        versionName "2021.9"
+        versionCode 202110
+        versionName "2021.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

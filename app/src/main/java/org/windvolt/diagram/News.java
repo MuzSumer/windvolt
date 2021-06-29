@@ -20,7 +20,6 @@ package org.windvolt.diagram;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -137,66 +136,73 @@ public class News extends DiagramActivity {
         DiagramModel model = getStore().findModel(id);
         if (null == model) return;
 
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
 
         LinearLayout outer = new LinearLayout(this);
-        outer.setBackground(roundbox);
-        outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setPadding(4, 4, 4, 4);
-
-
         LinearLayout inner = new LinearLayout(this);
-        inner.setOrientation(LinearLayout.VERTICAL);
-        inner.setPadding(4, 4, 4, 4);
+        {
+            outer.setBackground(AppCompatResources.getDrawable(this, R.drawable.app_roundbox));
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setPadding(4, 4, 4, 4);
+
+            inner.setOrientation(LinearLayout.VERTICAL);
+            inner.setPadding(4, 4, 4, 4);
+        }
+
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(4, 16, 4, 8);
+        {
+            image.setPadding(4, 16, 4, 8);
 
-        String symbol = model.getSymbol();
-        loadViewImage(image, symbol, 80, 80);
+            loadViewImage(image, model.getSymbol(), 80, 80);
+        }
+
 
 
         TextView title = new TextView(this);
-        title.setPadding(8, 8, 8, 8);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setText(model.getTitle());
+        {
+            title.setPadding(8, 8, 8, 8);
+            title.setGravity(Gravity.CENTER_VERTICAL);
+            title.setText(model.getTitle());
+        }
+
 
 
         TextView subject = new TextView(this);
-        subject.setPadding(8, 8, 8, 8);
-        subject.setTextSize(17);
+        {
+            subject.setPadding(8, 8, 8, 8);
+            subject.setTextSize(17);
 
-        subject.setGravity(Gravity.CENTER_VERTICAL);
-        subject.setText(model.getSubject());
-        subject.setTextColor(Color.parseColor("#0277BD"));
+            subject.setGravity(Gravity.CENTER_VERTICAL);
+            subject.setText(model.getSubject());
+            subject.setTextColor(Color.parseColor("#0277BD"));
 
-        //text.setText(w + "/" + h);
+            //text.setText(w + "/" + h);
+        }
 
-        outer.setContentDescription(id);
+
+
 
         outer.addView(image);
-
+        outer.addView(inner);
 
         inner.addView(subject);
         inner.addView(title);
 
-        outer.addView(inner);
 
-        outer.setOnClickListener(new OnFocus(id));
+        outer.setContentDescription(id);
+        outer.setOnClickListener(onFocus);
 
         diagram.addView(outer);
 
     }//addModelView
 
-    class OnFocus implements View.OnClickListener {
-
-        String id;
-
-        public OnFocus(String set_id) { id = set_id; }
+    private OnFocus onFocus = new OnFocus();
+    private class OnFocus implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
+            String id = view.getContentDescription().toString();
 
             DiagramModel model = getStore().findModel(id);
             if (model == null) {
@@ -234,7 +240,7 @@ public class News extends DiagramActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.app_news); // values
+            String title = getString(R.string.news_app); // values
             actionBar.setTitle(title);
         }
 

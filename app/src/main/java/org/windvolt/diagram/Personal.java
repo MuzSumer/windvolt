@@ -27,7 +27,6 @@ import com.google.android.material.snackbar.Snackbar;
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
-import org.windvolt.diagram.model.DiagramStore;
 
 public class Personal extends DiagramActivity {
 
@@ -74,39 +73,50 @@ public class Personal extends DiagramActivity {
         }
 
         LinearLayout outer = new LinearLayout(this);
-        outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setPadding(4, 4, 4, 4);
-
         LinearLayout inner = new LinearLayout(this);
-        inner.setOrientation(LinearLayout.VERTICAL);
-        inner.setPadding(4, 4, 4, 4);
+        {
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setPadding(4, 4, 4, 4);
+
+
+            inner.setOrientation(LinearLayout.VERTICAL);
+            inner.setPadding(4, 4, 4, 4);
+        }
+
 
 
         TextView title = new TextView(this);
+        {
+            title.setPadding(4, 4, 4, 4);
+            title.setTextColor(Color.RED);
 
-        title.setPadding(4, 4, 4, 4);
-        title.setTextColor(Color.RED);
+            //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+            title.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+            //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        title.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        //subject.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
-
-        title.setText(model.getTitle());
+            title.setText(model.getTitle());
+        }
 
 
         TextView subject = new TextView(this);
-        subject.setPadding(4, 4, 4, 4);
+        {
+            subject.setPadding(4, 4, 4, 4);
 
-        subject.setText(model.getContent());
+            subject.setText(model.getContent());
+        }
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(2, 2, 2, 2);
+        {
+            image.setPadding(2, 2, 2, 2);
 
-        loadViewImage(image, model.getSymbol(), 80, 80);
+            loadViewImage(image, model.getSymbol(), 80, 80);
 
-        image.setContentDescription(id);
-        image.setOnClickListener(editContent);
+            image.setContentDescription(id);
+            image.setOnClickListener(editContent);
+        }
+
+
 
         inner.addView(title);
         inner.addView(subject);
@@ -179,7 +189,7 @@ public class Personal extends DiagramActivity {
 
             final View view = inflater.inflate(R.layout.dialog_edit_personal_record, null);
 
-            builder.setView(view).setTitle(getString(R.string.personal_add_record)); // values
+            builder.setView(view).setTitle(getString(R.string.record_add_confirm)); // values
 
 
             // parameters
@@ -191,7 +201,7 @@ public class Personal extends DiagramActivity {
                 edit_symbol.setText(model.getSymbol());
                 edit_subject.setText(model.getSubject());
                 edit_content.setText(model.getContent());
-            }
+            }// preset values
 
 
             // build list of available symbols
@@ -208,7 +218,7 @@ public class Personal extends DiagramActivity {
             }
 
 
-            builder.setPositiveButton(getString(R.string.personal_add_record), new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.record_add_confirm), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
 
                     boolean create = model == null;
@@ -251,7 +261,7 @@ public class Personal extends DiagramActivity {
 
             });
 
-            builder.setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getString(R.string.record_cancel_confirm), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // do nothing
                 }
@@ -297,9 +307,9 @@ public class Personal extends DiagramActivity {
             final View view = inflater.inflate(R.layout.dialog_remove_position, null);
 
             builder.setView(view)
-                    .setTitle(getString(R.string.personal_remove_record))
+                    .setTitle(getString(R.string.record_remove_confirm))
 
-                    .setPositiveButton(getString(R.string.personal_remove_record), new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.record_remove_confirm), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                             // delete device
@@ -317,7 +327,7 @@ public class Personal extends DiagramActivity {
                         }
 
                     })
-                    .setNegativeButton(getString(R.string.personal_record_cancel), new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.record_cancel_confirm), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // do nothing
                         }

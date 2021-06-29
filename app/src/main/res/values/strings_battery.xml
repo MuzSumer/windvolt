@@ -18,23 +18,9 @@
 -->
 <resources>
 
-    <!-- devices -->
-    <string name="devices_action">Geräte</string>
-    <string name="devices_title">meine Geräte</string>
+    <!-- battery -->
+    <string name="battery_level">•  •  •  •  •  •  •  •  •  •</string>
+    <string name="battery_position">1  1  2  3  4  5  6  7  8  9</string>
 
-    <string name="device_sumup">Gesamt</string>
-
-
-    <!-- device add -->
-    <string name="device_add_title">Gerät bearbeiten</string>
-
-    <string name="device_add_name">Name</string>
-    <string name="device_add_type">Typ</string>
-    <string name="device_add_capacity">Kapazität</string>
-
-    <!-- device del -->
-    <string name="device_del_title">Gerät entfernen</string>
-
-    <string name="device_del_name">Position</string>
-
+    <string name="battery_analysis">level </string>
 </resources>

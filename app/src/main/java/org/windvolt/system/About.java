@@ -37,7 +37,7 @@ public class About extends AppCompatActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.app_about);
+            String title = getString(R.string.about_app);
             actionBar.setTitle(title);
 
         }

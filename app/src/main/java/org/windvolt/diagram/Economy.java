@@ -362,33 +362,41 @@ public class Economy extends DiagramActivity {
         if (null == model) return;
 
         LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
+        {
+            layout.setOrientation(LinearLayout.HORIZONTAL);
 
 
-        layout.setPadding(8, 8, 8, 8);
+            layout.setPadding(8, 8, 8, 8);
+        }
 
 
         ImageView image = new ImageView(this);
-        image.setPadding(4, 2, 4, 2);
-        loadViewImage(image, model.getSymbol(), 64, 64);
+        {
+            image.setPadding(4, 2, 4, 2);
+            loadViewImage(image, model.getSymbol(), 64, 64);
+        }
 
 
         TextView text = new TextView(this);
-        text.setPadding(8, 8, 8, 8);
-        //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
-        //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
+        {
+            text.setPadding(8, 8, 8, 8);
+            //text.setTextAppearance(this, R.style.TextAppearance_MaterialComponents_Headline4); // 34sp
+            //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Large); // 22sp
+            //text.setTextAppearance(this, R.style.TextAppearance_AppCompat_Headline); //24sp
 
-        text.setGravity(Gravity.CENTER_VERTICAL);
-        text.setText(model.getSubject());
-        //text.setText(w + "/" + h);
+            text.setGravity(Gravity.CENTER_VERTICAL);
+            text.setText(model.getSubject());
+            //text.setText(w + "/" + h);
+        }
 
-        layout.setContentDescription(id);
+
+
 
         layout.addView(image);
         layout.addView(text);
 
-        layout.setOnClickListener(new OnFocus(id));
+        layout.setContentDescription(id);
+        layout.setOnClickListener(onFocus);
 
         diagram.addView(layout);
 
@@ -411,15 +419,12 @@ public class Economy extends DiagramActivity {
 
     }//removeTargets
 
+    private OnFocus onFocus = new OnFocus();
+    private class OnFocus implements View.OnClickListener {
 
-
-    class OnFocus implements View.OnClickListener {
-
-        String id;
-
-        public OnFocus(String set_id) { id = set_id; }
         @Override
         public void onClick(View view) {
+            String id = view.getContentDescription().toString();
 
             setFocus(id, true);
 

@@ -43,7 +43,7 @@ public class StoryOfWindvolt extends AppCompatActivity {
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            actionBar.setTitle(getString(R.string.app_story)); // story_title
+            actionBar.setTitle(getString(R.string.story_app)); // story_title
         }
 
         viewPager = findViewById(R.id.story_pager);

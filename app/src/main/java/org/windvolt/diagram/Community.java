@@ -84,62 +84,76 @@ public class Community extends DiagramFragment {
 
 
         DiagramModel model = getStore().findModel(id);
-        if (null == model) return;
+        if (null == model) {
+            return;
+        }
 
 
 
         LinearLayout outer = new LinearLayout(getContext());
-        //outer.setHorizontalGravity(LinearLayout.AUTOFILL_TYPE_LIST);
-        outer.setBackground(roundbox);
-        outer.setOrientation(LinearLayout.HORIZONTAL);
-        outer.setPadding(4, 4, 4, 4);
+        {
+            //outer.setHorizontalGravity(LinearLayout.AUTOFILL_TYPE_LIST);
+            outer.setBackground(roundbox);
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setPadding(4, 4, 4, 4);
+        }
+
 
 
 
         ImageView image = new ImageView(getContext());
-        image.setPadding(4, 12, 4, 8);
+        {
+            image.setPadding(4, 12, 4, 8);
 
-        String symbol = model.getSymbol();
-        loadViewImage(image, symbol, 160, 70);
+            loadViewImage(image, model.getSymbol(), 160, 70);
+        }
+
 
 
         TextView title = new TextView(getContext());
-        title.setPadding(8, 8, 8, 8);
-        title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setText(model.getTitle());
+        {
+            title.setPadding(8, 8, 8, 8);
+            title.setGravity(Gravity.CENTER_VERTICAL);
+            title.setText(model.getTitle());
+        }
+
 
 
         TextView subject = new TextView(getContext());
-        subject.setPadding(8, 16, 8, 8);
-        subject.setTextSize(17);
+        {
+            subject.setPadding(8, 16, 8, 8);
+            subject.setTextSize(17);
 
-        subject.setGravity(Gravity.CENTER_VERTICAL);
-        subject.setText(model.getSubject());
-        subject.setTextColor(Color.parseColor("#0277BD"));
+            subject.setGravity(Gravity.CENTER_VERTICAL);
+            subject.setText(model.getSubject());
+            subject.setTextColor(Color.parseColor("#0277BD"));
 
-        //text.setText(w + "/" + h);
+            //text.setText(w + "/" + h);
+        }
 
-        outer.setContentDescription(id);
+
+
         outer.addView(image);
         outer.addView(subject);
 
-        outer.setOnClickListener(new OnFocus(id));
+        outer.setContentDescription(id);
+        outer.setOnClickListener(onFocus);
 
         diagram.addView(outer);
 
     }//addModelView
 
+    private OnFocus onFocus = new OnFocus();
+    private class OnFocus implements View.OnClickListener {
 
-    class OnFocus implements View.OnClickListener {
-
-        String id;
-
-        public OnFocus(String set_id) { id = set_id; }
         @Override
         public void onClick(View view) {
+            String id = view.getContentDescription().toString();
 
             DiagramModel model = getStore().findModel(id);
-            if (model == null) { return; }
+            if (model == null) {
+                return;
+            }
 
             String children = model.getTargets();
             if (children.isEmpty()) {
