@@ -89,7 +89,11 @@
     <!-- fotos -->
     <string name="fotos_action">Fotos</string>
     <string name="fotos_app">Fotos</string>
-    <string name="fotos_title">Fotoalbum</string>
+    <string name="fotos_title">Fotoalben</string>
+
+    <!-- fotoalbum -->
+    <string name="fotoalbum_title">Album</string>
+
 
     <!-- who is who -->
     <string name="gallery_action">Galerie</string>

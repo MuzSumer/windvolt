@@ -13,15 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".diagram.Fotos"></activity>
+
+
         <activity android:name=".diagram.News" />
-        <activity android:name=".story.StoryOfWindvolt" />
         <activity android:name=".diagram.Gallery" />
         <activity android:name=".diagram.Economy" />
         <activity android:name=".diagram.Personal" />
+
+        <activity android:name=".diagram.Fotos" />
+        <activity android:name=".diagram.Fotoalbum" />
+
         <activity android:name=".diagram.Devices" />
+
+        <activity android:name=".story.StoryOfWindvolt" />
+
         <activity android:name=".system.About" />
         <activity android:name=".system.Settings" />
+
         <activity
             android:name=".AppActivity"
             android:label="@string/app_name"

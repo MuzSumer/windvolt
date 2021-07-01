@@ -177,7 +177,8 @@ public class DiagramActivity extends AppCompatActivity {
             //transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 
             //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+            //transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-10646"); // UCS Universal Character Set
 
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
@@ -222,9 +223,12 @@ public class DiagramActivity extends AppCompatActivity {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             if (stream instanceof FileInputStream) {
+
                 // do not convert
                 document = builder.parse(stream);
-            } else {
+
+
+            } else { // online-diagram
 
                 // convert byte array
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -371,7 +375,7 @@ public class DiagramActivity extends AppCompatActivity {
     private static class ModelLoader extends AsyncTask<String, Void, Boolean> {
 
         HttpsURLConnection connection = null;
-        InputStream content = null;
+        InputStream contentstream = null;
         String url = null;
 
         DiagramActivity diagram;
@@ -397,8 +401,8 @@ public class DiagramActivity extends AppCompatActivity {
 
                 if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
 
-                    content = connection.getInputStream();
-                    diagram.buildContent(diagram.getStore(), content);
+                    contentstream = connection.getInputStream();
+                    diagram.buildContent(diagram.getStore(), contentstream);
 
                     return true;
                 }
@@ -413,9 +417,9 @@ public class DiagramActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             {
-                if (content != null) {
+                if (contentstream != null) {
                     try {
-                        content.close();
+                        contentstream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -437,15 +441,14 @@ public class DiagramActivity extends AppCompatActivity {
         private void createLocalStore() {
 
             DiagramModel model = new DiagramModel();
-
-
             model.setId(diagram.getStore().getNewId());
+
             model.setType("alert");
             model.setState("error");
             model.setSymbol("https://windvolt.eu/model/windvolt_small.png");
 
-            model.setTitle("Fehler");
-            model.setSubject("Online-Modell nicht geladen");
+            model.setTitle("lokales Diagramm");
+            model.setSubject("Online-Diagramm nicht geladen");
 
             model.setContent("https://windvolt.eu/model/diagram_error.html");
 

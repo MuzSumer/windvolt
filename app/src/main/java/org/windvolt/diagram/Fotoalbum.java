@@ -1,5 +1,9 @@
 package org.windvolt.diagram;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,16 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.content.res.AppCompatResources;
-
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Fotos extends DiagramActivity {
+public class Fotoalbum extends DiagramActivity {
 
-    final String MODEL_URL = "https://windvolt.eu/shop/gallery/0diagram.xml";
+
+    String MODEL_URL = "";
 
     ScrollView scroll;
     LinearLayout diagram;
@@ -197,10 +199,7 @@ public class Fotos extends DiagramActivity {
                 return;
             }
 
-            Intent i = new Intent(Fotos.this, Fotoalbum.class);
-            i.putExtra("namespace", model.getTags());
-
-            startActivity(i);
+            setFocus(id, true);
         }
     }
 
@@ -208,18 +207,21 @@ public class Fotos extends DiagramActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.diagram_fotos);
+        setContentView(R.layout.diagram_fotoalbum);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.fotos_app); // values
+            String title = getString(R.string.fotoalbum_title); // values
             actionBar.setTitle(title);
         }
 
-        scroll = findViewById(R.id.fotos_scroll);
-        diagram = findViewById(R.id.fotos_content);
+        scroll = findViewById(R.id.fotoalbum_scroll);
+        diagram = findViewById(R.id.fotoalbum_content);
+
+        Intent i = getIntent();
+        MODEL_URL = i.getStringExtra("namespace");
 
         createStore();
     }

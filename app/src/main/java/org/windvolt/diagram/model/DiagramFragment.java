@@ -146,7 +146,7 @@ public class DiagramFragment extends Fragment {
     private static class ModelLoader extends AsyncTask<String, Void, Boolean> {
 
         HttpsURLConnection connection = null;
-        InputStream content = null;
+        InputStream contentstream = null;
         String url = null;
 
         DiagramFragment diagram;
@@ -172,8 +172,8 @@ public class DiagramFragment extends Fragment {
 
                 if (connection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
 
-                    content = connection.getInputStream();
-                    diagram.buildContent(diagram.getStore(), content);
+                    contentstream = connection.getInputStream();
+                    diagram.buildContent(diagram.getStore(), contentstream);
 
                     return true;
                 }
@@ -188,9 +188,9 @@ public class DiagramFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
             {
-                if (content != null) {
+                if (contentstream != null) {
                     try {
-                        content.close();
+                        contentstream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
