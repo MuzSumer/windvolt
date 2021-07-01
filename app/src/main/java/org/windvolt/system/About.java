@@ -18,6 +18,7 @@
 */
 package org.windvolt.system;
 
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -33,12 +34,25 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.system_about);
 
+
+        String v = "";
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            //String version = pInfo.versionName;
+            //int verCode = pInfo.versionCode;
+
+            v = " - v" + pInfo.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             //actionBar.setDisplayHomeAsUpEnabled(true);
 
-            String title = getString(R.string.about_app);
-            actionBar.setTitle(title);
+            String t = getString(R.string.about_app);
+            actionBar.setTitle(t + v);
 
         }
 
