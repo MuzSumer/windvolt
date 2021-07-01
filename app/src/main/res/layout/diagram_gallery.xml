@@ -42,11 +42,11 @@
                 android:id="@+id/gallery_symbol"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
                 android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/windvolt_small" />
 
@@ -93,7 +93,7 @@
             android:background="@color/diagram_background"
             android:gravity="fill_horizontal"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="8dp">
 
 
         </LinearLayout>

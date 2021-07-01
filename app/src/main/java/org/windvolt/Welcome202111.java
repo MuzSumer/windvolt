@@ -38,7 +38,7 @@ import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.Gallery;
 import org.windvolt.diagram.News;
 
-public class Welcome202110 extends Fragment {
+public class Welcome202111 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,7 +146,7 @@ public class Welcome202110 extends Fragment {
             public void onClick(View view) {
 
 
-                NavHostFragment.findNavController(Welcome202110.this).navigate(R.id.action_open_neutron);
+                NavHostFragment.findNavController(Welcome202111.this).navigate(R.id.action_open_neutron);
             }
         });
         //open_neutron.setVisibility(ImageButton.INVISIBLE);
