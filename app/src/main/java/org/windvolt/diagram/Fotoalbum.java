@@ -119,7 +119,7 @@ public class Fotoalbum extends DiagramActivity {
         {
             symbol.setPadding(8,8,8,8);
 
-            loadViewImage(symbol, model.getContent(), 200, 120);
+            loadViewImage(symbol, model.getContent(), 300, 180);
         }
 
 
@@ -128,7 +128,14 @@ public class Fotoalbum extends DiagramActivity {
         {
             title.setPadding(8,8,8,8);
 
-            title.setText(model.getTitle());
+            int t = getStore().getTargetCount(model);
+
+            if (t > 0) {
+                title.setText("(" + t + ") " + model.getTitle());
+            } else {
+                title.setText(model.getTitle());
+            }
+
         }
 
 

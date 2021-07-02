@@ -62,7 +62,7 @@ public class DiagramActivity extends AppCompatActivity {
         return null;
     }
 
-    private Document doc = null;
+    private Document build = null;
 
 
     public void loadRemoteModel(DiagramActivity diagram, String url) {
@@ -73,9 +73,9 @@ public class DiagramActivity extends AppCompatActivity {
 
     public boolean saveRemoteModel(String username, String password, String url) {
 
-        doc = buildDocument();
+        build = buildDocument();
 
-        if (doc == null) {
+        if (build == null) {
             return false;
         }
 
@@ -115,7 +115,7 @@ public class DiagramActivity extends AppCompatActivity {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
 
-            DOMSource source = new DOMSource(doc);
+            DOMSource source = new DOMSource(build);
             StreamResult result = new StreamResult(connection.getOutputStream());
             transformer.transform(source, result);
 
@@ -161,12 +161,9 @@ public class DiagramActivity extends AppCompatActivity {
         try {
             FileOutputStream fileOutputStream = openFileOutput(filename, Context.MODE_PRIVATE);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
+            build = buildDocument();
 
-            doc = buildDocument();
-
-            if (doc == null) {
+            if (build == null) {
                 return false;
             }
 
@@ -183,7 +180,7 @@ public class DiagramActivity extends AppCompatActivity {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
 
-            DOMSource source = new DOMSource(doc);
+            DOMSource source = new DOMSource(build);
             StreamResult result = new StreamResult(fileOutputStream);
             transformer.transform(source, result);
 
@@ -319,22 +316,21 @@ public class DiagramActivity extends AppCompatActivity {
 
     private Document buildDocument() {
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
         try {
-            builder = factory.newDocumentBuilder();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
 
-            doc = builder.newDocument();
+            build = builder.newDocument();
             //document.setXmlStandalone(false);
 
-            Element d = doc.createElement("diagram");
-            doc.appendChild(d);
+            Element d = build.createElement("diagram");
+            build.appendChild(d);
 
             for (int p = 0; p<getStore().size(); p++) {
                 DiagramModel model = getStore().getModel(p);
 
                 // create model
-                Element m = doc.createElement("model");
+                Element m = build.createElement("model");
                 d.appendChild(m);
 
 
@@ -349,7 +345,7 @@ public class DiagramActivity extends AppCompatActivity {
                 addElement(m,"tags", model.getTags());
             }
 
-            return doc;
+            return build;
 
 
         } catch (Exception e) {
@@ -361,8 +357,8 @@ public class DiagramActivity extends AppCompatActivity {
 
     private Element addElement(Element parent, String element_name, String element_value) {
 
-        Element e = doc.createElement(element_name);
-        e.appendChild(doc.createTextNode(element_value));
+        Element e = build.createElement(element_name);
+        e.appendChild(build.createTextNode(element_value));
         parent.appendChild(e);
 
         return e;
@@ -486,7 +482,7 @@ public class DiagramActivity extends AppCompatActivity {
 
             if (url.isEmpty()) { return null; }
 
-            if (url == "windvolt") {
+            if (url.equals("windvolt") ) {
                 return null;
             }
 
@@ -494,7 +490,7 @@ public class DiagramActivity extends AppCompatActivity {
                 String numeric = url;
 
                 while (numeric.length() < 3) {
-                    numeric = "0" + numeric;
+                    numeric = filler(numeric);
                 }
 
                 url = "https://windvolt.eu/model/icons/actn/actn" + numeric + ".gif";
@@ -529,6 +525,10 @@ public class DiagramActivity extends AppCompatActivity {
             return bitmap;
         }
 
+        private String filler(String fill) {
+            return "0" + fill;
+        }
+
         protected void onPostExecute(Bitmap result) {
             {//*cleanup
                 if (content != null) {
@@ -550,10 +550,8 @@ public class DiagramActivity extends AppCompatActivity {
                         view.setImageResource(R.drawable.windvolt_small);
                         break;
 
-                    case "mobile":
-                        break;
-
-                    case "smartphone":
+                    case "wv":
+                        view.setImageResource(R.drawable.windvolt_small);
                         break;
 
                     default:

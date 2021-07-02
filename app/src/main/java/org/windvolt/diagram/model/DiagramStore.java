@@ -58,6 +58,17 @@ public class DiagramStore {
     public String getTargets(DiagramModel parent) {
         return parent.getTargets();
     }//getTargets
+    public int getTargetCount(DiagramModel parent) {
+        String targets = getTargets(parent);
+        String[] alltargets = targets.split(",");
+
+        if (alltargets[0].equals("")) {
+            return 0;
+        }
+
+        return alltargets.length;
+    }//getTargetCount
+
 
     public void addModel(DiagramModel model) {
         store.add(model);
