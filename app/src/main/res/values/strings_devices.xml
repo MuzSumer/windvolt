@@ -22,8 +22,8 @@
     <string name="devices_action">Geräte</string>
     <string name="devices_title">meine Geräte</string>
 
-    <string name="device_sumup">Gesamt</string>
-
+    <string name="device_sumup">Gesamtleistung</string>
+    <string name="device_measure">mAh</string>
 
     <!-- device add -->
     <string name="device_add_title">Gerät bearbeiten</string>

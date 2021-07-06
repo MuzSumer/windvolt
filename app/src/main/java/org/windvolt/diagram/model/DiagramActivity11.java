@@ -22,7 +22,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-
 import android.util.Base64;
 import android.widget.ImageView;
 
@@ -43,7 +42,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -53,7 +51,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public class DiagramActivity extends AppCompatActivity {
+public class DiagramActivity11 extends AppCompatActivity {
 
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
@@ -65,7 +63,7 @@ public class DiagramActivity extends AppCompatActivity {
     private Document build = null;
 
 
-    public void loadRemoteModel(DiagramActivity diagram, String url) {
+    public void loadRemoteModel(DiagramActivity11 diagram, String url) {
         setStore(new DiagramStore());
 
         new ModelLoader(diagram).execute(url);
@@ -374,10 +372,10 @@ public class DiagramActivity extends AppCompatActivity {
         InputStream contentstream = null;
         String url = null;
 
-        DiagramActivity diagram;
+        DiagramActivity11 diagram;
 
 
-        public ModelLoader(DiagramActivity set_diagram) {
+        public ModelLoader(DiagramActivity11 set_diagram) {
             diagram = set_diagram;
         }
 

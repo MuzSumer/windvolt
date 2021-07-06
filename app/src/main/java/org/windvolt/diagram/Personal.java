@@ -1,12 +1,5 @@
 package org.windvolt.diagram;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,14 +14,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Personal extends DiagramActivity {
+public class Personal extends DiagramActivity11 {
 
     final String MODEL_URL = "personal.xml";
 
@@ -47,6 +47,16 @@ public class Personal extends DiagramActivity {
         setFocus(null, false);
     }
 
+    @Override
+    public boolean savePrivateModel(String url) {
+        boolean success = super.savePrivateModel(url);
+
+        if (success) {
+            Toast.makeText(this, R.string.confirmation_saved, Toast.LENGTH_SHORT).show();
+        }
+
+        return success;
+    }
 
     @Override
     public void setFocus(String id, boolean expand) {
@@ -130,7 +140,7 @@ public class Personal extends DiagramActivity {
         diagram.addView(outer);
     }//addViewModel
 
-    private View.OnClickListener openContent = new OpenContent();
+    private final View.OnClickListener openContent = new OpenContent();
     private class OpenContent implements View.OnClickListener {
 
         @Override
@@ -149,7 +159,7 @@ public class Personal extends DiagramActivity {
     }//OnClick
 
 
-    private EditContent editContent = new EditContent();
+    private final EditContent editContent = new EditContent();
     private class EditContent implements View.OnClickListener {
 
         @Override
@@ -168,17 +178,18 @@ public class Personal extends DiagramActivity {
     /* --------------------------------windvolt-------------------------------- */
 
     public static class EditRecordDialog extends DialogFragment {
-        DiagramActivity activity;
+        DiagramActivity11 activity;
         DiagramModel model;
 
         EditText edit_symbol;
         EditText edit_subject;
         EditText edit_content;
 
-        public EditRecordDialog(DiagramActivity set_activity, DiagramModel set_model) {
+        public EditRecordDialog(DiagramActivity11 set_activity, DiagramModel set_model) {
             activity = set_activity;
             model = set_model;
         }
+
 
         @NonNull
         @Override
@@ -208,13 +219,13 @@ public class Personal extends DiagramActivity {
             LinearLayout grid = view.findViewById(R.id.symbol_grid);
 
             for (int i=0; i<154; i++) {
-                ImageView action = new ImageView(activity);
-                activity.loadViewImage(action, Integer.toString(i+1), 80, 80);
+                ImageView image = new ImageView(activity);
+                activity.loadViewImage(image, Integer.toString(i+1), 80, 80);
 
-                action.setContentDescription(Integer.toString(i+1));
-                action.setOnClickListener(symbolClick);
+                image.setContentDescription(Integer.toString(i+1));
+                image.setOnClickListener(symbolClick);
 
-                grid.addView(action);
+                grid.addView(image);
             }
 
 
@@ -257,6 +268,7 @@ public class Personal extends DiagramActivity {
                     // redraw diagram
                     activity.setFocus(null, false);
 
+
                 }
 
             });
@@ -271,28 +283,31 @@ public class Personal extends DiagramActivity {
             return builder.create();
         }
 
+
+        private final SymbolClick symbolClick = new SymbolClick();
+        private class SymbolClick implements View.OnClickListener {
+
+            @Override
+            public void onClick(View view) {
+                closeKeyboard(view);
+
+                String id = view.getContentDescription().toString();
+                edit_symbol.setText(id);
+            }
+        }
+
         private void closeKeyboard(View view) {
             if (view != null) {
                 InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                 manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }//closeKeyboard
-
-        private SymbolClick symbolClick = new SymbolClick();
-        private class SymbolClick implements View.OnClickListener {
-
-            @Override
-            public void onClick(View v) {
-                String id = v.getContentDescription().toString();
-                edit_symbol.setText(id);
-            }
-        }
     }//AddRecordDialog
 
     public static class RemoveRecordDialog extends DialogFragment {
-        DiagramActivity activity;
+        DiagramActivity11 activity;
 
-        public RemoveRecordDialog(DiagramActivity set_activity) {
+        public RemoveRecordDialog(DiagramActivity11 set_activity) {
             activity = set_activity;
         }
 

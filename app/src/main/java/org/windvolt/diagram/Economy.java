@@ -43,10 +43,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Economy extends DiagramActivity {
+public class Economy extends DiagramActivity11 {
 
     final String MODEL_URL = "https://windvolt.eu/model/economy/de/0diagram.xml";
 
@@ -419,7 +419,7 @@ public class Economy extends DiagramActivity {
 
     }//removeTargets
 
-    private OnFocus onFocus = new OnFocus();
+    private final OnFocus onFocus = new OnFocus();
     private class OnFocus implements View.OnClickListener {
 
         @Override

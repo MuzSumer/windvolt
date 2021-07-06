@@ -1,9 +1,5 @@
 package org.windvolt.diagram;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,11 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Fotoalbum extends DiagramActivity {
+public class Fotoalbum extends DiagramActivity11 {
 
 
     String MODEL_URL = "";
@@ -60,8 +59,10 @@ public class Fotoalbum extends DiagramActivity {
         String targets = model.getTargets();
 
         if (targets.isEmpty()) {
+            diagram.setBackgroundResource(R.color.black);
             addImageview(id);
         } else {
+            diagram.setBackgroundResource(R.color.blue_700);
             String[] alltargets = targets.split(",");
 
             for (String target_id : alltargets) {
@@ -130,12 +131,14 @@ public class Fotoalbum extends DiagramActivity {
 
             int t = getStore().getTargetCount(model);
 
-            if (t > 0) {
-                title.setText("(" + t + ") " + model.getTitle());
-            } else {
-                title.setText(model.getTitle());
+            String fulltitle = model.getTitle();
+
+            if (t > 0) { // show child count
+                fulltitle = "(" + t + ") " + fulltitle;
             }
 
+
+            title.setText(fulltitle);
         }
 
 

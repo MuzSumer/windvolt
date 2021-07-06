@@ -17,10 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramFragment;
+import org.windvolt.diagram.model.DiagramFragment11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Community extends DiagramFragment {
+public class Community extends DiagramFragment11 {
 
     final String MODEL_URL = "https://windvolt.eu/model/community/de/0diagram.xml";
 
@@ -143,7 +143,7 @@ public class Community extends DiagramFragment {
 
     }//addModelView
 
-    private OnFocus onFocus = new OnFocus();
+    private final OnFocus onFocus = new OnFocus();
     private class OnFocus implements View.OnClickListener {
 
         @Override

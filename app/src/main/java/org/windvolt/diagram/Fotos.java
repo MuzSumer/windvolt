@@ -13,10 +13,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Fotos extends DiagramActivity {
+public class Fotos extends DiagramActivity11 {
 
     final String MODEL_URL = "https://windvolt.eu/shop/gallery/0diagram.xml";
 

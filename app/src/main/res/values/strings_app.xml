@@ -28,6 +28,7 @@
     <string name="welcome_app">Erneuerbare Energie Deutschland</string>
 
     <string name="app_partner">    Quelle: windjournal.de, ohne Gewähr</string>
+    <string name="confirmation_saved">gespeichert</string>
 
 
     <!-- settings -->
@@ -44,7 +45,6 @@
 
     <!-- location -->
     <string name="location_notice">Wähle einen Ort</string>
-    <string name="location_saved">gespeichert</string>
 
 
     <!-- recommendation -->

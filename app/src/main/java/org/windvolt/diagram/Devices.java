@@ -1,11 +1,5 @@
 package org.windvolt.diagram;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -18,14 +12,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Devices extends DiagramActivity {
+public class Devices extends DiagramActivity11 {
 
     final String MODEL_URL = "devices.xml";
 
@@ -73,9 +74,21 @@ public class Devices extends DiagramActivity {
 
         }
 
-        analysis.setText("Gesamtleistung " + power + " mAh");
+        String fullpower = getString(R.string.device_sumup) + " " + power + " " + getString(R.string.device_measure);
+        analysis.setText(fullpower);
 
     }//setFocus
+
+    @Override
+    public boolean savePrivateModel(String url) {
+        boolean success = super.savePrivateModel(url);
+
+        if (success) {
+            Toast.makeText(this, R.string.confirmation_saved, Toast.LENGTH_SHORT).show();
+        }
+
+        return success;
+    }
 
 
 
@@ -105,7 +118,7 @@ public class Devices extends DiagramActivity {
             title.setTextColor(Color.RED);
 
 
-            String value = model.getContent() + " mAh";
+            String value = model.getContent() + " " + getString(R.string.device_measure);
             title.setText(value);
         }
 
@@ -143,7 +156,7 @@ public class Devices extends DiagramActivity {
     }
 
 
-    private EditContent editContent = new EditContent();
+    private final EditContent editContent = new EditContent();
     private class EditContent implements View.OnClickListener {
 
         @Override
@@ -199,11 +212,12 @@ public class Devices extends DiagramActivity {
         getStore().addModel(model);
 
     }
+
     /* --------------------------------windvolt-------------------------------- */
 
     public static class EditDeviceDialog extends DialogFragment {
 
-        DiagramActivity activity;
+        DiagramActivity11 activity;
         DiagramModel model;
 
         RadioButton type_mobile;
@@ -217,7 +231,7 @@ public class Devices extends DiagramActivity {
 
         boolean create;
 
-        public EditDeviceDialog(DiagramActivity set_activity, DiagramModel set_model) {
+        public EditDeviceDialog(DiagramActivity11 set_activity, DiagramModel set_model) {
             activity = set_activity;
             model = set_model;
         }
@@ -297,12 +311,12 @@ public class Devices extends DiagramActivity {
                         activity.getStore().addModel(model);
                     }
 
-
                     // save changes
                     activity.savePrivateModel(activity.getNamespace());
 
                     // redraw diagram
                     activity.setFocus(null, false);
+
 
                 }
 
@@ -320,9 +334,9 @@ public class Devices extends DiagramActivity {
     }//AddDeviceDialog
 
     public static class RemoveDeviceDialog extends DialogFragment {
-        DiagramActivity activity;
+        DiagramActivity11 activity;
 
-        public RemoveDeviceDialog(DiagramActivity set_activity) {
+        public RemoveDeviceDialog(DiagramActivity11 set_activity) {
             activity = set_activity;
         }
 

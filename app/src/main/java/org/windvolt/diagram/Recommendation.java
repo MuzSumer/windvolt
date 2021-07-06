@@ -326,7 +326,7 @@ public class Recommendation extends Fragment {
 
 
                 //* user assurance */
-                String location_saved = getString(R.string.location_saved); // values
+                String location_saved = getString(R.string.confirmation_saved); // values
                 Toast.makeText(getContext(), location_saved, Toast.LENGTH_SHORT).show();
             }
         });

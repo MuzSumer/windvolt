@@ -23,7 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class DiagramFragment extends Fragment {
+public class DiagramFragment11 extends Fragment {
 
     public void createStore() {}
     public void setFocus(String id, boolean expand) {}
@@ -32,7 +32,7 @@ public class DiagramFragment extends Fragment {
         return null;
     }
 
-    public void loadModel(DiagramFragment diagram, String url) {
+    public void loadModel(DiagramFragment11 diagram, String url) {
         setStore(new DiagramStore());
 
         new ModelLoader(diagram).execute(url);
@@ -149,10 +149,10 @@ public class DiagramFragment extends Fragment {
         InputStream contentstream = null;
         String url = null;
 
-        DiagramFragment diagram;
+        DiagramFragment11 diagram;
 
 
-        public ModelLoader(DiagramFragment set_diagram) {
+        public ModelLoader(DiagramFragment11 set_diagram) {
             diagram = set_diagram;
         }
 

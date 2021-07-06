@@ -18,7 +18,6 @@
 */
 package org.windvolt.diagram;
 
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Build;
@@ -34,10 +33,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
-import org.windvolt.diagram.model.DiagramActivity;
+import org.windvolt.diagram.model.DiagramActivity11;
 import org.windvolt.diagram.model.DiagramModel;
 
-public class Gallery extends DiagramActivity {
+public class Gallery extends DiagramActivity11 {
 
 
     final String MODEL_URL = "https://windvolt.eu/model/dossier/de/0diagram.xml";
@@ -197,7 +196,7 @@ public class Gallery extends DiagramActivity {
         diagram_space.addView(layout);
     }//createChildView
 
-    private SetFocus setFocus = new SetFocus();
+    private final SetFocus setFocus = new SetFocus();
     private class SetFocus implements View.OnClickListener {
 
         @Override
