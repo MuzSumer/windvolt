@@ -91,6 +91,10 @@
     <string name="fotos_app">Fotos</string>
     <string name="fotos_title">Fotoalben</string>
 
+    <!-- diagram -->
+    <string name="diagram_action">Diagramm</string>
+    <string name="diagram_app">Diagramm</string>
+
     <!-- fotoalbum -->
     <string name="fotoalbum_title">Album</string>
 

@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuCompat;
 
 import org.windvolt.diagram.Devices;
+import org.windvolt.diagram.Diagram;
 import org.windvolt.diagram.Economy;
 import org.windvolt.diagram.Fotos;
 import org.windvolt.diagram.Gallery;
@@ -118,7 +119,12 @@ public class AppActivity extends AppCompatActivity {
                 return true;
             }
 
+            // show diagram
+            if (id == R.id.action_diagram) {
 
+                startActivity(new Intent(this, Diagram.class));
+                return true;
+            }
 
         }
 

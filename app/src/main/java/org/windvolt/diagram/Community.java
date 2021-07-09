@@ -18,7 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramFragment11;
-import org.windvolt.diagram.model.DiagramModel;
+import org.windvolt.diagram.model.DiagramModel11;
 
 public class Community extends DiagramFragment11 {
 
@@ -49,7 +49,7 @@ public class Community extends DiagramFragment11 {
 
         for (int p=0; p<size; p++) {
 
-            DiagramModel model = getStore().getModel(p);
+            DiagramModel11 model = getStore().getModel(p);
 
             String id = model.getId();
             addModelView(id);
@@ -83,7 +83,7 @@ public class Community extends DiagramFragment11 {
     public void addModelView(String id) {
 
 
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (null == model) {
             return;
         }
@@ -150,7 +150,7 @@ public class Community extends DiagramFragment11 {
         public void onClick(View view) {
             String id = view.getContentDescription().toString();
 
-            DiagramModel model = getStore().findModel(id);
+            DiagramModel11 model = getStore().findModel(id);
             if (model == null) {
                 return;
             }

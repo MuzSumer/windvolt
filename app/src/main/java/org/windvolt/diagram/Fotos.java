@@ -14,7 +14,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity11;
-import org.windvolt.diagram.model.DiagramModel;
+import org.windvolt.diagram.model.DiagramModel11;
 
 public class Fotos extends DiagramActivity11 {
 
@@ -45,7 +45,7 @@ public class Fotos extends DiagramActivity11 {
             id = getStore().getRootId();
         }
 
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (model == null) {
             return;
         }
@@ -76,7 +76,7 @@ public class Fotos extends DiagramActivity11 {
 
     @Override
     public void onBackPressed() {
-        DiagramModel parent = getStore().findParent(focus_id);
+        DiagramModel11 parent = getStore().findParent(focus_id);
 
         if (null == parent) {
             super.onBackPressed();
@@ -90,7 +90,7 @@ public class Fotos extends DiagramActivity11 {
 
 
     private void addModelView(String id) {
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (model == null) {
             return;
         }
@@ -157,7 +157,7 @@ public class Fotos extends DiagramActivity11 {
     private void addImageview(String id) {
 
 
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (model == null) {
             return;
         }
@@ -192,7 +192,7 @@ public class Fotos extends DiagramActivity11 {
         public void onClick(View view) {
             String id = view.getContentDescription().toString();
 
-            DiagramModel model = getStore().findModel(id);
+            DiagramModel11 model = getStore().findModel(id);
             if (model == null) {
                 return;
             }

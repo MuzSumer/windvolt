@@ -34,7 +34,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity11;
-import org.windvolt.diagram.model.DiagramModel;
+import org.windvolt.diagram.model.DiagramModel11;
 
 public class Gallery extends DiagramActivity11 {
 
@@ -81,7 +81,7 @@ public class Gallery extends DiagramActivity11 {
         boolean hasFocus = id.equals(focus_id);
         focus_id = id;
 
-        DiagramModel focus = getStore().findModel(id);
+        DiagramModel11 focus = getStore().findModel(id);
 
 
 
@@ -113,7 +113,7 @@ public class Gallery extends DiagramActivity11 {
         // calculate path
         String path = focus.getTags();
 
-        DiagramModel parent = getStore().findParent(id);
+        DiagramModel11 parent = getStore().findParent(id);
         while (null != parent) {
 
             String tag = parent.getTags();
@@ -135,7 +135,7 @@ public class Gallery extends DiagramActivity11 {
 
     @Override
     public void onBackPressed() {
-        DiagramModel parent = getStore().findParent(focus_id);
+        DiagramModel11 parent = getStore().findParent(focus_id);
         if (null == parent) {
             super.onBackPressed();
         } else {
@@ -149,9 +149,9 @@ public class Gallery extends DiagramActivity11 {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    //* create complex child view */
-    public void addTargetModelView(DiagramModel parent, String id) {
-        DiagramModel model = getStore().findModel(id);
+    // create complex child view
+    public void addTargetModelView(DiagramModel11 parent, String id) {
+        DiagramModel11 model = getStore().findModel(id);
         if (model == null) {
             return;
         }
@@ -214,7 +214,7 @@ public class Gallery extends DiagramActivity11 {
         public void onClick(View view) {
             String id = view.getContentDescription().toString();
 
-            DiagramModel parent = getStore().findParent(id);
+            DiagramModel11 parent = getStore().findParent(id);
             if (null != parent) {
                 String parent_id = parent.getId();
                 setFocus(parent_id, false);

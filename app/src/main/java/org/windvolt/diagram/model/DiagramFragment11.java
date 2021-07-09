@@ -33,7 +33,7 @@ public class DiagramFragment11 extends Fragment {
     }
 
     public void loadModel(DiagramFragment11 diagram, String url) {
-        setStore(new DiagramStore());
+        setStore(new DiagramStore11());
 
         new ModelLoader(diagram).execute(url);
     }
@@ -48,7 +48,7 @@ public class DiagramFragment11 extends Fragment {
     /* --------------------------------windvolt-------------------------------- */
 
 
-    public void buildContent(DiagramStore store, InputStream stream) {
+    public void buildContent(DiagramStore11 store, InputStream stream) {
         try {
 
             // create builder
@@ -80,7 +80,7 @@ public class DiagramFragment11 extends Fragment {
 
     }//buildContent
 
-    private void parseContent(DiagramStore store, Document document) {
+    private void parseContent(DiagramStore11 store, Document document) {
         Element root = document.getDocumentElement();//diagram
         root.normalize();
 
@@ -105,7 +105,7 @@ public class DiagramFragment11 extends Fragment {
                 String targets = readItem(element, "targets");
                 String tags = readItem(element, "tags");
 
-                DiagramModel model = new DiagramModel();
+                DiagramModel11 model = new DiagramModel11();
 
                 model.setId(id);
                 model.setType(type);
@@ -211,7 +211,7 @@ public class DiagramFragment11 extends Fragment {
 
         private void createLocalStore() {
 
-            DiagramModel model = new DiagramModel();
+            DiagramModel11 model = new DiagramModel11();
 
 
             model.setId(diagram.getStore().getNewId());
@@ -322,11 +322,11 @@ public class DiagramFragment11 extends Fragment {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    DiagramStore store = null;
-    public void setStore(DiagramStore set_store) {
+    DiagramStore11 store = null;
+    public void setStore(DiagramStore11 set_store) {
         store = set_store;
     }
-    public DiagramStore getStore() {
+    public DiagramStore11 getStore() {
         return store;
     }
 }

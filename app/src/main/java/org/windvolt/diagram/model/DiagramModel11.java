@@ -18,7 +18,7 @@
 */
 package org.windvolt.diagram.model;
 
-public class DiagramModel {
+public class DiagramModel11 {
 
     String id = "";
     public String getId() { return id; }

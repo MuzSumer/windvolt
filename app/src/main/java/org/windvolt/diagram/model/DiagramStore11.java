@@ -20,12 +20,12 @@ package org.windvolt.diagram.model;
 
 import java.util.ArrayList;
 
-public class DiagramStore {
+public class DiagramStore11 {
 
-    ArrayList<DiagramModel> store = new ArrayList<>();
+    ArrayList<DiagramModel11> store = new ArrayList<>();
 
 
-    public DiagramStore() {
+    public DiagramStore11() {
         store.clear();
     }//DiagramStore
 
@@ -33,7 +33,7 @@ public class DiagramStore {
         return store.size();
     }//storeSize
 
-    public DiagramModel getModel(int p) {
+    public DiagramModel11 getModel(int p) {
         if (p < 0) return null;
 
         if (p > size() - 1) return null;
@@ -55,10 +55,10 @@ public class DiagramStore {
 
 
 
-    public String getTargets(DiagramModel parent) {
+    public String getTargets(DiagramModel11 parent) {
         return parent.getTargets();
     }//getTargets
-    public int getTargetCount(DiagramModel parent) {
+    public int getTargetCount(DiagramModel11 parent) {
         String targets = getTargets(parent);
         String[] alltargets = targets.split(",");
 
@@ -70,14 +70,14 @@ public class DiagramStore {
     }//getTargetCount
 
 
-    public void addModel(DiagramModel model) {
+    public void addModel(DiagramModel11 model) {
         store.add(model);
     }
 
     public String addTarget(String parent_id, String type, String state, String symbol, String title, String subject, String content, String tags) {
 
-        DiagramModel parent = null;
-        DiagramModel target = new DiagramModel();
+        DiagramModel11 parent = null;
+        DiagramModel11 target = new DiagramModel11();
 
         if (!parent_id.isEmpty()) {
             parent = findModel(parent_id);
@@ -129,11 +129,11 @@ public class DiagramStore {
 
 
         // copy to new array
-        ArrayList<DiagramModel> new_store = new ArrayList<>();
+        ArrayList<DiagramModel11> new_store = new ArrayList<>();
 
         int p = 0;
 
-        for (DiagramModel model : store) {
+        for (DiagramModel11 model : store) {
             if (p != position) {
                 new_store.add(model);
             }
@@ -152,7 +152,7 @@ public class DiagramStore {
 
     /* --------------------------------windvolt-------------------------------- */
 
-    public DiagramModel findModel(String id) {
+    public DiagramModel11 findModel(String id) {
         if (id == null) {
             return null;
         }
@@ -160,9 +160,9 @@ public class DiagramStore {
             return null;
         }
 
-        DiagramModel found = null;
+        DiagramModel11 found = null;
 
-        for (DiagramModel model : store) {
+        for (DiagramModel11 model : store) {
             String m_id = model.getId();
 
             if (m_id.equals(id)) {
@@ -180,7 +180,7 @@ public class DiagramStore {
         return found;
     }//findModel
 
-    public DiagramModel findParent(String id) {
+    public DiagramModel11 findParent(String id) {
 
         if (id == null) {
             return null;
@@ -189,9 +189,9 @@ public class DiagramStore {
             return null;
         }
 
-        DiagramModel parent = null;
+        DiagramModel11 parent = null;
 
-        for (DiagramModel model : store) {
+        for (DiagramModel11 model : store) {
             String targets = model.getTargets();
 
             if (!targets.isEmpty()) {

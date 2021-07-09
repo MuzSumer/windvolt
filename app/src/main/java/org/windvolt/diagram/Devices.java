@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity11;
-import org.windvolt.diagram.model.DiagramModel;
+import org.windvolt.diagram.model.DiagramModel11;
 
 public class Devices extends DiagramActivity11 {
 
@@ -63,7 +63,7 @@ public class Devices extends DiagramActivity11 {
 
         for (int p=0; p<getStore().size(); p++) {
 
-            DiagramModel model = getStore().getModel(p);
+            DiagramModel11 model = getStore().getModel(p);
             id = model.getId();
 
             String model_power = model.getContent();
@@ -93,7 +93,7 @@ public class Devices extends DiagramActivity11 {
 
 
     private void addViewModel(String id) {
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (model == null) {
             return;
         }
@@ -163,7 +163,7 @@ public class Devices extends DiagramActivity11 {
         public void onClick(View view) {
             String id = view.getContentDescription().toString();
 
-            DiagramModel model = getStore().findModel(id);
+            DiagramModel11 model = getStore().findModel(id);
             if (model == null) {
                 return;
             }
@@ -192,7 +192,7 @@ public class Devices extends DiagramActivity11 {
 
 
         // create model
-        DiagramModel model = new DiagramModel();
+        DiagramModel11 model = new DiagramModel11();
 
 
         model.setId(getStore().getNewId());
@@ -218,7 +218,7 @@ public class Devices extends DiagramActivity11 {
     public static class EditDeviceDialog extends DialogFragment {
 
         DiagramActivity11 activity;
-        DiagramModel model;
+        DiagramModel11 model;
 
         RadioButton type_mobile;
         RadioButton type_ebike;
@@ -231,7 +231,7 @@ public class Devices extends DiagramActivity11 {
 
         boolean create;
 
-        public EditDeviceDialog(DiagramActivity11 set_activity, DiagramModel set_model) {
+        public EditDeviceDialog(DiagramActivity11 set_activity, DiagramModel11 set_model) {
             activity = set_activity;
             model = set_model;
         }
@@ -258,7 +258,7 @@ public class Devices extends DiagramActivity11 {
 
             create = model == null;
             if (create) {
-                model = new DiagramModel();
+                model = new DiagramModel11();
                 model.setId(activity.getStore().getNewId());
             } else {
                 // preset values

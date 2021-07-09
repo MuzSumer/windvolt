@@ -64,7 +64,7 @@ public class DiagramActivity11 extends AppCompatActivity {
 
 
     public void loadRemoteModel(DiagramActivity11 diagram, String url) {
-        setStore(new DiagramStore());
+        setStore(new DiagramStore11());
 
         new ModelLoader(diagram).execute(url);
     }
@@ -138,7 +138,7 @@ public class DiagramActivity11 extends AppCompatActivity {
     /* --------------------------------windvolt-------------------------------- */
 
     public boolean loadPrivateModel(String filename) {
-        setStore(new DiagramStore());
+        setStore(new DiagramStore11());
 
         try {
 
@@ -209,7 +209,7 @@ public class DiagramActivity11 extends AppCompatActivity {
     /* --------------------------------windvolt-------------------------------- */
 
 
-    public void buildContent(DiagramStore store, InputStream stream) {
+    public void buildContent(DiagramStore11 store, InputStream stream) {
         Document document;
 
         try {
@@ -249,7 +249,7 @@ public class DiagramActivity11 extends AppCompatActivity {
 
     }//buildContent
 
-    private void parseContent(DiagramStore store, Document document) {
+    private void parseContent(DiagramStore11 store, Document document) {
         Element root = document.getDocumentElement();//diagram
         root.normalize();
 
@@ -275,7 +275,7 @@ public class DiagramActivity11 extends AppCompatActivity {
                 String tags = readItem(element, "tags");
 
 
-                DiagramModel model = new DiagramModel();
+                DiagramModel11 model = new DiagramModel11();
 
                 model.setId(id);
                 model.setType(type);
@@ -325,7 +325,7 @@ public class DiagramActivity11 extends AppCompatActivity {
             build.appendChild(d);
 
             for (int p = 0; p<getStore().size(); p++) {
-                DiagramModel model = getStore().getModel(p);
+                DiagramModel11 model = getStore().getModel(p);
 
                 // create model
                 Element m = build.createElement("model");
@@ -434,7 +434,7 @@ public class DiagramActivity11 extends AppCompatActivity {
 
         private void createLocalStore() {
 
-            DiagramModel model = new DiagramModel();
+            DiagramModel11 model = new DiagramModel11();
             model.setId(diagram.getStore().getNewId());
 
             model.setType("alert");
@@ -580,11 +580,11 @@ public class DiagramActivity11 extends AppCompatActivity {
         return str != null && str.matches("[-+]?\\d*\\.?\\d+");
     }
 
-    DiagramStore store = null;
-    public void setStore(DiagramStore set_store) {
+    DiagramStore11 store = null;
+    public void setStore(DiagramStore11 set_store) {
         store = set_store;
     }
-    public DiagramStore getStore() {
+    public DiagramStore11 getStore() {
         return store;
     }
 

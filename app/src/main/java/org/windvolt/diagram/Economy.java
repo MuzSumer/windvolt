@@ -44,7 +44,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import org.windvolt.R;
 import org.windvolt.diagram.model.DiagramActivity11;
-import org.windvolt.diagram.model.DiagramModel;
+import org.windvolt.diagram.model.DiagramModel11;
 
 public class Economy extends DiagramActivity11 {
 
@@ -94,7 +94,7 @@ public class Economy extends DiagramActivity11 {
         boolean hasFocus = id.equals(focus_id);
         focus_id = id;
 
-        DiagramModel focus = getStore().findModel(id);
+        DiagramModel11 focus = getStore().findModel(id);
         if (null == focus) return;
 
         View layout = findModelView(id);
@@ -196,6 +196,8 @@ public class Economy extends DiagramActivity11 {
 
     }//onCreate
 
+
+
     private static class FlowTreeLayout extends RelativeLayout {
         Paint paint;
 
@@ -283,6 +285,8 @@ public class Economy extends DiagramActivity11 {
             }
 
 
+            // draw
+            canvas.drawLine(0, 0, 20, 20, paint);
 
             super.dispatchDraw(canvas);
         }//dispatchDraw
@@ -306,13 +310,6 @@ public class Economy extends DiagramActivity11 {
     private void layoutDiagram() {
         // layout children
 
-        //Drawable roundbox = getResources().getDrawable(R.drawable.app_rbox);
-        //Drawable focusbox = getResources().getDrawable(R.drawable.app_rbox_focus);
-
-        Drawable roundbox = AppCompatResources.getDrawable(this, R.drawable.app_roundbox);
-        Drawable focusbox = AppCompatResources.getDrawable(this, R.drawable.app_box_focused);
-
-
         int size = diagram.getChildCount();
 
         for (int p=0; p<size; p++) {
@@ -321,9 +318,9 @@ public class Economy extends DiagramActivity11 {
             String p_id = layout.getContentDescription().toString();
 
             if (p_id.equals(focus_id)) {
-                layout.setBackground(focusbox);
+                layout.setBackground(AppCompatResources.getDrawable(this, R.drawable.app_box_focused));
             } else {
-                layout.setBackground(roundbox);
+                layout.setBackground(AppCompatResources.getDrawable(this, R.drawable.app_roundbox));
             }
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(w, h);
@@ -358,15 +355,13 @@ public class Economy extends DiagramActivity11 {
 
     public void addModelView(String id) {
 
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (null == model) return;
 
-        LinearLayout layout = new LinearLayout(this);
+        LinearLayout outer = new LinearLayout(this);
         {
-            layout.setOrientation(LinearLayout.HORIZONTAL);
-
-
-            layout.setPadding(8, 8, 8, 8);
+            outer.setOrientation(LinearLayout.HORIZONTAL);
+            outer.setPadding(8, 8, 8, 8);
         }
 
 
@@ -392,19 +387,19 @@ public class Economy extends DiagramActivity11 {
 
 
 
-        layout.addView(image);
-        layout.addView(text);
+        outer.addView(image);
+        outer.addView(text);
 
-        layout.setContentDescription(id);
-        layout.setOnClickListener(onFocus);
+        outer.setContentDescription(id);
+        outer.setOnClickListener(onFocus);
 
-        diagram.addView(layout);
+        diagram.addView(outer);
 
     }//addModelView
 
     public void removeTargetModelViews(String id) {
 
-        DiagramModel model = getStore().findModel(id);
+        DiagramModel11 model = getStore().findModel(id);
         if (null == model) return;
 
         String c_id = model.getTargets(); // single schild only
